@@ -6,7 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
+app.get("/server", (req, res) => {
   res.send("Backend running 🚀");
 });
 
