@@ -1,0 +1,336 @@
+/* ===========================
+   Driver Management
+=========================== */
+
+.driver-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:25px 0;
+}
+
+.driver-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.driver-title h2{
+    margin:0;
+    font-size:28px;
+    font-weight:700;
+    color:#1e293b;
+}
+
+.driver-title svg{
+    color:#1976d2;
+}
+
+/* ===========================
+   Add Button
+=========================== */
+
+.add-driver-btn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:#1976d2;
+    color:#fff;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+    font-size:15px;
+    font-weight:500;
+}
+
+.add-driver-btn:hover{
+    background:#1565c0;
+}
+
+/* ===========================
+   Search & Filter
+=========================== */
+
+.driver-toolbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.search-driver{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    width:260px;
+    height:45px;
+
+    padding:0 15px;
+
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:10px;
+}
+
+.search-driver svg{
+    color:#666;
+}
+
+.search-driver input{
+    flex:1;
+    border:none;
+    outline:none;
+    background:transparent;
+
+    font-size:15px;
+    line-height:45px;
+    height:100%;
+
+    padding:0;
+    margin:0;
+}
+
+.filter-btn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:11px 18px;
+    border:none;
+    background:#f1f5f9;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.filter-btn:hover{
+    background:#e2e8f0;
+}
+
+/* ===========================
+   Table Card
+=========================== */
+
+.driver-table-card{
+    background:#fff;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+/* ===========================
+   Table
+=========================== */
+
+.driver-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.driver-table th{
+    text-align:left;
+    padding:18px 15px;
+    font-size:15px;
+    color:#555;
+    border-bottom:2px solid #e5e7eb;
+}
+
+.driver-table td{
+    padding:18px 15px;
+    border-bottom:1px solid #eee;
+    vertical-align:middle;
+}
+
+.driver-table tr:hover{
+    background:#f8fafc;
+}
+
+/* Fixed Width Columns */
+
+.driver-table th:nth-child(5),
+.driver-table td:nth-child(5){
+    width:170px;
+}
+
+.driver-table th:last-child,
+.driver-table td:last-child{
+    width:150px;
+}
+
+/* ===========================
+   Status Badge
+=========================== */
+
+.status{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    width:110px;
+    height:36px;
+
+    border-radius:25px;
+
+    font-size:14px;
+    font-weight:600;
+}
+
+.online{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.offline{
+    background:#fee2e2;
+    color:#dc2626;
+}
+
+.available{
+    background:#dbeafe;
+    color:#2563eb;
+}
+
+/* ===========================
+   Action Icons
+=========================== */
+
+.actions{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.actions svg{
+    cursor:pointer;
+    transition:.3s;
+}
+
+.actions svg:hover{
+    color:#1976d2;
+    transform:scale(1.1);
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:900px){
+
+.driver-toolbar{
+    flex-direction:column;
+    gap:15px;
+    align-items:flex-start;
+}
+
+.search-driver{
+    width:100%;
+}
+
+.driver-table-card{
+    overflow-x:auto;
+}
+
+}
+
+/* ===========================
+   DARK THEME
+=========================== */
+
+.dashboard.dark-theme .driver-title h2{
+    color:#fff;
+}
+
+.dashboard.dark-theme .driver-title svg{
+    color:#60a5fa;
+}
+
+/* Search */
+
+.dashboard.dark-theme .search-driver{
+    background:#1e293b;
+    border:1px solid #475569;
+}
+
+.dashboard.dark-theme .search-driver svg{
+    color:#94a3b8;
+}
+
+.dashboard.dark-theme .search-driver input{
+    color:#fff;
+}
+
+.dashboard.dark-theme .search-driver input::placeholder{
+    color:#94a3b8;
+}
+
+/* Buttons */
+
+.dashboard.dark-theme .filter-btn{
+    background:#1e293b;
+    color:#fff;
+    border:1px solid #475569;
+}
+
+.dashboard.dark-theme .filter-btn:hover{
+    background:#334155;
+}
+
+.dashboard.dark-theme .add-driver-btn{
+    background:#2563eb;
+}
+
+.dashboard.dark-theme .add-driver-btn:hover{
+    background:#1d4ed8;
+}
+
+/* Table */
+
+.dashboard.dark-theme .driver-table-card{
+    background:#1e293b;
+}
+
+.dashboard.dark-theme .driver-table{
+    color:#fff;
+}
+
+.dashboard.dark-theme .driver-table th{
+    color:#cbd5e1;
+    border-bottom:2px solid #475569;
+}
+
+.dashboard.dark-theme .driver-table td{
+    border-bottom:1px solid #334155;
+}
+
+.dashboard.dark-theme .driver-table tr:hover{
+    background:#273449;
+}
+
+/* Icons */
+
+.dashboard.dark-theme .actions svg{
+    color:#cbd5e1;
+}
+
+.dashboard.dark-theme .actions svg:hover{
+    color:#60a5fa;
+}
+
+/* Status */
+
+.dashboard.dark-theme .online{
+    background:#14532d;
+    color:#86efac;
+}
+
+.dashboard.dark-theme .offline{
+    background:#7f1d1d;
+    color:#fca5a5;
+}
+
+.dashboard.dark-theme .available{
+    background:#1e3a8a;
+    color:#93c5fd;
+}

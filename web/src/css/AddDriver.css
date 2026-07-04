@@ -1,0 +1,170 @@
+/* ==========================
+   Add Driver Page
+========================== */
+
+.add-driver-container{
+    background:#ffffff;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+    margin-top:25px;
+}
+
+.add-driver-container h2{
+    margin-bottom:25px;
+    color:#1e293b;
+    font-size:28px;
+    font-weight:700;
+}
+
+/* ==========================
+   Form
+========================== */
+
+.driver-form{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group label{
+    margin-bottom:8px;
+    font-weight:600;
+    color:#475569;
+}
+
+.form-group input,
+.form-group select{
+    padding:12px 15px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    outline:none;
+    font-size:15px;
+    transition:.3s;
+    background:#ffffff;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+    border-color:#1976d2;
+    box-shadow:0 0 0 3px rgba(25,118,210,.15);
+}
+
+/* File Input */
+
+.form-group input[type="file"]{
+    padding:10px;
+}
+
+/* ==========================
+   Buttons
+========================== */
+
+.button-group{
+    grid-column:1 / -1;
+    display:flex;
+    justify-content:flex-end;
+    gap:15px;
+    margin-top:15px;
+}
+
+.cancel-btn{
+    text-decoration:none;
+    background:#e5e7eb;
+    color:#111827;
+    padding:12px 22px;
+    border-radius:10px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.cancel-btn:hover{
+    background:#d1d5db;
+}
+
+.save-btn{
+    background:#1976d2;
+    color:#ffffff;
+    border:none;
+    padding:12px 22px;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.save-btn:hover{
+    background:#1565c0;
+}
+
+/* ==========================
+   Responsive
+========================== */
+
+@media(max-width:768px){
+
+.driver-form{
+    grid-template-columns:1fr;
+}
+
+.button-group{
+    justify-content:center;
+}
+
+}
+
+/* ==========================
+   DARK THEME
+========================== */
+
+.dashboard.dark-theme .add-driver-container{
+    background:#1e293b;
+}
+
+.dashboard.dark-theme .add-driver-container h2{
+    color:#ffffff;
+}
+
+.dashboard.dark-theme .form-group label{
+    color:#cbd5e1;
+}
+
+.dashboard.dark-theme .form-group input,
+.dashboard.dark-theme .form-group select{
+    background:#334155;
+    color:#ffffff;
+    border:1px solid #475569;
+}
+
+.dashboard.dark-theme .form-group input::placeholder{
+    color:#94a3b8;
+}
+
+.dashboard.dark-theme .form-group input:focus,
+.dashboard.dark-theme .form-group select:focus{
+    border-color:#60a5fa;
+    box-shadow:0 0 0 3px rgba(96,165,250,.2);
+}
+
+.dashboard.dark-theme .cancel-btn{
+    background:#334155;
+    color:#ffffff;
+}
+
+.dashboard.dark-theme .cancel-btn:hover{
+    background:#475569;
+}
+
+.dashboard.dark-theme .save-btn{
+    background:#2563eb;
+}
+
+.dashboard.dark-theme .save-btn:hover{
+    background:#1d4ed8;
+}
