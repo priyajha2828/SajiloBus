@@ -3,7 +3,7 @@ const { getAuth } = require("firebase-admin/auth");
 
 const {getFirebaseServiceAccount} = require("./firebase-service-account");
 
-initializeApp({
+const app =initializeApp({
   credential: cert(getFirebaseServiceAccount()),
 });
 
