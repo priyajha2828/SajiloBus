@@ -93,20 +93,24 @@
     margin:0;
 }
 
-.filter-btn{
+.filter-container{
     display:flex;
     align-items:center;
-    gap:8px;
-    padding:11px 18px;
-    border:none;
-    background:#f1f5f9;
-    border-radius:8px;
-    cursor:pointer;
-    transition:.3s;
+    gap:10px;
+
+    background:#ffffff;
+    border:1px solid #ddd;
+    border-radius:10px;
+
+    padding:10px 15px;
 }
 
-.filter-btn:hover{
-    background:#e2e8f0;
+.filter-container select{
+    border:none;
+    outline:none;
+    background:transparent;
+    font-size:15px;
+    cursor:pointer;
 }
 
 /* ===========================
@@ -267,14 +271,35 @@
 
 /* Buttons */
 
-.dashboard.dark-theme .filter-btn{
+/* Filter Dropdown */
+
+.dashboard.dark-theme .filter-container{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
     background:#1e293b;
-    color:#fff;
     border:1px solid #475569;
+    border-radius:10px;
+
+    padding:10px 15px;
 }
 
-.dashboard.dark-theme .filter-btn:hover{
-    background:#334155;
+.dashboard.dark-theme .filter-container svg{
+    color:#94a3b8;
+}
+
+.dashboard.dark-theme .filter-container select{
+    background:transparent;
+    color:#ffffff;
+    border:none;
+    outline:none;
+    cursor:pointer;
+}
+
+.dashboard.dark-theme .filter-container select option{
+    background:#1e293b;
+    color:#ffffff;
 }
 
 .dashboard.dark-theme .add-driver-btn{

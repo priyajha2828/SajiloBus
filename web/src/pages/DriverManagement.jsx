@@ -17,6 +17,8 @@ import "../css/DriverManagement.css";
 function DriverManagement() {
   const [collapsed, setCollapsed] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const [search, setSearch] = useState("");
+const [statusFilter, setStatusFilter] = useState("All");
 
   const drivers = [
     {
@@ -46,6 +48,9 @@ function DriverManagement() {
   ];
 
   return (
+    
+
+
     <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>
       <Sidebar
         collapsed={collapsed}
@@ -79,17 +84,29 @@ function DriverManagement() {
         {/* Search & Filter */}
         <div className="driver-toolbar">
           <div className="search-driver">
-            <Search size={18} />
-            <input
-              type="text"
-              placeholder="Search driver..."
-            />
-          </div>
+  <Search size={18} />
 
-          <button className="filter-btn">
-            <Filter size={18} />
-            Filter
-          </button>
+  <input
+    type="text"
+    placeholder="Search driver..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+  />
+</div>
+
+          <div className="filter-container">
+  <Filter size={18} />
+
+  <select
+    value={statusFilter}
+    onChange={(e) => setStatusFilter(e.target.value)}
+  >
+    <option value="All">All Drivers</option>
+    <option value="Online">Online</option>
+    <option value="Offline">Offline</option>
+    <option value="Available">Available</option>
+  </select>
+</div>
         </div>
 
         {/* Driver Table */}
