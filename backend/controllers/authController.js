@@ -25,6 +25,7 @@ const registerPassenger = async (req, res) => {
         firebaseUid: firebaseUid,
       },
     });
+    console.log("Existing Passenger:", existingPassenger); 
 
     if (existingPassenger) {
       return res.status(200).json({
