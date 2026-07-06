@@ -1,8 +1,8 @@
 /* ==========================
-   Add Driver Page
+   Add Route Page
 ========================== */
 
-.add-driver-container{
+.add-route-container{
     background:#ffffff;
     padding:30px;
     border-radius:15px;
@@ -10,7 +10,7 @@
     margin-top:25px;
 }
 
-.add-driver-container h2{
+.add-route-container h2{
     margin-bottom:25px;
     color:#1e293b;
     font-size:28px;
@@ -21,7 +21,7 @@
    Form
 ========================== */
 
-.driver-form{
+.route-form{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:20px;
@@ -38,8 +38,7 @@
     color:#475569;
 }
 
-.form-group input,
-.form-group select{
+.form-group input{
     padding:12px 15px;
     border:1px solid #d1d5db;
     border-radius:10px;
@@ -49,16 +48,13 @@
     background:#ffffff;
 }
 
-.form-group input:focus,
-.form-group select:focus{
-    border-color:#1976d2;
-    box-shadow:0 0 0 3px rgba(25,118,210,.15);
+.form-group input::placeholder{
+    color:#9ca3af;
 }
 
-/* File Input */
-
-.form-group input[type="file"]{
-    padding:10px;
+.form-group input:focus{
+    border-color:#1976d2;
+    box-shadow:0 0 0 3px rgba(25,118,210,.15);
 }
 
 /* ==========================
@@ -109,7 +105,7 @@
 
 @media(max-width:768px){
 
-.driver-form{
+.route-form{
     grid-template-columns:1fr;
 }
 
@@ -123,11 +119,11 @@
    DARK THEME
 ========================== */
 
-.dashboard.dark-theme .add-driver-container{
+.dashboard.dark-theme .add-route-container{
     background:#1e293b;
 }
 
-.dashboard.dark-theme .add-driver-container h2{
+.dashboard.dark-theme .add-route-container h2{
     color:#ffffff;
 }
 
@@ -135,8 +131,7 @@
     color:#cbd5e1;
 }
 
-.dashboard.dark-theme .form-group input,
-.dashboard.dark-theme .form-group select{
+.dashboard.dark-theme .form-group input{
     background:#334155;
     color:#ffffff;
     border:1px solid #475569;
@@ -146,8 +141,7 @@
     color:#94a3b8;
 }
 
-.dashboard.dark-theme .form-group input:focus,
-.dashboard.dark-theme .form-group select:focus{
+.dashboard.dark-theme .form-group input:focus{
     border-color:#60a5fa;
     box-shadow:0 0 0 3px rgba(96,165,250,.2);
 }
@@ -169,6 +163,10 @@
     background:#1d4ed8;
 }
 
+/* ==========================
+   Page Title
+========================== */
+
 .page-title{
     display:flex;
     align-items:center;
@@ -178,7 +176,14 @@
 
 .page-title h2{
     margin:0;
+    font-size:28px;
+    font-weight:700;
+    color:#1e293b;
 }
+
+/* ==========================
+   Back Arrow
+========================== */
 
 .back-arrow{
     display:flex;
@@ -198,6 +203,14 @@
 .back-arrow:hover{
     background:#f3f4f6;
     color:#1976d2;
+}
+
+/* ==========================
+   Dark Theme
+========================== */
+
+.dashboard.dark-theme .page-title h2{
+    color:#ffffff;
 }
 
 .dashboard.dark-theme .back-arrow{

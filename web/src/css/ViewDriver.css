@@ -1,0 +1,143 @@
+.view-driver-container{
+    max-width:700px;
+    margin:auto;
+}
+
+.page-title{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:30px;
+}
+
+.back-arrow{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:#23314d;
+    color:white;
+    text-decoration:none;
+}
+
+.view-card{
+    background:#1e293b;
+    padding:30px;
+    border-radius:15px;
+}
+
+.view-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:16px 0;
+    border-bottom:1px solid #334155;
+}
+
+.view-row:last-child{
+    border-bottom:none;
+}
+
+.view-row strong{
+    font-size:18px;
+    color:white;
+}
+
+.view-row span{
+    font-size:17px;
+    color:#cbd5e1;
+}
+
+/* Light Theme */
+
+.dashboard:not(.dark-theme) .view-card{
+    background:#ffffff;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.dashboard:not(.dark-theme) .view-row{
+    border-bottom:1px solid #e5e7eb;
+}
+
+.dashboard:not(.dark-theme) .view-row strong{
+    color:#111827;
+}
+
+.dashboard:not(.dark-theme) .view-row span{
+    color:#374151;
+}
+
+
+
+.view-driver-container{
+    max-width:700px;
+    margin:auto;
+}
+
+.page-title{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    margin-bottom:30px;
+}
+
+.back-arrow{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:#22304d;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+}
+
+.driver-card{
+    background:#ffffff;
+    border-radius:15px;
+    padding:30px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.driver-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 0;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.driver-row:last-child{
+    border-bottom:none;
+}
+
+.driver-row strong{
+    font-size:18px;
+    color:#111827;
+}
+
+.driver-row span{
+    font-size:17px;
+    color:#475569;
+}
+
+/* Dark Theme */
+
+.dashboard.dark-theme .driver-card{
+    background:#1e293b;
+}
+
+.dashboard.dark-theme .driver-row{
+    border-bottom:1px solid #334155;
+}
+
+.dashboard.dark-theme .driver-row strong{
+    color:#ffffff;
+}
+
+.dashboard.dark-theme .driver-row span{
+    color:#cbd5e1;
+}

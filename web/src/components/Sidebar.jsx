@@ -5,6 +5,7 @@ import {
   LayoutDashboard,
   Bus,
   Users,
+  Route,
   UserCheck,
   MapPinned,
   FileText,
@@ -76,6 +77,11 @@ function Sidebar({ collapsed, setCollapsed, darkMode }) {
         <Link to="/passengers">
           <Users size={20} />
           {!collapsed && <span>Passengers</span>}
+        </Link>
+
+        <Link to="/routes">
+          <Route size={20} />
+          {!collapsed && <span>Routes</span>}
         </Link>
 
         <Link to="/tracking">

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   UserCheck,
   Plus,
@@ -9,6 +10,7 @@ import {
   Filter,
   Pencil,
   Trash2,
+  ArrowLeft,
   Eye,
 } from "lucide-react";
 
@@ -16,41 +18,70 @@ import "../css/DriverManagement.css";
 
 function DriverManagement() {
   const [collapsed, setCollapsed] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("theme") === "dark";
+  });
   const [search, setSearch] = useState("");
-const [statusFilter, setStatusFilter] = useState("All");
+  const [statusFilter, setStatusFilter] = useState("All");
+  const [drivers, setDrivers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  const drivers = [
-    {
-      id: 1,
-      name: "Ram Sharma",
-      phone: "9841000001",
-      license: "BA12345",
-      bus: "Bus 101",
-      status: "Online",
-    },
-    {
-      id: 2,
-      name: "Hari Lama",
-      phone: "9841000002",
-      license: "BA56789",
-      bus: "Bus 205",
-      status: "Offline",
-    },
-    {
-      id: 3,
-      name: "Suman Rai",
-      phone: "9841000003",
-      license: "BA90876",
-      bus: "Not Assigned",
-      status: "Available",
-    },
-  ];
+  useEffect(() => {
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
+  }, [darkMode]);
+
+  useEffect(() => {
+    fetchDrivers();
+  }, []);
+
+  const fetchDrivers = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/drivers");
+
+      const data = await response.json();
+
+      if (data.success) {
+        setDrivers(data.drivers);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteDriver = async (id) => {
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete this driver?"
+  );
+
+  if (!confirmDelete) return;
+
+  try {
+    const response = await fetch(
+      `http://localhost:5000/drivers/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      alert("Driver deleted successfully");
+      fetchDrivers(); // Refresh the table
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+  if (loading) {
+    return <h2>Loading Drivers...</h2>;
+  }
 
   return (
-    
-
-
     <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>
       <Sidebar
         collapsed={collapsed}
@@ -59,54 +90,53 @@ const [statusFilter, setStatusFilter] = useState("All");
       />
 
       <div
-        className={`dashboard-content ${
-          collapsed ? "collapsed-content" : ""
-        }`}
+        className={`dashboard-content ${collapsed ? "collapsed-content" : ""}`}
       >
-        <Navbar
-          darkMode={darkMode}
-          setDarkMode={setDarkMode}
-        />
+        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 
         {/* Header */}
         <div className="driver-header">
           <div className="driver-title">
+            <Link to="/admin/dashboard" className="back-arrow">
+              <ArrowLeft size={24} />
+            </Link>
+
             <UserCheck size={30} />
+
             <h2>Driver Management</h2>
           </div>
 
           <Link to="/drivers/add" className="add-driver-btn">
-    <Plus size={18}/>
-    Add Driver
-</Link>
+            <Plus size={18} />
+            Add Driver
+          </Link>
         </div>
 
         {/* Search & Filter */}
         <div className="driver-toolbar">
           <div className="search-driver">
-  <Search size={18} />
+            <Search size={18} />
 
-  <input
-    type="text"
-    placeholder="Search driver..."
-    value={search}
-    onChange={(e) => setSearch(e.target.value)}
-  />
-</div>
+            <input
+              type="text"
+              placeholder="Search driver..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
 
           <div className="filter-container">
-  <Filter size={18} />
+            <Filter size={18} />
 
-  <select
-    value={statusFilter}
-    onChange={(e) => setStatusFilter(e.target.value)}
-  >
-    <option value="All">All Drivers</option>
-    <option value="Online">Online</option>
-    <option value="Offline">Offline</option>
-    <option value="Available">Available</option>
-  </select>
-</div>
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+            >
+              <option value="All">All Drivers</option>
+              <option value="Unavailable">Unavailable</option>
+              <option value="Available">Available</option>
+            </select>
+          </div>
         </div>
 
         {/* Driver Table */}
@@ -124,30 +154,61 @@ const [statusFilter, setStatusFilter] = useState("All");
             </thead>
 
             <tbody>
-              {drivers.map((driver) => (
-                <tr key={driver.id}>
-                  <td>{driver.name}</td>
-                  <td>{driver.phone}</td>
-                  <td>{driver.license}</td>
-                  <td>{driver.bus}</td>
+              {drivers
+                .filter((driver) => {
+                  const matchesSearch = driver.name
+                    .toLowerCase()
+                    .includes(search.toLowerCase());
 
-                  <td>
-                    <span
-                      className={`status ${driver.status.toLowerCase()}`}
-                    >
-                      {driver.status}
-                    </span>
-                  </td>
+                  const matchesStatus =
+                    statusFilter === "All"
+                      ? true
+                      : statusFilter === "Available"
+                        ? driver.isAvailable
+                        : !driver.isAvailable;
 
-                 <td>
-  <div className="actions">
-    <Eye size={18} />
-    <Pencil size={18} />
-    <Trash2 size={18} />
-  </div>
-</td>
-                </tr>
-              ))}
+                  return matchesSearch && matchesStatus;
+                })
+                .map((driver) => (
+                  <tr key={driver.id}>
+                    <td>{driver.name}</td>
+
+                    <td>{driver.phone}</td>
+
+                    <td>{driver.licenseNo}</td>
+
+                    <td>Not Assigned</td>
+
+                    <td>
+                      <span
+                        className={`status ${
+                          driver.isAvailable ? "online" : "offline"
+                        }`}
+                      >
+                        {driver.isAvailable ? "Available" : "Unavailable"}
+                      </span>
+                    </td>
+
+                    <td>
+                      <div className="actions">
+                        <Eye
+                          size={18}
+                          onClick={() => navigate(`/drivers/view/${driver.id}`)}
+                        />
+
+                        <Pencil
+                          size={18}
+                          onClick={() => navigate(`/drivers/edit/${driver.id}`)}
+                        />
+
+                        <Trash2
+                          size={18}
+                          onClick={() => deleteDriver(driver.id)}
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

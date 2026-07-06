@@ -54,31 +54,33 @@
     font-weight:700;
 }
 
-.toggle-btn{
-    width:38px;
-    height:38px;
-    border:none;
-    background:transparent;
-    color:white;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    cursor:pointer;
-    border-radius:8px;
-}
-
-.toggle-btn:hover{
-    background:#2563eb;
+.toggle-btn {
+    width: 38px;
+    height: 38px;
+    border: none;
+    background: transparent;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 8px;
+    outline: none;
+    box-shadow: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .toggle-btn:hover {
-    background: #2563eb;
+    background: transparent;   /* or #f3f4f6 if you want */
 }
-.toggle-btn:hover{
-    background:#2563eb;
-}
-.toggle-btn:hover {
-  background: #2563eb;
+
+.toggle-btn:focus,
+.toggle-btn:focus-visible,
+.toggle-btn:active {
+    outline: none;
+    box-shadow: none;
+    background: transparent;
+    color: inherit;
 }
 
 /* ===========================
@@ -223,5 +225,5 @@
 }
 
 .dark-sidebar .toggle-btn:hover{
-    background:#2563eb;
+    background: transparent;
 }

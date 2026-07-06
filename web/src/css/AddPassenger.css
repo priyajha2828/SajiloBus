@@ -1,8 +1,8 @@
 /* ==========================
-   Add Driver Page
+   Add Passenger Page
 ========================== */
 
-.add-driver-container{
+.add-passenger-container{
     background:#ffffff;
     padding:30px;
     border-radius:15px;
@@ -10,7 +10,7 @@
     margin-top:25px;
 }
 
-.add-driver-container h2{
+.add-passenger-container h2{
     margin-bottom:25px;
     color:#1e293b;
     font-size:28px;
@@ -21,7 +21,7 @@
    Form
 ========================== */
 
-.driver-form{
+.passenger-form{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:20px;
@@ -55,10 +55,8 @@
     box-shadow:0 0 0 3px rgba(25,118,210,.15);
 }
 
-/* File Input */
-
-.form-group input[type="file"]{
-    padding:10px;
+.form-group input::placeholder{
+    color:#9ca3af;
 }
 
 /* ==========================
@@ -109,7 +107,7 @@
 
 @media(max-width:768px){
 
-.driver-form{
+.passenger-form{
     grid-template-columns:1fr;
 }
 
@@ -123,11 +121,11 @@
    DARK THEME
 ========================== */
 
-.dashboard.dark-theme .add-driver-container{
+.dashboard.dark-theme .add-passenger-container{
     background:#1e293b;
 }
 
-.dashboard.dark-theme .add-driver-container h2{
+.dashboard.dark-theme .add-passenger-container h2{
     color:#ffffff;
 }
 
@@ -144,6 +142,11 @@
 
 .dashboard.dark-theme .form-group input::placeholder{
     color:#94a3b8;
+}
+
+.dashboard.dark-theme .form-group select option{
+    background:#334155;
+    color:#ffffff;
 }
 
 .dashboard.dark-theme .form-group input:focus,
@@ -167,44 +170,4 @@
 
 .dashboard.dark-theme .save-btn:hover{
     background:#1d4ed8;
-}
-
-.page-title{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    margin-bottom:25px;
-}
-
-.page-title h2{
-    margin:0;
-}
-
-.back-arrow{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    width:40px;
-    height:40px;
-
-    border-radius:50%;
-    text-decoration:none;
-
-    color:#64748b;
-    transition:.3s;
-}
-
-.back-arrow:hover{
-    background:#f3f4f6;
-    color:#1976d2;
-}
-
-.dashboard.dark-theme .back-arrow{
-    color:#cbd5e1;
-}
-
-.dashboard.dark-theme .back-arrow:hover{
-    background:#334155;
-    color:#60a5fa;
 }

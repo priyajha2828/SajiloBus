@@ -1,128 +1,222 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
+
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
+
 import "../css/AddDriver.css";
 
 function AddDriver() {
+  const navigate = useNavigate();
 
-  const [collapsed,setCollapsed] = useState(false);
-  const [darkMode,setDarkMode] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
 
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("theme") === "dark";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
+  }, [darkMode]);
+
+  const [driver, setDriver] = useState({
+    firebaseUid: "",
+    name: "",
+    email: "",
+    phone: "",
+    licenseNo: "",
+    isAvailable: true,
+    adminId: 1,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setDriver({
+      ...driver,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const driverData = {
+        ...driver,
+        firebaseUid: `driver_${Date.now()}`,
+      };
+
+      const response = await fetch("http://localhost:5000/drivers", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(driverData),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        alert("Driver Added Successfully");
+
+        navigate("/drivers");
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Server Error");
+    }
+  };
   return (
+  <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>
 
-    <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>
+    <Sidebar
+      collapsed={collapsed}
+      setCollapsed={setCollapsed}
+      darkMode={darkMode}
+    />
 
-      <Sidebar
-        collapsed={collapsed}
-        setCollapsed={setCollapsed}
+    <div
+      className={`dashboard-content ${
+        collapsed ? "collapsed-content" : ""
+      }`}
+    >
+
+      <Navbar
         darkMode={darkMode}
+        setDarkMode={setDarkMode}
       />
 
-      <div className={`dashboard-content ${collapsed ? "collapsed-content" : ""}`}>
+      <div className="add-driver-container">
 
-        <Navbar
-          darkMode={darkMode}
-          setDarkMode={setDarkMode}
-        />
+        <div className="page-title">
 
-        <div className="add-driver-container">
+          <Link
+            to="/drivers"
+            className="back-arrow"
+          >
+            <ArrowLeft size={24} />
+          </Link>
 
           <h2>Add New Driver</h2>
 
-          <form className="driver-form">
-
-            <div className="form-group">
-              <label>Full Name</label>
-              <input type="text" placeholder="Enter full name"/>
-            </div>
-
-            <div className="form-group">
-              <label>Email</label>
-              <input type="email" placeholder="Enter email"/>
-            </div>
-
-            <div className="form-group">
-              <label>Phone Number</label>
-              <input type="text" placeholder="Enter phone"/>
-            </div>
-
-            <div className="form-group">
-              <label>License Number</label>
-              <input type="text" placeholder="Enter license number"/>
-            </div>
-
-            <div className="form-group">
-              <label>Gender</label>
-
-              <select>
-                <option>Male</option>
-                <option>Female</option>
-                <option>Other</option>
-              </select>
-
-            </div>
-
-            <div className="form-group">
-              <label>Address</label>
-              <input type="text" placeholder="Enter address"/>
-            </div>
-
-            <div className="form-group">
-              <label>Experience</label>
-              <input type="number" placeholder="Years"/>
-            </div>
-
-            <div className="form-group">
-              <label>Assign Bus</label>
-
-              <select>
-                <option>Select Bus</option>
-                <option>Bus 101</option>
-                <option>Bus 205</option>
-                <option>Bus 302</option>
-              </select>
-
-            </div>
-
-            <div className="form-group">
-              <label>Status</label>
-
-              <select>
-                <option>Available</option>
-                <option>Online</option>
-                <option>Offline</option>
-              </select>
-
-            </div>
-
-            <div className="form-group">
-              <label>Driver Photo</label>
-              <input type="file"/>
-            </div>
-
-            <div className="button-group">
-
-              <Link to="/drivers" className="cancel-btn">
-                Cancel
-              </Link>
-
-              <button type="submit" className="save-btn">
-                Save Driver
-              </button>
-
-            </div>
-
-          </form>
-
         </div>
+
+        <form
+          className="driver-form"
+          onSubmit={handleSubmit}
+        >
+
+          {/* Name */}
+
+          <div className="form-group">
+            <label>Full Name</label>
+
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter full name"
+              value={driver.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          {/* Email */}
+
+          <div className="form-group">
+            <label>Email</label>
+
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter email"
+              value={driver.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          {/* Phone */}
+
+          <div className="form-group">
+            <label>Phone Number</label>
+
+            <input
+              type="text"
+              name="phone"
+              placeholder="Enter phone number"
+              value={driver.phone}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* License */}
+
+          <div className="form-group">
+            <label>License Number</label>
+
+            <input
+              type="text"
+              name="licenseNo"
+              placeholder="Enter License Number"
+              value={driver.licenseNo}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          {/* Status */}
+
+          <div className="form-group">
+            <label>Status</label>
+
+            <select
+              name="isAvailable"
+              value={driver.isAvailable}
+              onChange={(e) =>
+                setDriver({
+                  ...driver,
+                  isAvailable: e.target.value === "true",
+                })
+              }
+            >
+              <option value={true}>Available</option>
+              <option value={false}>Unavailable</option>
+            </select>
+          </div>
+
+          {/* Buttons */}
+
+          <div className="button-group">
+
+            <Link
+              to="/drivers"
+              className="cancel-btn"
+            >
+              Cancel
+            </Link>
+
+            <button
+              type="submit"
+              className="save-btn"
+            >
+              Save Driver
+            </button>
+
+          </div>
+
+        </form>
 
       </div>
 
     </div>
 
-  );
-
+  </div>
+);
 }
 
 export default AddDriver;

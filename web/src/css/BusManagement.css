@@ -1,51 +1,50 @@
 /* ===========================
-   Driver Management
+   Bus Header
 =========================== */
 
-.driver-header{
+.bus-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
     margin:25px 0;
 }
 
-.driver-title{
+.bus-title{
     display:flex;
     align-items:center;
     gap:12px;
 }
 
-.driver-title h2{
+.bus-title h2{
     margin:0;
     font-size:28px;
     font-weight:700;
     color:#1e293b;
 }
 
-.driver-title svg{
+.bus-title svg{
     color:#1976d2;
 }
 
 /* ===========================
-   Add Button
+   Add Bus Button
 =========================== */
 
-.add-driver-btn{
+.add-bus-btn{
     display:flex;
     align-items:center;
     gap:8px;
     background:#1976d2;
     color:#fff;
-    border:none;
+    text-decoration:none;
     padding:10px 18px;
     border-radius:8px;
-    cursor:pointer;
-    transition:.3s;
     font-size:15px;
-    font-weight:500;
+    font-weight:600;
+    transition:.3s;
 }
 
-.add-driver-btn:hover{
+.add-bus-btn:hover{
     background:#1565c0;
 }
 
@@ -53,56 +52,52 @@
    Search & Filter
 =========================== */
 
-.driver-toolbar{
+.bus-toolbar{
     display:flex;
     justify-content:space-between;
     align-items:center;
     margin-bottom:20px;
 }
 
-.search-driver{
+.search-bus{
     display:flex;
     align-items:center;
     gap:10px;
-
-    width:260px;
+    width:300px;
     height:45px;
-
     padding:0 15px;
-
     background:#fff;
     border:1px solid #ddd;
     border-radius:10px;
 }
 
-.search-driver svg{
+.search-bus svg{
     color:#666;
 }
 
-.search-driver input{
+.search-bus input{
     flex:1;
+    height:100%;
     border:none;
     outline:none;
     background:transparent;
-
     font-size:15px;
-    line-height:45px;
-    height:100%;
-
-    padding:0;
     margin:0;
+    padding:0;
 }
 
 .filter-container{
     display:flex;
     align-items:center;
     gap:10px;
-
-    background:#ffffff;
+    padding:10px 15px;
+    background:#fff;
     border:1px solid #ddd;
     border-radius:10px;
+}
 
-    padding:10px 15px;
+.filter-container svg{
+    color:#666;
 }
 
 .filter-container select{
@@ -117,7 +112,7 @@
    Table Card
 =========================== */
 
-.driver-table-card{
+.bus-table-card{
     background:#fff;
     border-radius:15px;
     padding:20px;
@@ -128,12 +123,12 @@
    Table
 =========================== */
 
-.driver-table{
+.bus-table{
     width:100%;
     border-collapse:collapse;
 }
 
-.driver-table th{
+.bus-table th{
     text-align:left;
     padding:18px 15px;
     font-size:15px;
@@ -141,54 +136,60 @@
     border-bottom:2px solid #e5e7eb;
 }
 
-.driver-table td{
+.bus-table td{
     padding:18px 15px;
     border-bottom:1px solid #eee;
     vertical-align:middle;
+    color:#1e293b;
 }
 
-.driver-table tr:hover{
+.bus-table tr:hover{
     background:#f8fafc;
 }
 
-/* Fixed Width Columns */
-
-.driver-table th:nth-child(5),
-.driver-table td:nth-child(5){
-    width:170px;
-}
-
-.driver-table th:last-child,
-.driver-table td:last-child{
-    width:150px;
-}
-
-/* ===========================
-   Status Badge
-=========================== */
-
 .status{
     display:inline-flex;
-    align-items:center;
     justify-content:center;
-
-    width:110px;
-    height:36px;
-
+    align-items:center;
+    min-width:120px;
+    height:40px;
     border-radius:25px;
-
-    font-size:14px;
-    font-weight:600;
-}
-
-.online,
-.offline,
-.available{
-    background:transparent;
-    color:#475569;
     border:1px solid #94a3b8;
+    font-weight:600;
+    background:transparent;
 }
 
+/* Light Theme */
+
+.status.active{
+    color:#22c55e;
+}
+
+.status.inactive{
+    color:#ef4444;
+}
+
+.status.maintenance{
+    color:#f59e0b;
+}
+
+/* Dark Theme */
+
+.dashboard.dark-theme .status{
+    border:1px solid #64748b;
+}
+
+.dashboard.dark-theme .status.active{
+    color:#22c55e;
+}
+
+.dashboard.dark-theme .status.inactive{
+    color:#ef4444;
+}
+
+.dashboard.dark-theme .status.maintenance{
+    color:#f59e0b;
+}
 /* ===========================
    Action Icons
 =========================== */
@@ -202,6 +203,7 @@
 .actions svg{
     cursor:pointer;
     transition:.3s;
+    color:#64748b;
 }
 
 .actions svg:hover{
@@ -215,17 +217,17 @@
 
 @media(max-width:900px){
 
-.driver-toolbar{
+.bus-toolbar{
     flex-direction:column;
-    gap:15px;
     align-items:flex-start;
+    gap:15px;
 }
 
-.search-driver{
+.search-bus{
     width:100%;
 }
 
-.driver-table-card{
+.bus-table-card{
     overflow-x:auto;
 }
 
@@ -235,47 +237,38 @@
    DARK THEME
 =========================== */
 
-.dashboard.dark-theme .driver-title h2{
+.dashboard.dark-theme .bus-title h2{
     color:#fff;
 }
 
-.dashboard.dark-theme .driver-title svg{
+.dashboard.dark-theme .bus-title svg{
     color:#60a5fa;
 }
 
 /* Search */
 
-.dashboard.dark-theme .search-driver{
+.dashboard.dark-theme .search-bus{
     background:#1e293b;
     border:1px solid #475569;
 }
 
-.dashboard.dark-theme .search-driver svg{
+.dashboard.dark-theme .search-bus svg{
     color:#94a3b8;
 }
 
-.dashboard.dark-theme .search-driver input{
+.dashboard.dark-theme .search-bus input{
     color:#fff;
 }
 
-.dashboard.dark-theme .search-driver input::placeholder{
+.dashboard.dark-theme .search-bus input::placeholder{
     color:#94a3b8;
 }
 
-/* Buttons */
-
-/* Filter Dropdown */
+/* Filter */
 
 .dashboard.dark-theme .filter-container{
-    display:flex;
-    align-items:center;
-    gap:10px;
-
     background:#1e293b;
     border:1px solid #475569;
-    border-radius:10px;
-
-    padding:10px 15px;
 }
 
 .dashboard.dark-theme .filter-container svg{
@@ -284,49 +277,49 @@
 
 .dashboard.dark-theme .filter-container select{
     background:transparent;
-    color:#ffffff;
-    border:none;
-    outline:none;
-    cursor:pointer;
+    color:#fff;
 }
 
-.dashboard.dark-theme .filter-container select option{
+.dashboard.dark-theme .filter-container option{
     background:#1e293b;
-    color:#ffffff;
+    color:#fff;
 }
 
-.dashboard.dark-theme .add-driver-btn{
+/* Add Button */
+
+.dashboard.dark-theme .add-bus-btn{
     background:#2563eb;
 }
 
-.dashboard.dark-theme .add-driver-btn:hover{
+.dashboard.dark-theme .add-bus-btn:hover{
     background:#1d4ed8;
 }
 
 /* Table */
 
-.dashboard.dark-theme .driver-table-card{
+.dashboard.dark-theme .bus-table-card{
     background:#1e293b;
 }
 
-.dashboard.dark-theme .driver-table{
+.dashboard.dark-theme .bus-table{
     color:#fff;
 }
 
-.dashboard.dark-theme .driver-table th{
+.dashboard.dark-theme .bus-table th{
     color:#cbd5e1;
     border-bottom:2px solid #475569;
 }
 
-.dashboard.dark-theme .driver-table td{
+.dashboard.dark-theme .bus-table td{
+    color:#fff;
     border-bottom:1px solid #334155;
 }
 
-.dashboard.dark-theme .driver-table tr:hover{
+.dashboard.dark-theme .bus-table tr:hover{
     background:#273449;
 }
 
-/* Icons */
+/* Action Icons */
 
 .dashboard.dark-theme .actions svg{
     color:#cbd5e1;
@@ -336,39 +329,12 @@
     color:#60a5fa;
 }
 
-.dashboard.dark-theme .online,
-.dashboard.dark-theme .offline,
-.dashboard.dark-theme .available{
+/* Status */
+
+.dashboard.dark-theme .running,
+.dashboard.dark-theme .maintenance,
+.dashboard.dark-theme .inactive{
     background:transparent;
     color:#e2e8f0;
     border:1px solid #64748b;
-}
-
-.back-arrow{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    width:40px;
-    height:40px;
-
-    border-radius:50%;
-    text-decoration:none;
-
-    color:#64748b;
-    transition:.3s;
-}
-
-.back-arrow:hover{
-    background:#f3f4f6;
-    color:#1976d2;
-}
-
-.dashboard.dark-theme .back-arrow{
-    color:#cbd5e1;
-}
-
-.dashboard.dark-theme .back-arrow:hover{
-    background:#334155;
-    color:#60a5fa;
 }
