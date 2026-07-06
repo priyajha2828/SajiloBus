@@ -1,0 +1,229 @@
+/* ===========================
+   Sidebar
+=========================== */
+
+.sidebar{
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:260px;
+    height:100vh;
+
+    background:#111827;
+    color:white;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+
+    transition:.3s;
+    overflow:hidden;
+    z-index:1000;
+}
+
+.sidebar.collapsed{
+    width:80px;
+}
+
+/* ===========================
+   Collapse
+=========================== */
+
+.sidebar.collapsed {
+  width: 80px;
+  min-width: 80px;
+}
+
+/* ===========================
+   Header
+=========================== */
+
+.sidebar-header{
+    height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 15px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+    margin:0;
+    font-size:20px;
+    font-weight:700;
+}
+
+.toggle-btn {
+    width: 38px;
+    height: 38px;
+    border: none;
+    background: transparent;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 8px;
+    outline: none;
+    box-shadow: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.toggle-btn:hover {
+    background: transparent;   /* or #f3f4f6 if you want */
+}
+
+.toggle-btn:focus,
+.toggle-btn:focus-visible,
+.toggle-btn:active {
+    outline: none;
+    box-shadow: none;
+    background: transparent;
+    color: inherit;
+}
+
+/* ===========================
+   Navigation
+=========================== */
+
+.sidebar-menu {
+  flex: 1;
+  padding: 20px 12px;
+}
+
+.sidebar-menu a {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: white;
+  text-decoration: none;
+  padding: 14px 15px;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  transition: .3s;
+}
+
+.sidebar-menu a:hover {
+  background: #2563eb;
+}
+
+.sidebar-menu a span {
+  white-space: nowrap;
+}
+
+/* Active Link */
+
+.sidebar-menu a.active {
+  background: #2563eb;
+}
+
+/* ===========================
+   Logout
+=========================== */
+
+.logout-section {
+  padding: 15px 12px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+.logout-section a {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: white;
+  text-decoration: none;
+  padding: 14px 15px;
+  border-radius: 10px;
+  transition: .3s;
+}
+
+.logout-section a:hover {
+  background: #dc2626;
+}
+
+/* ===========================
+   Collapsed Sidebar
+=========================== */
+
+.sidebar.collapsed .sidebar-header {
+  justify-content: center;
+}
+
+.sidebar.collapsed .logo {
+  display: none;
+}
+
+.sidebar.collapsed .sidebar-menu a,
+.sidebar.collapsed .logout-section a {
+  justify-content: center;
+}
+
+.sidebar.collapsed .sidebar-menu a span,
+.sidebar.collapsed .logout-section span {
+  display: none;
+}
+
+.sidebar-brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.sidebar-logo-img{
+    width:38px;
+    height:38px;
+    border-radius:8px;
+    object-fit:contain;
+}
+
+.logo{
+    margin:0;
+    font-size:20px;
+    font-weight:700;
+    color:white;
+    white-space:nowrap;
+}
+
+.light-sidebar{
+    background:#ffffff;
+    color:#111827;
+    border-right:1px solid #e5e7eb;
+}
+
+.light-sidebar .logo{
+    color:#111827;
+}
+
+.light-sidebar a{
+    color:#111827;
+}
+
+.light-sidebar .toggle-btn{
+    color:#111827;
+}
+
+.light-sidebar .toggle-btn:hover{
+    background:#f3f4f6;
+}
+
+.dark-sidebar{
+    background:#111827;
+    color:white;
+}
+
+.dark-sidebar .logo{
+    color:white;
+}
+
+.dark-sidebar a{
+    color:white;
+}
+
+.dark-sidebar .toggle-btn{
+    color:white;
+}
+
+.dark-sidebar .toggle-btn:hover{
+    background: transparent;
+}

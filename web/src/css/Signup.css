@@ -1,0 +1,170 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI,sans-serif;
+}
+
+body{
+    background:#eef2f7;
+}
+
+.signup-page{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+    background:linear-gradient(135deg,#eef4ff,#f7fbff);
+}
+
+.signup-card{
+
+    width:450px;
+    background:white;
+    border-radius:20px;
+    padding:40px;
+    box-shadow:0 10px 35px rgba(0,0,0,.12);
+}
+
+.logo{
+
+    width:150px;
+    display:block;
+    margin:auto;
+    margin-bottom:15px;
+}
+
+.signup-card h1{
+
+    text-align:center;
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.signup-card h3{
+
+    text-align:center;
+    color:#666;
+    margin-bottom:35px;
+}
+
+.signup-card label{
+
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+    color:#333;
+}
+
+.signup-card input{
+
+    width:100%;
+    padding:14px;
+    border:1px solid #d5dce3;
+    border-radius:10px;
+    font-size:16px;
+    margin-bottom:18px;
+    outline:none;
+}
+
+.signup-card input:focus{
+
+    border-color:#1E88E5;
+    box-shadow:0 0 0 3px rgba(30,136,229,.15);
+}
+
+.password-box{
+
+    position:relative;
+}
+
+.password-box input{
+
+    margin-bottom:0;
+    padding-right:50px;
+}
+
+.password-box button{
+
+    position:absolute;
+    top:50%;
+    right:15px;
+    transform:translateY(-50%);
+    border:none;
+    background:none;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.remember-row{
+
+    margin:20px 0;
+}
+
+.remember{
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.remember input{
+
+    width:18px;
+    height:18px;
+    margin:0;
+}
+
+.signup-btn{
+
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:#1E88E5;
+    color:white;
+    font-size:18px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.signup-btn:hover{
+
+    background:#1565c0;
+}
+
+.login-link{
+
+    margin-top:25px;
+    text-align:center;
+}
+
+.login-link a{
+
+    text-decoration:none;
+    color:#222;
+    font-size:18px;
+    font-weight:500;
+}
+
+.login-link a:hover{
+
+    color:#1E88E5;
+}
+
+@media(max-width:500px){
+
+.signup-card{
+
+    width:100%;
+    padding:30px 20px;
+}
+
+.signup-card h1{
+
+    font-size:24px;
+}
+
+}

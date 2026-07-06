@@ -1,0 +1,340 @@
+/* ===========================
+   Bus Header
+=========================== */
+
+.bus-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:25px 0;
+}
+
+.bus-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.bus-title h2{
+    margin:0;
+    font-size:28px;
+    font-weight:700;
+    color:#1e293b;
+}
+
+.bus-title svg{
+    color:#1976d2;
+}
+
+/* ===========================
+   Add Bus Button
+=========================== */
+
+.add-bus-btn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:#1976d2;
+    color:#fff;
+    text-decoration:none;
+    padding:10px 18px;
+    border-radius:8px;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.add-bus-btn:hover{
+    background:#1565c0;
+}
+
+/* ===========================
+   Search & Filter
+=========================== */
+
+.bus-toolbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.search-bus{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:300px;
+    height:45px;
+    padding:0 15px;
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:10px;
+}
+
+.search-bus svg{
+    color:#666;
+}
+
+.search-bus input{
+    flex:1;
+    height:100%;
+    border:none;
+    outline:none;
+    background:transparent;
+    font-size:15px;
+    margin:0;
+    padding:0;
+}
+
+.filter-container{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 15px;
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:10px;
+}
+
+.filter-container svg{
+    color:#666;
+}
+
+.filter-container select{
+    border:none;
+    outline:none;
+    background:transparent;
+    font-size:15px;
+    cursor:pointer;
+}
+
+/* ===========================
+   Table Card
+=========================== */
+
+.bus-table-card{
+    background:#fff;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+/* ===========================
+   Table
+=========================== */
+
+.bus-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.bus-table th{
+    text-align:left;
+    padding:18px 15px;
+    font-size:15px;
+    color:#555;
+    border-bottom:2px solid #e5e7eb;
+}
+
+.bus-table td{
+    padding:18px 15px;
+    border-bottom:1px solid #eee;
+    vertical-align:middle;
+    color:#1e293b;
+}
+
+.bus-table tr:hover{
+    background:#f8fafc;
+}
+
+.status{
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    min-width:120px;
+    height:40px;
+    border-radius:25px;
+    border:1px solid #94a3b8;
+    font-weight:600;
+    background:transparent;
+}
+
+/* Light Theme */
+
+.status.active{
+    color:#22c55e;
+}
+
+.status.inactive{
+    color:#ef4444;
+}
+
+.status.maintenance{
+    color:#f59e0b;
+}
+
+/* Dark Theme */
+
+.dashboard.dark-theme .status{
+    border:1px solid #64748b;
+}
+
+.dashboard.dark-theme .status.active{
+    color:#22c55e;
+}
+
+.dashboard.dark-theme .status.inactive{
+    color:#ef4444;
+}
+
+.dashboard.dark-theme .status.maintenance{
+    color:#f59e0b;
+}
+/* ===========================
+   Action Icons
+=========================== */
+
+.actions{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.actions svg{
+    cursor:pointer;
+    transition:.3s;
+    color:#64748b;
+}
+
+.actions svg:hover{
+    color:#1976d2;
+    transform:scale(1.1);
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:900px){
+
+.bus-toolbar{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:15px;
+}
+
+.search-bus{
+    width:100%;
+}
+
+.bus-table-card{
+    overflow-x:auto;
+}
+
+}
+
+/* ===========================
+   DARK THEME
+=========================== */
+
+.dashboard.dark-theme .bus-title h2{
+    color:#fff;
+}
+
+.dashboard.dark-theme .bus-title svg{
+    color:#60a5fa;
+}
+
+/* Search */
+
+.dashboard.dark-theme .search-bus{
+    background:#1e293b;
+    border:1px solid #475569;
+}
+
+.dashboard.dark-theme .search-bus svg{
+    color:#94a3b8;
+}
+
+.dashboard.dark-theme .search-bus input{
+    color:#fff;
+}
+
+.dashboard.dark-theme .search-bus input::placeholder{
+    color:#94a3b8;
+}
+
+/* Filter */
+
+.dashboard.dark-theme .filter-container{
+    background:#1e293b;
+    border:1px solid #475569;
+}
+
+.dashboard.dark-theme .filter-container svg{
+    color:#94a3b8;
+}
+
+.dashboard.dark-theme .filter-container select{
+    background:transparent;
+    color:#fff;
+}
+
+.dashboard.dark-theme .filter-container option{
+    background:#1e293b;
+    color:#fff;
+}
+
+/* Add Button */
+
+.dashboard.dark-theme .add-bus-btn{
+    background:#2563eb;
+}
+
+.dashboard.dark-theme .add-bus-btn:hover{
+    background:#1d4ed8;
+}
+
+/* Table */
+
+.dashboard.dark-theme .bus-table-card{
+    background:#1e293b;
+}
+
+.dashboard.dark-theme .bus-table{
+    color:#fff;
+}
+
+.dashboard.dark-theme .bus-table th{
+    color:#cbd5e1;
+    border-bottom:2px solid #475569;
+}
+
+.dashboard.dark-theme .bus-table td{
+    color:#fff;
+    border-bottom:1px solid #334155;
+}
+
+.dashboard.dark-theme .bus-table tr:hover{
+    background:#273449;
+}
+
+/* Action Icons */
+
+.dashboard.dark-theme .actions svg{
+    color:#cbd5e1;
+}
+
+.dashboard.dark-theme .actions svg:hover{
+    color:#60a5fa;
+}
+
+/* Status */
+
+.dashboard.dark-theme .running,
+.dashboard.dark-theme .maintenance,
+.dashboard.dark-theme .inactive{
+    background:transparent;
+    color:#e2e8f0;
+    border:1px solid #64748b;
+}
