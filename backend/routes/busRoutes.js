@@ -1,15 +1,7 @@
-const express = require("express");
+import  express from "express";
+import  { getBuses, getBusById,createBus,updateBus,deleteBus,getBusCount,} from "../controllers/busController.js";
 
-const router = express.Router();
-
-const {
-  getBuses,
-  getBusById,
-  createBus,
-  updateBus,
-  deleteBus,
-  getBusCount,
-} = require("../controllers/busController");
+export const router = express.Router();
 
 // Count
 router.get("/count", getBusCount);
@@ -29,4 +21,4 @@ router.put("/:id", updateBus);
 // Delete
 router.delete("/:id", deleteBus);
 
-module.exports = router;
+// export default router;

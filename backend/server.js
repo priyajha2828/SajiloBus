@@ -1,11 +1,11 @@
-require("dotenv").config();
+import "dotenv/config";
 
-const express = require("express");
-const cors = require("cors");
+import express from "express";
+import cors from "cors";
 
-const authRoutes = require("./routes/authRoutes");
-const driverRoutes = require("./routes/driverRoutes");
-const busRoutes = require("./routes/busRoutes");
+import  {router as passengerRoutes} from "./routes/passengerRoutes.js";
+import  {router as driverRoutes} from "./routes/driverRoutes.js";
+import {router as busRoutes} from "./routes/busRoutes.js";
 
 const app = express();
 
@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use("/auth", authRoutes);
+app.use("/passengers", passengerRoutes);
 app.use("/drivers", driverRoutes);
 app.use("/buses", busRoutes);
 
