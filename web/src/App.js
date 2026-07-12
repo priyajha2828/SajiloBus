@@ -32,13 +32,13 @@ function App() {
       <Route path="/passengers" element={<PassengerManagement />} />
       <Route path="/passengers/add" element={<AddPassenger />} />
       <Route path="/routes" element={<RouteManagement />} />
-<Route path="/routes/add" element={<AddRoute />} />
-<Route path="/drivers/view/:id" element={<ViewDriver />} />
-<Route path="/drivers/edit/:id" element={<EditDriver />} />
-<Route path="/buses/view/:id" element={<ViewBus />} />
-<Route path="/buses/edit/:id" element={<EditBus />} />
-      
-</Routes>
+      <Route path="/routes/add" element={<AddRoute />} />
+      <Route path="/drivers/view/:id" element={<ViewDriver />} />
+      <Route path="/drivers/edit/:id" element={<EditDriver />} />
+      <Route path="/buses/view/:id" element={<ViewBus />} />
+      <Route path="/buses/edit/:id" element={<EditBus />} />
+
+    </Routes>
   );
 }
 

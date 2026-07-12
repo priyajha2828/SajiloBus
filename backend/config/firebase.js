@@ -1,12 +1,10 @@
-const { initializeApp, cert } = require("firebase-admin/app");
-const { getAuth } = require("firebase-admin/auth");
+import  { initializeApp, cert } from "firebase-admin/app";
+import  { getAuth } from "firebase-admin/auth";
 
-const {getFirebaseServiceAccount} = require("./firebase-service-account");
+import {getFirebaseServiceAccount} from "./firebase-service-account.js";
 
-const app =initializeApp({
+export const app =initializeApp({
   credential: cert(getFirebaseServiceAccount()),
 });
 
-module.exports = {
-  getAuth,
-};
+export { getAuth };
