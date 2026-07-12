@@ -1,10 +1,10 @@
-const prisma = require("../config/prisma");
+import {prisma} from "../config/prisma.js";
 
 // ==========================
 // Get All Buses
 // ==========================
 
-const getBuses = async (req, res) => {
+export const getBuses = async (req, res) => {
   try {
     const buses = await prisma.bus.findMany({
       orderBy: {
@@ -30,7 +30,7 @@ const getBuses = async (req, res) => {
 // Get Bus By ID
 // ==========================
 
-const getBusById = async (req, res) => {
+export const getBusById = async (req, res) => {
   try {
     const id = Number(req.params.id);
 
@@ -72,7 +72,7 @@ const getBusById = async (req, res) => {
 // Create Bus
 // ==========================
 
-const createBus = async (req, res) => {
+export const createBus = async (req, res) => {
   try {
     const {
       busNumber,
@@ -123,7 +123,7 @@ const createBus = async (req, res) => {
 // Update Bus
 // ==========================
 
-const updateBus = async (req, res) => {
+export const updateBus = async (req, res) => {
   try {
     const id = Number(req.params.id);
 
@@ -172,7 +172,7 @@ const updateBus = async (req, res) => {
 // Delete Bus
 // ==========================
 
-const deleteBus = async (req, res) => {
+export const deleteBus = async (req, res) => {
   try {
     const id = Number(req.params.id);
 
@@ -234,7 +234,7 @@ const deleteBus = async (req, res) => {
 // Bus Count
 // ==========================
 
-const getBusCount = async (req, res) => {
+export const getBusCount = async (req, res) => {
   try {
     const count = await prisma.bus.count();
 
@@ -252,6 +252,7 @@ const getBusCount = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
 // ==========================
 // Live Bus Locations
 // ==========================
@@ -304,3 +305,13 @@ module.exports = {
   getBusCount,
   getLiveBusLocations,
 };
+=======
+// export default {
+//   getBuses,
+//   getBusById,
+//   createBus,
+//   updateBus,
+//   deleteBus,
+//   getBusCount,
+// };
+>>>>>>> 20c3ca8643a1b4b50975f40c9f1c67be8a464915

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const prisma = require("../config/prisma");
 
 // ==========================
@@ -95,11 +96,58 @@ const createPassenger = async (req, res) => {
         passengerId: passenger.id,
         title: "New Passenger Registered",
         message: `${passenger.name} has registered successfully.`,
+=======
+import {prisma} from "../config/prisma.js";
+import  { app , getAuth } from "../config/firebase.js";
+import jwt from "jsonwebtoken";
+
+export const registerPassenger = async (req, res) => {
+    try{
+        const {idToken, name, phone} = req.body;
+
+        //for validation
+        if(!idToken || !name || !phone){
+            return res.status(400).json({
+                success: false,
+                message: "All fields are required"
+            });
+        }
+         // Verify Firebase Token
+    const decodedToken = await getAuth().verifyIdToken(idToken);
+
+    const firebaseUid = decodedToken.uid;
+    const email = decodedToken.email;
+
+    // Check existing passenger
+    const existingPassenger = await prisma.passenger.findUnique({
+      where: {
+        firebaseUid: firebaseUid,
+      },
+    });
+    console.log("Existing Passenger:", existingPassenger); 
+
+    if (existingPassenger) {
+      return res.status(200).json({
+        success: true,
+        message: "Passenger already exists",
+        passenger: existingPassenger,
+      });
+    }
+
+// Create new passenger
+    const newPassenger = await prisma.passenger.create({
+      data: {
+        firebaseUid: firebaseUid,
+        email: email,
+        name: name,
+        phone: phone,
+>>>>>>> 20c3ca8643a1b4b50975f40c9f1c67be8a464915
       },
     });
 
     res.status(201).json({
       success: true,
+<<<<<<< HEAD
       message: "Passenger Added Successfully",
       passenger,
     });
@@ -167,6 +215,40 @@ const deletePassenger = async (req, res) => {
     // Check passenger exists
     const passenger = await prisma.passenger.findUnique({
       where: { id },
+=======
+      message: "Passenger registered successfully",
+      passenger: newPassenger,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+export const loginPassenger = async (req, res) => {
+  try {
+    const { idToken } = req.body;
+
+    if (!idToken) {
+      return res.status(400).json({
+        success: false,
+        message: "ID Token is required",
+      });
+    }
+
+    // Verify Firebase Token
+    const decodedToken = await getAuth().verifyIdToken(idToken);
+
+    const firebaseUid = decodedToken.uid;
+
+    // Check Passenger
+    const passenger = await prisma.passenger.findUnique({
+      where: {
+        firebaseUid,
+      },
+>>>>>>> 20c3ca8643a1b4b50975f40c9f1c67be8a464915
     });
 
     if (!passenger) {
@@ -176,6 +258,7 @@ const deletePassenger = async (req, res) => {
       });
     }
 
+<<<<<<< HEAD
     // Delete related notifications
     await prisma.notification.deleteMany({
       where: {
@@ -218,6 +301,29 @@ const deletePassenger = async (req, res) => {
 
   } catch (error) {
     console.log(error);
+=======
+    // Generate JWT
+    const token = jwt.sign(
+      {
+        id: passenger.id,
+        firebaseUid: passenger.firebaseUid,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "7d",
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Login Successful",
+      token,
+      passenger,
+    });
+
+  } catch (error) {
+    console.error(error);
+>>>>>>> 20c3ca8643a1b4b50975f40c9f1c67be8a464915
 
     res.status(500).json({
       success: false,
@@ -226,6 +332,7 @@ const deletePassenger = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
 // ==========================
 // Passenger Count
 // ==========================
@@ -256,3 +363,11 @@ module.exports = {
   deletePassenger,
   getPassengerCount,
 };
+=======
+
+
+// export default {
+//     registerPassenger,
+//     loginPassenger,
+// };
+>>>>>>> 20c3ca8643a1b4b50975f40c9f1c67be8a464915

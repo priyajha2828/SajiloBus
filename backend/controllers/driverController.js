@@ -1,10 +1,10 @@
-const prisma = require("../config/prisma");
+import {prisma} from "../config/prisma.js";
 
 // ===========================
 // Get All Drivers
 // ===========================
 
-const getDrivers = async (req, res) => {
+export const getDrivers = async (req, res) => {
   try {
     const drivers = await prisma.driver.findMany({
       orderBy: {
@@ -30,7 +30,7 @@ const getDrivers = async (req, res) => {
 // Get Driver By ID
 // ===========================
 
-const getDriverById = async (req, res) => {
+export const getDriverById = async (req, res) => {
   try {
     const id = Number(req.params.id);
 
@@ -65,7 +65,7 @@ const getDriverById = async (req, res) => {
 // Create Driver
 // ===========================
 
-const createDriver = async (req, res) => {
+export const createDriver = async (req, res) => {
   try {
     const {
       firebaseUid,
@@ -123,7 +123,7 @@ const createDriver = async (req, res) => {
 // Update Driver
 // ===========================
 
-const updateDriver = async (req, res) => {
+export const updateDriver = async (req, res) => {
   try {
     const id = Number(req.params.id);
 
@@ -165,7 +165,7 @@ const updateDriver = async (req, res) => {
 };
 
 
-const deleteDriver = async (req, res) => {
+export const deleteDriver = async (req, res) => {
   try {
     const id = Number(req.params.id);
 
@@ -236,8 +236,7 @@ const deleteDriver = async (req, res) => {
 // ===========================
 // Driver Count
 // ===========================
-
-const getDriverCount = async (req, res) => {
+export const getDriverCount = async (req, res) => {
   try {
     const count = await prisma.driver.count();
 
@@ -305,6 +304,7 @@ const getDriverStatus = async (req, res) => {
 // Export
 // ===========================
 
+<<<<<<< HEAD
 module.exports = {
   getDrivers,
   getDriverById,
@@ -314,3 +314,13 @@ module.exports = {
   getDriverCount,
   getDriverStatus,
 };
+=======
+// export default {
+//   getDrivers,
+//   getDriverById,
+//   createDriver,
+//   updateDriver,
+//   deleteDriver,
+//   getDriverCount,
+// };
+>>>>>>> 20c3ca8643a1b4b50975f40c9f1c67be8a464915
