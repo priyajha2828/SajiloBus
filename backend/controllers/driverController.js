@@ -87,13 +87,30 @@ const createDriver = async (req, res) => {
       },
     });
 
+  try {
+  const notification = await prisma.notification.create({
+    data: {
+      adminId: 1,
+      passengerId: 1,
+      title: "New Driver Added",
+      message: `${name} has been added successfully.`,
+    },
+  });
+
+  console.log("Notification created:", notification);
+
+} catch (err) {
+  console.error("Notification Error:", err);
+}
+
     res.status(201).json({
       success: true,
       message: "Driver Added Successfully",
       driver,
     });
+
   } catch (error) {
-    console.error(error);
+    console.log(error);
 
     res.status(500).json({
       success: false,
@@ -131,6 +148,7 @@ const updateDriver = async (req, res) => {
       },
     });
 
+
     res.status(200).json({
       success: true,
       message: "Driver Updated Successfully",
@@ -146,26 +164,67 @@ const updateDriver = async (req, res) => {
   }
 };
 
-// ===========================
-// Delete Driver
-// ===========================
 
 const deleteDriver = async (req, res) => {
   try {
     const id = Number(req.params.id);
 
+    // Check driver exists
+    const driver = await prisma.driver.findUnique({
+      where: { id },
+    });
+
+    if (!driver) {
+      return res.status(404).json({
+        success: false,
+        message: "Driver not found",
+      });
+    }
+
+    // Delete login logs
+    await prisma.driverLoginLog.deleteMany({
+      where: {
+        driverId: id,
+      },
+    });
+
+    // Delete bus assignments
+    await prisma.busAssignment.deleteMany({
+      where: {
+        driverId: id,
+      },
+    });
+
+    // Delete trip history FIRST
+    await prisma.tripHistory.deleteMany({
+      where: {
+        trip: {
+          driverId: id,
+        },
+      },
+    });
+
+    // Delete trips
+    await prisma.trip.deleteMany({
+      where: {
+        driverId: id,
+      },
+    });
+
+    // Delete driver
     await prisma.driver.delete({
       where: {
         id,
       },
     });
 
-    res.status(200).json({
+    res.json({
       success: true,
       message: "Driver Deleted Successfully",
     });
+
   } catch (error) {
-    console.error(error);
+    console.log(error);
 
     res.status(500).json({
       success: false,
@@ -196,6 +255,52 @@ const getDriverCount = async (req, res) => {
   }
 };
 
+const getDriverStatus = async (req, res) => {
+  try {
+    const drivers = await prisma.driver.findMany({
+      include: {
+        trips: {
+          where: {
+            endedAt: null,
+          },
+        },
+      },
+      orderBy: {
+        name: "asc",
+      },
+    });
+
+    const driverStatus = drivers.map((driver) => {
+      let status = "Offline";
+
+      if (driver.trips.length > 0) {
+        status = "Driving";
+      } else if (driver.isAvailable) {
+        status = "Available";
+      }
+
+      return {
+        id: driver.id,
+        name: driver.name,
+        status,
+      };
+    });
+
+    res.json({
+      success: true,
+      drivers: driverStatus,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch driver status.",
+    });
+  }
+};
+
+
 // ===========================
 // Export
 // ===========================
@@ -207,4 +312,5 @@ module.exports = {
   updateDriver,
   deleteDriver,
   getDriverCount,
+  getDriverStatus,
 };

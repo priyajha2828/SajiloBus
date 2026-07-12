@@ -1,0 +1,334 @@
+/* ===========================
+   Schedule Header
+=========================== */
+
+.schedule-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:25px 0;
+}
+
+.schedule-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.schedule-title h2{
+    margin:0;
+    font-size:28px;
+    font-weight:700;
+    color:#1e293b;
+}
+
+.schedule-title svg{
+    color:#1976d2;
+}
+
+/* ===========================
+   Back Arrow
+=========================== */
+
+.back-arrow{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    width:40px;
+    height:40px;
+
+    border:none;
+    background:none;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    color:#64748b;
+
+    transition:.3s;
+}
+
+.back-arrow:hover{
+    background:#f3f4f6;
+    color:#1976d2;
+}
+
+/* ===========================
+   Add Button
+=========================== */
+
+.add-schedule-btn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    text-decoration:none;
+
+    background:#1976d2;
+    color:#fff;
+
+    padding:10px 18px;
+
+    border-radius:8px;
+
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.add-schedule-btn:hover{
+    background:#1565c0;
+}
+
+/* ===========================
+   Toolbar
+=========================== */
+
+.schedule-toolbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:20px;
+}
+
+/* ===========================
+   Search
+=========================== */
+
+.search-schedule{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    width:300px;
+    height:45px;
+
+    padding:0 15px;
+
+    background:#fff;
+
+    border:1px solid #ddd;
+    border-radius:10px;
+}
+
+.search-schedule svg{
+    color:#666;
+}
+
+.search-schedule input{
+    flex:1;
+
+    height:100%;
+
+    border:none;
+    outline:none;
+
+    background:transparent;
+
+    font-size:15px;
+
+    margin:0;
+    padding:0;
+}
+
+/* ===========================
+   Table Card
+=========================== */
+
+.schedule-table-card{
+    background:#fff;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+
+    overflow-x:auto;
+}
+
+/* ===========================
+   Table
+=========================== */
+
+.schedule-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.schedule-table th{
+    text-align:left;
+
+    padding:18px 15px;
+
+    color:#555;
+
+    border-bottom:2px solid #e5e7eb;
+}
+
+.schedule-table td{
+    padding:18px 15px;
+
+    color:#1e293b;
+
+    border-bottom:1px solid #eee;
+}
+
+.schedule-table tr:hover{
+    background:#f8fafc;
+}
+
+/* ===========================
+   Status Badge
+=========================== */
+
+.active-status,
+.inactive-status{
+
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    min-width:90px;
+    height:36px;
+
+    border-radius:20px;
+
+    border:1px solid #94a3b8;
+
+    background:#fff;
+
+    font-weight:600;
+}
+
+.active-status{
+    color:#16a34a;
+}
+
+.inactive-status{
+    color:#dc2626;
+}
+
+/* ===========================
+   Actions
+=========================== */
+
+.actions{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.actions svg{
+    cursor:pointer;
+    color:#64748b;
+    transition:.3s;
+}
+
+.actions svg:hover{
+    color:#1976d2;
+    transform:scale(1.1);
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:900px){
+
+.schedule-toolbar{
+    flex-direction:column;
+    gap:15px;
+    align-items:flex-start;
+}
+
+.search-schedule{
+    width:100%;
+}
+
+.schedule-table-card{
+    overflow-x:auto;
+}
+
+}
+
+/* ===========================
+   DARK THEME
+=========================== */
+
+.dashboard.dark-theme .schedule-title h2{
+    color:#fff;
+}
+
+.dashboard.dark-theme .schedule-title svg{
+    color:#60a5fa;
+}
+
+.dashboard.dark-theme .back-arrow{
+    color:#cbd5e1;
+}
+
+.dashboard.dark-theme .back-arrow:hover{
+    background:#334155;
+    color:#60a5fa;
+}
+
+.dashboard.dark-theme .search-schedule{
+    background:#1e293b;
+    border:1px solid #475569;
+}
+
+.dashboard.dark-theme .search-schedule svg{
+    color:#94a3b8;
+}
+
+.dashboard.dark-theme .search-schedule input{
+    color:#fff;
+}
+
+.dashboard.dark-theme .search-schedule input::placeholder{
+    color:#94a3b8;
+}
+
+.dashboard.dark-theme .schedule-table-card{
+    background:#1e293b;
+}
+
+.dashboard.dark-theme .schedule-table th{
+    color:#cbd5e1;
+    border-bottom:2px solid #475569;
+}
+
+.dashboard.dark-theme .schedule-table td{
+    color:#fff;
+    border-bottom:1px solid #334155;
+}
+
+.dashboard.dark-theme .schedule-table tr:hover{
+    background:#273449;
+}
+
+.dashboard.dark-theme .actions svg{
+    color:#cbd5e1;
+}
+
+.dashboard.dark-theme .actions svg:hover{
+    color:#60a5fa;
+}
+
+.dashboard.dark-theme .active-status,
+.dashboard.dark-theme .inactive-status{
+    background:#fff;
+}
+
+.dashboard.dark-theme .active-status{
+    color:#22c55e;
+}
+
+.dashboard.dark-theme .inactive-status{
+    color:#ef4444;
+}

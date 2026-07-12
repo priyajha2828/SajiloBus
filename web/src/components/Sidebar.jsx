@@ -7,9 +7,11 @@ import {
   Users,
   Route,
   UserCheck,
-  MapPinned,
   FileText,
   Settings,
+  ClipboardList,
+  MapPinned,
+  Clock3,
   LogOut,
 } from "lucide-react";
 
@@ -84,6 +86,22 @@ function Sidebar({ collapsed, setCollapsed, darkMode }) {
           {!collapsed && <span>Routes</span>}
         </Link>
 
+        <Link to="/assignments">
+  <ClipboardList size={20} />
+  {!collapsed && <span>Bus Assignments</span>}
+</Link>
+
+<Link to="/trips">
+  <MapPinned size={20} />
+  {!collapsed && <span>Trips</span>}
+</Link>
+
+<Link to="/schedules">
+    <Clock3 size={20} />
+    {!collapsed && <span>Bus Schedule</span>}
+</Link>
+
+
         <Link to="/tracking">
           <MapPinned size={20} />
           {!collapsed && <span>Live Tracking</span>}
@@ -98,6 +116,9 @@ function Sidebar({ collapsed, setCollapsed, darkMode }) {
           <Settings size={20} />
           {!collapsed && <span>Settings</span>}
         </Link>
+
+        
+        
 
       </nav>
 

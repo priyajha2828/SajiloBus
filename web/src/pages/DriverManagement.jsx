@@ -77,9 +77,7 @@ function DriverManagement() {
   }
 };
 
-  if (loading) {
-    return <h2>Loading Drivers...</h2>;
-  }
+
 
   return (
     <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>

@@ -23,12 +23,17 @@ function ViewBus() {
   }, [darkMode]);
 
   useEffect(() => {
-    fetchBus();
-  }, []);
+    if (id) {
+      fetchBus();
+    }
+  }, [id]);
 
   const fetchBus = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/buses/${id}`);
+      const response = await fetch(
+        `http://localhost:5000/buses/${id}`
+      );
+
       const data = await response.json();
 
       if (data.success) {
@@ -38,10 +43,6 @@ function ViewBus() {
       console.log(error);
     }
   };
-
-  if (!bus) {
-    return <h2>Loading...</h2>;
-  }
 
   return (
     <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>
@@ -62,51 +63,47 @@ function ViewBus() {
         />
 
         <div className="view-driver-container">
-
           <div className="page-title">
-
             <Link
               to="/buses"
               className="back-arrow"
             >
-              <ArrowLeft size={24}/>
+              <ArrowLeft size={24} />
             </Link>
 
             <h2>Bus Details</h2>
-
           </div>
 
           <div className="view-card">
-
             <div className="view-row">
               <strong>Bus Number</strong>
-              <span>{bus.busNumber}</span>
+              <span>{bus?.busNumber || "-"}</span>
             </div>
 
             <div className="view-row">
               <strong>Plate Number</strong>
-              <span>{bus.plateNumber}</span>
+              <span>{bus?.plateNumber || "-"}</span>
             </div>
 
             <div className="view-row">
               <strong>Capacity</strong>
-              <span>{bus.capacity}</span>
+              <span>{bus?.capacity || "-"}</span>
             </div>
 
             <div className="view-row">
               <strong>Status</strong>
-              <span>{bus.status}</span>
+              <span>{bus?.status || "-"}</span>
             </div>
 
             <div className="view-row">
               <strong>Created At</strong>
               <span>
-                {new Date(bus.createdAt).toLocaleString()}
+                {bus?.createdAt
+                  ? new Date(bus.createdAt).toLocaleString()
+                  : "-"}
               </span>
             </div>
-
           </div>
-
         </div>
       </div>
     </div>

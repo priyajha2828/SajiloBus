@@ -1,0 +1,93 @@
+.view-assignment-container{
+    max-width:700px;
+    margin:30px auto;
+}
+
+.view-header{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.view-header h2{
+    margin:0;
+    font-size:28px;
+    color:#1e293b;
+}
+
+.view-card{
+    background:#fff;
+    border-radius:15px;
+    padding:30px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.view-row{
+    display:flex;
+    justify-content:space-between;
+    padding:18px 0;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.view-row:last-child{
+    border-bottom:none;
+}
+
+.view-row label{
+    font-weight:600;
+    color:#64748b;
+}
+
+.view-row span{
+    color:#1e293b;
+    font-weight:500;
+}
+
+.back-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    text-decoration:none;
+    color:#64748b;
+    transition:.3s;
+}
+
+.back-btn:hover{
+    background:#f1f5f9;
+    color:#1976d2;
+}
+
+/* Dark Theme */
+
+.dashboard.dark-theme .view-header h2{
+    color:#fff;
+}
+
+.dashboard.dark-theme .view-card{
+    background:#1e293b;
+}
+
+.dashboard.dark-theme .view-row{
+    border-bottom:1px solid #334155;
+}
+
+.dashboard.dark-theme .view-row label{
+    color:#cbd5e1;
+}
+
+.dashboard.dark-theme .view-row span{
+    color:#fff;
+}
+
+.dashboard.dark-theme .back-btn{
+    color:#cbd5e1;
+}
+
+.dashboard.dark-theme .back-btn:hover{
+    background:#334155;
+    color:#60a5fa;
+}

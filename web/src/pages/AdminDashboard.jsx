@@ -14,15 +14,40 @@ function AdminDashboard() {
 
   const [totalDrivers, setTotalDrivers] = useState(0);
   const [totalBuses, setTotalBuses] = useState(0);
+  const [totalPassengers, setTotalPassengers] = useState(0);
+  const [totalTrips, setTotalTrips] = useState(0);
+  const [recentTrips, setRecentTrips] = useState([]);
+  const [driverStatus, setDriverStatus] = useState([]);
 
   useEffect(() => {
     localStorage.setItem("theme", darkMode ? "dark" : "light");
   }, [darkMode]);
 
-  useEffect(() => {
+
+useEffect(() => {
   fetchDriverCount();
   fetchBusCount();
+  fetchPassengerCount();
+  fetchTripCount();
+  fetchRecentTrips();
+  fetchDriverStatus();   // <-- You forgot this line
 }, []);
+
+const fetchTripCount = async () => {
+  try {
+    const response = await fetch(
+      "http://localhost:5000/trips/count"
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      setTotalTrips(data.count);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const fetchBusCount = async () => {
   try {
@@ -43,6 +68,51 @@ const fetchDriverCount = async () => {
 
   if (data.success) {
     setTotalDrivers(data.count);
+  }
+};
+
+const fetchPassengerCount = async () => {
+  try {
+    const response = await fetch("http://localhost:5000/passengers/count");
+    const data = await response.json();
+
+    if (data.success) {
+      setTotalPassengers(data.count);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const fetchRecentTrips = async () => {
+  try {
+    const response = await fetch(
+      "http://localhost:5000/trips/recent"
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      setRecentTrips(data.trips);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const fetchDriverStatus = async () => {
+  try {
+    const response = await fetch(
+      "http://localhost:5000/drivers/status"
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      setDriverStatus(data.drivers);
+    }
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -86,7 +156,7 @@ const fetchDriverCount = async () => {
               <h3>Total Passengers</h3>
             </div>
 
-            <h1>342</h1>
+           <h1>{totalPassengers}</h1>
           </div>
 
           <div className="card trips">
@@ -95,7 +165,7 @@ const fetchDriverCount = async () => {
               <h3>Active Trips</h3>
             </div>
 
-            <h1>14</h1>
+            <h1>{totalTrips}</h1>
           </div>
         </div>
 
@@ -107,71 +177,106 @@ const fetchDriverCount = async () => {
 
         {/* Bottom */}
 
-        <div className="bottom-section">
-          <div className="panel">
-            <h2> Recent Trips</h2>
+<div className="bottom-section">
 
-            <table>
-              <thead>
-                <tr>
-                  <th>Bus</th>
-                  <th>Driver</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
+  {/* Recent Trips */}
 
-              <tbody>
-                <tr>
-                  <td>Bus 101</td>
-                  <td>Ram Sharma</td>
-                  <td>
-                    <span className="trip-status running">Running</span>
-                  </td>
-                </tr>
+  <div className="panel">
 
-                <tr>
-                  <td>Bus 205</td>
-                  <td>Hari Lama</td>
-                  <td>
-                    <span className="trip-status completed">Completed</span>
-                  </td>
-                </tr>
+    <h2>Recent Trips</h2>
 
-                <tr>
-                  <td>Bus 302</td>
-                  <td>Suman Rai</td>
-                  <td>
-                    <span className="trip-status waiting">Waiting</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+    <table>
 
-          <div className="panel">
-            <h2> Driver Status</h2>
+      <thead>
+        <tr>
+          <th>Bus</th>
+          <th>Driver</th>
+          <th>Status</th>
+        </tr>
+      </thead>
 
-            <ul className="status-list">
-              <li>
-                <span>Ram Sharma</span>
-                <span className="driver-status online">Online</span>
-              </li>
+      <tbody>
+        {recentTrips.length === 0 ? (
+          <tr>
+            <td colSpan="3">No Recent Trips</td>
+          </tr>
+        ) : (
+          recentTrips.map((trip) => (
+            <tr key={trip.id}>
+              <td>{trip.bus.busNumber}</td>
 
-              <li>
-                <span>Hari Lama</span>
-                <span className="driver-status online">Online</span>
-              </li>
+              <td>{trip.driver.name}</td>
 
-              <li>
-                <span>Suman Rai</span>
-                <span className="driver-status offline">Offline</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+              <td>
+                {trip.endedAt ? (
+                  <span className="trip-status completed">
+                    Completed
+                  </span>
+                ) : (
+                  <span className="trip-status running">
+                    Running
+                  </span>
+                )}
+              </td>
+            </tr>
+          ))
+        )}
+      </tbody>
+
+    </table>
+
+  </div>
+
+  {/* Driver Status */}
+
+  <div className="panel">
+
+    <h2>Driver Status</h2>
+
+    <table className="driver-status-table">
+
+      <thead>
+
+        <tr>
+          <th>Driver</th>
+          <th>Status</th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        {driverStatus.length === 0 ? (
+          <tr>
+            <td colSpan="2">No Drivers Found</td>
+          </tr>
+        ) : (
+          driverStatus.slice(0, 5).map((driver) => (
+  <tr key={driver.id}>
+    <td>{driver.name}</td>
+
+    <td>
+      <span
+        className={`driver-status ${driver.status.toLowerCase()}`}
+      >
+        {driver.status}
+      </span>
+    </td>
+  </tr>
+))
+        )}
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+</div>
+</div>
+);
 }
 
 export default AdminDashboard;

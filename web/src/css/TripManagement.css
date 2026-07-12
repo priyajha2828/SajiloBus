@@ -1,0 +1,276 @@
+/* ===========================
+   Trip Header
+=========================== */
+
+.trip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 25px 0;
+}
+
+.trip-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.trip-title h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.trip-title svg {
+  color: #1976d2;
+}
+
+/* ===========================
+   Add Button
+=========================== */
+
+.add-trip-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  background: #1976d2;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.add-trip-btn:hover {
+  background: #1565c0;
+}
+
+/* ===========================
+   Toolbar
+=========================== */
+
+.trip-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-trip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 320px;
+  height: 45px;
+  padding: 0 15px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.search-trip svg {
+  color: #666;
+}
+
+.search-trip input {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+}
+
+/* ===========================
+   Table Card
+=========================== */
+
+.trip-table-card {
+  background: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,.08);
+}
+
+/* ===========================
+   Table
+=========================== */
+
+.trip-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.trip-table th {
+  text-align: left;
+  padding: 18px 15px;
+  border-bottom: 2px solid #e5e7eb;
+  color: #555;
+}
+
+.trip-table td {
+  padding: 18px 15px;
+  border-bottom: 1px solid #eee;
+  color: #1e293b;
+}
+
+.trip-table tr:hover {
+  background: #f8fafc;
+}
+
+/* ===========================
+   Status
+=========================== */
+
+.running {
+  background: #dcfce7;
+  color: #166534;
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.completed {
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ===========================
+   Actions
+=========================== */
+
+.actions {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.actions svg {
+  cursor: pointer;
+  color: #64748b;
+  transition: .3s;
+}
+
+.actions svg:hover {
+  color: #1976d2;
+  transform: scale(1.1);
+}
+
+/* ===========================
+   Back Button
+=========================== */
+
+.back-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  color: #64748b;
+  transition: .3s;
+}
+
+.back-arrow:hover {
+  background: #f3f4f6;
+  color: #1976d2;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:900px){
+
+.trip-toolbar{
+  flex-direction:column;
+  gap:15px;
+  align-items:flex-start;
+}
+
+.search-trip{
+  width:100%;
+}
+
+.trip-table-card{
+  overflow-x:auto;
+}
+
+}
+
+/* ===========================
+   Dark Theme
+=========================== */
+
+.dashboard.dark-theme .trip-title h2{
+  color:#fff;
+}
+
+.dashboard.dark-theme .trip-title svg{
+  color:#60a5fa;
+}
+
+.dashboard.dark-theme .search-trip{
+  background:#1e293b;
+  border:1px solid #475569;
+}
+
+.dashboard.dark-theme .search-trip svg{
+  color:#94a3b8;
+}
+
+.dashboard.dark-theme .search-trip input{
+  color:#fff;
+}
+
+.dashboard.dark-theme .search-trip input::placeholder{
+  color:#94a3b8;
+}
+
+.dashboard.dark-theme .trip-table-card{
+  background:#1e293b;
+}
+
+.dashboard.dark-theme .trip-table th{
+  color:#cbd5e1;
+  border-bottom:2px solid #475569;
+}
+
+.dashboard.dark-theme .trip-table td{
+  color:#fff;
+  border-bottom:1px solid #334155;
+}
+
+.dashboard.dark-theme .trip-table tr:hover{
+  background:#273449;
+}
+
+.dashboard.dark-theme .back-arrow{
+  color:#cbd5e1;
+}
+
+.dashboard.dark-theme .back-arrow:hover{
+  background:#334155;
+  color:#60a5fa;
+}
+
+.dashboard.dark-theme .actions svg{
+  color:#cbd5e1;
+}
+
+.dashboard.dark-theme .actions svg:hover{
+  color:#60a5fa;
+}

@@ -9,10 +9,14 @@ const {
   updateDriver,
   deleteDriver,
   getDriverCount,
+  getDriverStatus,
 } = require("../controllers/driverController");
 
-// Count (MUST be before /:id)
+// Count
 router.get("/count", getDriverCount);
+
+// Driver Status
+router.get("/status", getDriverStatus);
 
 // Get all drivers
 router.get("/", getDrivers);

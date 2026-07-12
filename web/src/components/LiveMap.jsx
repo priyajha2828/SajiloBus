@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import { Map } from "lucide-react";
@@ -5,7 +6,7 @@ import { FaBus, FaUserTie } from "react-icons/fa";
 
 import "leaflet/dist/leaflet.css";
 
-// Fix marker icon issue
+// Fix Leaflet marker icons
 delete L.Icon.Default.prototype._getIconUrl;
 
 L.Icon.Default.mergeOptions({
@@ -18,15 +19,36 @@ L.Icon.Default.mergeOptions({
 });
 
 function LiveMap() {
+  const [buses, setBuses] = useState([]);
+
+  const fetchLocations = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/buses/live");
+      const data = await response.json();
+
+      if (data.success) {
+        setBuses(data.buses);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchLocations();
+
+    const interval = setInterval(fetchLocations, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="map-card">
-      {/* Heading */}
       <h2 className="map-title">
         <Map size={30} className="map-icon" />
         Live Tracking
       </h2>
 
-      {/* Map */}
       <MapContainer
         center={[27.7172, 85.324]}
         zoom={13}
@@ -41,79 +63,48 @@ function LiveMap() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {/* Bus 101 */}
-        <Marker position={[27.7172, 85.324]}>
-          <Popup>
-            <strong>
-              <FaBus
-                style={{
-                  marginRight: "6px",
-                  color: "#1976d2",
-                  verticalAlign: "middle",
-                }}
-              />
-              Bus 101
-            </strong>
+        {buses.map((bus) => {
+          if (!bus.latitude || !bus.longitude) return null;
 
-            <br />
+          return (
+            <Marker
+              key={bus.id}
+              position={[
+                Number(bus.latitude),
+                Number(bus.longitude),
+              ]}
+            >
+              <Popup>
+                <strong>
+                  <FaBus
+                    style={{
+                      marginRight: "6px",
+                      color: "#1976d2",
+                      verticalAlign: "middle",
+                    }}
+                  />
+                  {bus.busNumber}
+                </strong>
 
-            <FaUserTie
-              style={{
-                marginRight: "6px",
-                color: "#16a34a",
-                verticalAlign: "middle",
-              }}
-            />
-            Driver: Ram Sharma
-          </Popup>
-        </Marker>
+                <br />
 
-        {/* Bus 205 */}
-        <Marker position={[27.714, 85.328]}>
-          <Popup>
-            <strong>
-              <FaBus
-                style={{
-                  marginRight: "6px",
-                  color: "#1976d2",
-                  verticalAlign: "middle",
-                }}
-              />
-              Bus 205
-            </strong>
+                <FaUserTie
+                  style={{
+                    marginRight: "6px",
+                    color: "#16a34a",
+                    verticalAlign: "middle",
+                  }}
+                />
 
-            <br />
+                Driver: {bus.driver}
 
-            <FaUserTie
-              style={{
-                marginRight: "6px",
-                color: "#16a34a",
-                verticalAlign: "middle",
-              }}
-            />
-            Driver: Hari Lama
-          </Popup>
-        </Marker>
+                <br />
 
-        {/* Waiting Driver */}
-        <Marker position={[27.7205, 85.321]}>
-          <Popup>
-            <strong>
-              <FaUserTie
-                style={{
-                  marginRight: "6px",
-                  color: "#16a34a",
-                  verticalAlign: "middle",
-                }}
-              />
-              Driver Waiting
-            </strong>
-
-            <br />
-
-            Name: Suman Rai
-          </Popup>
-        </Marker>
+                Status: {bus.status}
+              </Popup>
+            </Marker>
+          );
+        })}
       </MapContainer>
     </div>
   );

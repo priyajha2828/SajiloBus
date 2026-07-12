@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import { ArrowLeft } from "lucide-react";
@@ -9,6 +8,7 @@ import "../css/AddRoute.css";
 
 function AddRoute() {
   const [collapsed, setCollapsed] = useState(false);
+  const navigate = useNavigate();
 
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("theme") === "dark";
@@ -32,12 +32,30 @@ function AddRoute() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(route);
+    try {
+      const response = await fetch("http://localhost:5000/routes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(route),
+      });
 
-    alert("Route Added Successfully!");
+      const data = await response.json();
+
+      if (data.success) {
+        alert("Route Added Successfully");
+        navigate("/routes");
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Server Error");
+    }
   };
 
   return (
@@ -59,22 +77,15 @@ function AddRoute() {
         />
 
         <div className="add-route-container">
-
           <div className="page-title">
+            <Link to="/routes" className="back-arrow">
+              <ArrowLeft size={24} />
+            </Link>
 
-  <Link to="/routes" className="back-arrow">
-    <ArrowLeft size={24} />
-  </Link>
+            <h2>Add New Route</h2>
+          </div>
 
-  <h2>Add New Route</h2>
-
-</div>
-
-          <form
-            className="route-form"
-            onSubmit={handleSubmit}
-          >
-
+          <form className="route-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <label>Route Name</label>
 
@@ -128,11 +139,7 @@ function AddRoute() {
             </div>
 
             <div className="button-group">
-
-              <Link
-                to="/routes"
-                className="cancel-btn"
-              >
+              <Link to="/routes" className="cancel-btn">
                 Cancel
               </Link>
 
@@ -142,11 +149,8 @@ function AddRoute() {
               >
                 Save Route
               </button>
-
             </div>
-
           </form>
-
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Menu,
   Search,
@@ -17,26 +17,46 @@ function Navbar({ collapsed, setCollapsed, darkMode, setDarkMode }) {
   const [showMenu, setShowMenu] = useState(false);
 const [showNotifications, setShowNotifications] = useState(false);
 
-const notifications = [
-  {
-    id: 1,
-    title: "New Passenger Registered",
-    message: "John Doe created a new account.",
-    time: "2 min ago",
-  },
-  {
-    id: 2,
-    title: "Bus Arrived",
-    message: "Bus 102 reached Kathmandu.",
-    time: "10 min ago",
-  },
-  {
-    id: 3,
-    title: "SOS Alert",
-    message: "Passenger sent an emergency alert.",
-    time: "20 min ago",
-  },
-];
+const [notifications, setNotifications] = useState([]);
+
+useEffect(() => {
+  fetchNotifications();
+}, []);
+
+const fetchNotifications = async () => {
+  try {
+    const response = await fetch(
+      "http://localhost:5000/notifications"
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      setNotifications(data.notifications);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const markAllAsRead = async () => {
+  try {
+    await fetch(
+      "http://localhost:5000/notifications/read-all",
+      {
+        method: "PUT",
+      }
+    );
+
+    fetchNotifications();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const unreadCount = notifications.filter(
+  (item) => !item.isRead
+).length;
 
   return (
     <div className="navbar">
@@ -63,16 +83,24 @@ const notifications = [
   <button
     className="notification-btn"
     onClick={() => {
-      setShowNotifications(!showNotifications);
-      setShowMenu(false);
-    }}
+  const open = !showNotifications;
+
+  setShowNotifications(open);
+  setShowMenu(false);
+
+  if (open) {
+    markAllAsRead();
+  }
+}}
   >
     <Bell size={20} />
   </button>
 
+  {unreadCount > 0 && (
   <span className="notification-badge">
-    {notifications.length}
+    {unreadCount}
   </span>
+)}
 
   {showNotifications && (
     <div className="notification-dropdown">
@@ -87,13 +115,21 @@ const notifications = [
     </button>
   </div>
 
-  {notifications.map((item) => (
+  {notifications.length > 0 ? (
+  notifications.map((item) => (
     <div key={item.id} className="notification-item">
       <h5>{item.title}</h5>
       <p>{item.message}</p>
-      <span>{item.time}</span>
+      <span>
+        {new Date(item.createdAt).toLocaleString()}
+      </span>
     </div>
-  ))}
+  ))
+) : (
+  <div className="notification-item">
+    <p>No notifications found.</p>
+  </div>
+)}
 </div>
   )}
 </div>

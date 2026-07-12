@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 import "../css/AddBus.css";
 
@@ -74,7 +75,17 @@ function AddBus() {
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 
         <div className="add-bus-container">
+          
+        <div className="page-title">
+
+          <Link
+            to="/buses"
+            className="back-arrow"
+          >
+            <ArrowLeft size={24} />
+          </Link>
           <h2>Add New Bus</h2>
+          </div>
 
           <form className="bus-form" onSubmit={handleSubmit}>
             <div className="form-group">

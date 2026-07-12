@@ -2,9 +2,25 @@
    Dashboard Layout
 ========================== */
 
+html,
+body,
+#root{
+    margin:0;
+    padding:0;
+    min-height:100%;
+    background:#f5f7fb;
+    overflow-x:hidden;
+}
+
+body.dark-theme{
+    background:#0f172a;
+}
+ 
 .dashboard{
     min-height:100vh;
+    width:100%;
     background:#f5f7fb;
+    overflow-x:hidden;
 }
 
 /* ==========================
@@ -14,10 +30,9 @@
 .dashboard-content{
     margin-left:260px;
     padding:25px;
-
-    transition:.3s;
-
     min-height:100vh;
+    background:inherit;
+    transition:.3s;
 }
 
 /* This class is added when sidebar is collapsed */
@@ -334,33 +349,47 @@ table td{
 .trip-status.waiting{
     color:#f59e0b;
 }
-/* Driver Status */
 
-/* Driver Status Badge */
+
+ /* Driver Status */
 
 .driver-status{
     display:inline-flex;
     justify-content:center;
     align-items:center;
 
-    min-width:90px;
-    height:36px;
+    min-width:110px;
+    height:38px;
 
-    padding:0 16px;
+    padding:0 18px;
 
-    border:1px solid #94a3b8;
     border-radius:20px;
-
-    background:#ffffff;
     font-weight:600;
+    border:1px solid;
 }
 
-.driver-status.online{
-    color:#16a34a;
+/* Available */
+
+.driver-status.available{
+    color:#2563eb;
+    background:rgba(59,130,246,.15);
+    border-color:#3b82f6;
 }
+
+/* Driving */
+
+.driver-status.driving{
+    color:#16a34a;
+    background:rgba(34,197,94,.15);
+    border-color:#22c55e;
+}
+
+/* Offline */
 
 .driver-status.offline{
     color:#dc2626;
+    background:rgba(239,68,68,.15);
+    border-color:#ef4444;
 }
 
 /* Remove browser focus outline */

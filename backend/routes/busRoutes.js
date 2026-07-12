@@ -9,6 +9,7 @@ const {
   updateBus,
   deleteBus,
   getBusCount,
+   getLiveBusLocations,
 } = require("../controllers/busController");
 
 // Count
@@ -17,8 +18,7 @@ router.get("/count", getBusCount);
 // Get All
 router.get("/", getBuses);
 
-// Get One
-router.get("/:id", getBusById);
+
 
 // Create
 router.post("/", createBus);
@@ -28,5 +28,7 @@ router.put("/:id", updateBus);
 
 // Delete
 router.delete("/:id", deleteBus);
+
+router.get("/:id", getBusById);
 
 module.exports = router;

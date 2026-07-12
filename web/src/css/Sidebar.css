@@ -3,23 +3,25 @@
 =========================== */
 
 .sidebar{
-    position:fixed;
-    top:0;
-    left:0;
+    position: fixed;
+    top: 0;
+    left: 0;
 
-    width:260px;
-    height:100vh;
+    width: 260px;
+    height: 100vh;
 
-    background:#111827;
-    color:white;
+    background: #111827;
+    color: white;
 
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
+    display: flex;
+    flex-direction: column;
 
-    transition:.3s;
-    overflow:hidden;
-    z-index:1000;
+    transition: .3s;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    z-index: 1000;
 }
 
 .sidebar.collapsed{
@@ -55,23 +57,24 @@
 }
 
 .toggle-btn {
-    width: 38px;
-    height: 38px;
-    border: none;
-    background: transparent;
-    color: white;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+
+    background: transparent;
+    border: none;
+    color: #fff;
     cursor: pointer;
+
     border-radius: 8px;
-    outline: none;
-    box-shadow: none;
-    -webkit-tap-highlight-color: transparent;
+    transition: 0.3s;
 }
 
 .toggle-btn:hover {
-    background: transparent;   /* or #f3f4f6 if you want */
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .toggle-btn:focus,
@@ -146,6 +149,17 @@
    Collapsed Sidebar
 =========================== */
 
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 18px 16px 14px;
+    margin-top: 12px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 .sidebar.collapsed .sidebar-header {
   justify-content: center;
 }
@@ -170,19 +184,18 @@
     gap:10px;
 }
 
-.sidebar-logo-img{
-    width:38px;
-    height:38px;
-    border-radius:8px;
-    object-fit:contain;
+.sidebar-logo-img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
 }
 
-.logo{
-    margin:0;
-    font-size:20px;
-    font-weight:700;
-    color:white;
-    white-space:nowrap;
+.logo {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    white-space: nowrap;
 }
 
 .light-sidebar{

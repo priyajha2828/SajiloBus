@@ -1,0 +1,106 @@
+.view-trip-container{
+    max-width:700px;
+    margin:30px auto;
+}
+
+.view-header{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.view-header h2{
+    margin:0;
+}
+
+.trip-card{
+    background:#fff;
+    border-radius:15px;
+    padding:30px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.trip-row{
+    display:flex;
+    justify-content:space-between;
+    padding:18px 0;
+    border-bottom:1px solid #eee;
+}
+
+.trip-row:last-child{
+    border-bottom:none;
+}
+
+.trip-row span:first-child{
+    color:#64748b;
+    font-weight:600;
+}
+
+.running{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    min-width:110px;
+    padding:8px 18px;
+
+    background:#dbeafe;
+    color:#1d4ed8;
+
+    border:1px solid #93c5fd;
+
+    border-radius:999px;
+
+    font-size:14px;
+    font-weight:600;
+}
+
+.completed{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    min-width:110px;
+    padding:8px 18px;
+
+    background:#dcfce7;
+    color:#166534;
+
+    border:1px solid #86efac;
+
+    border-radius:999px;
+
+    font-size:14px;
+    font-weight:600;
+}
+
+/* Dark Theme */
+
+.dashboard.dark-theme .trip-card{
+    background:#1e293b;
+}
+
+.dashboard.dark-theme .trip-row{
+    border-bottom:1px solid #334155;
+}
+
+.dashboard.dark-theme .trip-row span{
+    color:#cbd5e1;
+}
+
+.dashboard.dark-theme .trip-row strong{
+    color:#fff;
+}
+
+.dashboard.dark-theme .completed{
+    background:#14532d;
+    color:#bbf7d0;
+    border:1px solid #22c55e;
+}
+
+.dashboard.dark-theme .running{
+    background:#1e3a8a;
+    color:#bfdbfe;
+    border:1px solid #3b82f6;
+}

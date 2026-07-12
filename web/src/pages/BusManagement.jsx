@@ -8,6 +8,8 @@ import {
   Pencil,
   Trash2,
   Eye,
+  ArrowLeft,
+
 } from "lucide-react";
 
 import Sidebar from "../components/Sidebar";
@@ -84,9 +86,7 @@ const deleteBus = async (id) => {
 };
 
 
-if (loading) {
-  return <h2>Loading Buses...</h2>;
-}
+
 
   return (
     <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>
@@ -107,9 +107,17 @@ if (loading) {
 
         {/* Header */}
 
-        <div className="bus-header">
-          <div className="bus-title">
-            <Bus size={30} />
+        <div className="route-header">
+          <div className="route-title">
+            <button
+  className="back-arrow"
+  onClick={() => navigate(-1)}
+>
+  <ArrowLeft size={24} />
+</button>
+
+            <bus size={30} />
+
             <h2>Bus Management</h2>
           </div>
 

@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
+import { ArrowLeft } from "lucide-react";
 
 import "../css/AddPassenger.css";
 
@@ -11,6 +12,8 @@ function AddPassenger() {
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("theme") === "dark";
   });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem("theme", darkMode ? "dark" : "light");
@@ -33,18 +36,41 @@ function AddPassenger() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (passenger.password !== passenger.confirmPassword) {
-      alert("Passwords do not match!");
-      return;
+  if (passenger.password !== passenger.confirmPassword) {
+    alert("Passwords do not match!");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:5000/passengers", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firebaseUid: `passenger_${Date.now()}`, // temporary unique id
+        name: passenger.name,
+        email: passenger.email,
+        phone: passenger.phone,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      alert("Passenger Added Successfully");
+      navigate("/passengers");
+    } else {
+      alert(data.message);
     }
-
-    console.log(passenger);
-
-    alert("Passenger Added Successfully");
-  };
+  } catch (error) {
+    console.log(error);
+    alert("Server Error");
+  }
+};
 
   return (
     <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>
@@ -66,7 +92,17 @@ function AddPassenger() {
 
         <div className="add-passenger-container">
 
+          <div className="page-title">
+
+          <Link
+            to="/passengers"
+            className="back-arrow"
+          >
+            <ArrowLeft size={24} />
+          </Link>
+
           <h2>Add New Passenger</h2>
+          </div>
 
           <form
             className="passenger-form"

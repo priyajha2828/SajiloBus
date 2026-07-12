@@ -338,3 +338,12 @@
     color:#e2e8f0;
     border:1px solid #64748b;
 }
+
+.back-arrow {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: inherit;
+}
