@@ -3,6 +3,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 
+import {router as adminRoutes} from "./routes/adminRoutes.js";
 import  {router as passengerRoutes} from "./routes/passengerRoutes.js";
 import  {router as driverRoutes} from "./routes/driverRoutes.js";
 import {router as busRoutes} from "./routes/busRoutes.js";
@@ -13,6 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+app.use("/admin", adminRoutes);
 app.use("/passengers", passengerRoutes);
 app.use("/drivers", driverRoutes);
 app.use("/buses", busRoutes);
