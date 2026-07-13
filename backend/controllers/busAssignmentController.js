@@ -1,10 +1,10 @@
-const prisma = require("../config/prisma");
+import { prisma } from "../config/prisma.js";
 
 // ===========================
 // Get All Assignments
 // ===========================
 
-const getAssignments = async (req, res) => {
+export const getAssignments = async (req, res) => {
   try {
     const assignments = await prisma.busAssignment.findMany({
       include: {
@@ -34,7 +34,7 @@ const getAssignments = async (req, res) => {
 // Get Assignment By ID
 // ===========================
 
-const getAssignmentById = async (req, res) => {
+export const getAssignmentById = async (req, res) => {
   try {
     const id = Number(req.params.id);
 
@@ -73,7 +73,7 @@ const getAssignmentById = async (req, res) => {
 // Create Assignment
 // ===========================
 
-const createAssignment = async (req, res) => {
+export const createAssignment = async (req, res) => {
   try {
     const {
       driverId,
@@ -211,7 +211,7 @@ if (existingDriver) {
 // Update Assignment
 // ===========================
 
-const updateAssignment = async (req, res) => {
+export const updateAssignment = async (req, res) => {
   try {
     const id = Number(req.params.id);
 
@@ -257,7 +257,7 @@ const updateAssignment = async (req, res) => {
 // Delete Assignment
 // ===========================
 
-const deleteAssignment = async (req, res) => {
+export const deleteAssignment = async (req, res) => {
   try {
     const id = Number(req.params.id);
 
@@ -285,7 +285,7 @@ const deleteAssignment = async (req, res) => {
 // Assignment Count
 // ===========================
 
-const getAssignmentCount = async (req, res) => {
+export const getAssignmentCount = async (req, res) => {
   try {
     const count = await prisma.busAssignment.count();
 
@@ -303,11 +303,3 @@ const getAssignmentCount = async (req, res) => {
   }
 };
 
-module.exports = {
-  getAssignments,
-  getAssignmentById,
-  createAssignment,
-  updateAssignment,
-  deleteAssignment,
-  getAssignmentCount,
-};

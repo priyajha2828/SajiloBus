@@ -1,8 +1,6 @@
-import  express from "express";
+import express from "express";
 
-
-<<<<<<< HEAD
-const {
+import {
   getDrivers,
   getDriverById,
   createDriver,
@@ -10,25 +8,20 @@ const {
   deleteDriver,
   getDriverCount,
   getDriverStatus,
-} = require("../controllers/driverController");
+} from "../controllers/driverController.js";
 
-// Count
-=======
+const router = express.Router();
 
-import {getDrivers,getDriverById,createDriver,updateDriver,deleteDriver,getDriverCount,} from "../controllers/driverController.js";
-
-export const router = express.Router();
-// Count (MUST be before /:id)
->>>>>>> 20c3ca8643a1b4b50975f40c9f1c67be8a464915
+// Count (must be before /:id)
 router.get("/count", getDriverCount);
 
 // Driver Status
 router.get("/status", getDriverStatus);
 
-// Get all drivers
+// Get All
 router.get("/", getDrivers);
 
-// Get one driver
+// Get By ID
 router.get("/:id", getDriverById);
 
 // Create
@@ -40,4 +33,4 @@ router.put("/:id", updateDriver);
 // Delete
 router.delete("/:id", deleteDriver);
 
-// module.exports = router;
+export default router;

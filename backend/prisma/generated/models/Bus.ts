@@ -237,8 +237,8 @@ export type BusWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Bus"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Bus"> | Date | string
   assignments?: Prisma.BusAssignmentListRelationFilter
-  trips?: Prisma.TripListRelationFilter
   schedules?: Prisma.BusScheduleListRelationFilter
+  trips?: Prisma.TripListRelationFilter
 }
 
 export type BusOrderByWithRelationInput = {
@@ -250,8 +250,8 @@ export type BusOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   assignments?: Prisma.BusAssignmentOrderByRelationAggregateInput
-  trips?: Prisma.TripOrderByRelationAggregateInput
   schedules?: Prisma.BusScheduleOrderByRelationAggregateInput
+  trips?: Prisma.TripOrderByRelationAggregateInput
 }
 
 export type BusWhereUniqueInput = Prisma.AtLeast<{
@@ -266,8 +266,8 @@ export type BusWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Bus"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Bus"> | Date | string
   assignments?: Prisma.BusAssignmentListRelationFilter
-  trips?: Prisma.TripListRelationFilter
   schedules?: Prisma.BusScheduleListRelationFilter
+  trips?: Prisma.TripListRelationFilter
 }, "id" | "busNumber" | "plateNumber">
 
 export type BusOrderByWithAggregationInput = {
@@ -306,8 +306,8 @@ export type BusCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   assignments?: Prisma.BusAssignmentCreateNestedManyWithoutBusInput
-  trips?: Prisma.TripCreateNestedManyWithoutBusInput
   schedules?: Prisma.BusScheduleCreateNestedManyWithoutBusInput
+  trips?: Prisma.TripCreateNestedManyWithoutBusInput
 }
 
 export type BusUncheckedCreateInput = {
@@ -319,8 +319,8 @@ export type BusUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   assignments?: Prisma.BusAssignmentUncheckedCreateNestedManyWithoutBusInput
-  trips?: Prisma.TripUncheckedCreateNestedManyWithoutBusInput
   schedules?: Prisma.BusScheduleUncheckedCreateNestedManyWithoutBusInput
+  trips?: Prisma.TripUncheckedCreateNestedManyWithoutBusInput
 }
 
 export type BusUpdateInput = {
@@ -331,8 +331,8 @@ export type BusUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignments?: Prisma.BusAssignmentUpdateManyWithoutBusNestedInput
-  trips?: Prisma.TripUpdateManyWithoutBusNestedInput
   schedules?: Prisma.BusScheduleUpdateManyWithoutBusNestedInput
+  trips?: Prisma.TripUpdateManyWithoutBusNestedInput
 }
 
 export type BusUncheckedUpdateInput = {
@@ -344,8 +344,8 @@ export type BusUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignments?: Prisma.BusAssignmentUncheckedUpdateManyWithoutBusNestedInput
-  trips?: Prisma.TripUncheckedUpdateManyWithoutBusNestedInput
   schedules?: Prisma.BusScheduleUncheckedUpdateManyWithoutBusNestedInput
+  trips?: Prisma.TripUncheckedUpdateManyWithoutBusNestedInput
 }
 
 export type BusCreateManyInput = {
@@ -475,8 +475,8 @@ export type BusCreateWithoutAssignmentsInput = {
   status?: $Enums.BusStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  trips?: Prisma.TripCreateNestedManyWithoutBusInput
   schedules?: Prisma.BusScheduleCreateNestedManyWithoutBusInput
+  trips?: Prisma.TripCreateNestedManyWithoutBusInput
 }
 
 export type BusUncheckedCreateWithoutAssignmentsInput = {
@@ -487,8 +487,8 @@ export type BusUncheckedCreateWithoutAssignmentsInput = {
   status?: $Enums.BusStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  trips?: Prisma.TripUncheckedCreateNestedManyWithoutBusInput
   schedules?: Prisma.BusScheduleUncheckedCreateNestedManyWithoutBusInput
+  trips?: Prisma.TripUncheckedCreateNestedManyWithoutBusInput
 }
 
 export type BusCreateOrConnectWithoutAssignmentsInput = {
@@ -514,8 +514,8 @@ export type BusUpdateWithoutAssignmentsInput = {
   status?: Prisma.EnumBusStatusFieldUpdateOperationsInput | $Enums.BusStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  trips?: Prisma.TripUpdateManyWithoutBusNestedInput
   schedules?: Prisma.BusScheduleUpdateManyWithoutBusNestedInput
+  trips?: Prisma.TripUpdateManyWithoutBusNestedInput
 }
 
 export type BusUncheckedUpdateWithoutAssignmentsInput = {
@@ -526,8 +526,8 @@ export type BusUncheckedUpdateWithoutAssignmentsInput = {
   status?: Prisma.EnumBusStatusFieldUpdateOperationsInput | $Enums.BusStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  trips?: Prisma.TripUncheckedUpdateManyWithoutBusNestedInput
   schedules?: Prisma.BusScheduleUncheckedUpdateManyWithoutBusNestedInput
+  trips?: Prisma.TripUncheckedUpdateManyWithoutBusNestedInput
 }
 
 export type BusCreateWithoutTripsInput = {
@@ -661,14 +661,14 @@ export type BusUncheckedUpdateWithoutSchedulesInput = {
 
 export type BusCountOutputType = {
   assignments: number
-  trips: number
   schedules: number
+  trips: number
 }
 
 export type BusCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   assignments?: boolean | BusCountOutputTypeCountAssignmentsArgs
-  trips?: boolean | BusCountOutputTypeCountTripsArgs
   schedules?: boolean | BusCountOutputTypeCountSchedulesArgs
+  trips?: boolean | BusCountOutputTypeCountTripsArgs
 }
 
 /**
@@ -691,15 +691,15 @@ export type BusCountOutputTypeCountAssignmentsArgs<ExtArgs extends runtime.Types
 /**
  * BusCountOutputType without action
  */
-export type BusCountOutputTypeCountTripsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TripWhereInput
+export type BusCountOutputTypeCountSchedulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BusScheduleWhereInput
 }
 
 /**
  * BusCountOutputType without action
  */
-export type BusCountOutputTypeCountSchedulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.BusScheduleWhereInput
+export type BusCountOutputTypeCountTripsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TripWhereInput
 }
 
 
@@ -712,8 +712,8 @@ export type BusSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   createdAt?: boolean
   updatedAt?: boolean
   assignments?: boolean | Prisma.Bus$assignmentsArgs<ExtArgs>
-  trips?: boolean | Prisma.Bus$tripsArgs<ExtArgs>
   schedules?: boolean | Prisma.Bus$schedulesArgs<ExtArgs>
+  trips?: boolean | Prisma.Bus$tripsArgs<ExtArgs>
   _count?: boolean | Prisma.BusCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["bus"]>
 
@@ -750,8 +750,8 @@ export type BusSelectScalar = {
 export type BusOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "busNumber" | "plateNumber" | "capacity" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["bus"]>
 export type BusInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   assignments?: boolean | Prisma.Bus$assignmentsArgs<ExtArgs>
-  trips?: boolean | Prisma.Bus$tripsArgs<ExtArgs>
   schedules?: boolean | Prisma.Bus$schedulesArgs<ExtArgs>
+  trips?: boolean | Prisma.Bus$tripsArgs<ExtArgs>
   _count?: boolean | Prisma.BusCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BusIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -761,8 +761,8 @@ export type $BusPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   name: "Bus"
   objects: {
     assignments: Prisma.$BusAssignmentPayload<ExtArgs>[]
-    trips: Prisma.$TripPayload<ExtArgs>[]
     schedules: Prisma.$BusSchedulePayload<ExtArgs>[]
+    trips: Prisma.$TripPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1167,8 +1167,8 @@ readonly fields: BusFieldRefs;
 export interface Prisma__BusClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   assignments<T extends Prisma.Bus$assignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bus$assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  trips<T extends Prisma.Bus$tripsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bus$tripsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   schedules<T extends Prisma.Bus$schedulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bus$schedulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  trips<T extends Prisma.Bus$tripsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bus$tripsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1622,30 +1622,6 @@ export type Bus$assignmentsArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * Bus.trips
- */
-export type Bus$tripsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Trip
-   */
-  select?: Prisma.TripSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Trip
-   */
-  omit?: Prisma.TripOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TripInclude<ExtArgs> | null
-  where?: Prisma.TripWhereInput
-  orderBy?: Prisma.TripOrderByWithRelationInput | Prisma.TripOrderByWithRelationInput[]
-  cursor?: Prisma.TripWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.TripScalarFieldEnum | Prisma.TripScalarFieldEnum[]
-}
-
-/**
  * Bus.schedules
  */
 export type Bus$schedulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1667,6 +1643,30 @@ export type Bus$schedulesArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.BusScheduleScalarFieldEnum | Prisma.BusScheduleScalarFieldEnum[]
+}
+
+/**
+ * Bus.trips
+ */
+export type Bus$tripsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Trip
+   */
+  select?: Prisma.TripSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Trip
+   */
+  omit?: Prisma.TripOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TripInclude<ExtArgs> | null
+  where?: Prisma.TripWhereInput
+  orderBy?: Prisma.TripOrderByWithRelationInput | Prisma.TripOrderByWithRelationInput[]
+  cursor?: Prisma.TripWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TripScalarFieldEnum | Prisma.TripScalarFieldEnum[]
 }
 
 /**

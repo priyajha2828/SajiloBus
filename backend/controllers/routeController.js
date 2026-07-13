@@ -1,7 +1,7 @@
-const prisma = require("../config/prisma");
+import { prisma } from "../config/prisma.js";
 
 // Get All Routes
-const getRoutes = async (req, res) => {
+export const getRoutes = async (req, res) => {
   try {
     const routes = await prisma.route.findMany({
       orderBy: {
@@ -22,7 +22,7 @@ const getRoutes = async (req, res) => {
 };
 
 // Get Route By Id
-const getRouteById = async (req, res) => {
+export const getRouteById = async (req, res) => {
   try {
     const id = Number(req.params.id);
 
@@ -51,7 +51,7 @@ const getRouteById = async (req, res) => {
 };
 
 // Create Route
-const createRoute = async (req, res) => {
+export const createRoute = async (req, res) => {
   try {
     const {
       routeName,
@@ -97,7 +97,7 @@ const createRoute = async (req, res) => {
 };
 
 // Update Route
-const updateRoute = async (req, res) => {
+export const updateRoute = async (req, res) => {
   try {
     const id = Number(req.params.id);
 
@@ -133,7 +133,7 @@ const updateRoute = async (req, res) => {
 };
 
 // Delete Route
-const deleteRoute = async (req, res) => {
+export const deleteRoute = async (req, res) => {
   try {
     const id = Number(req.params.id);
 
@@ -203,10 +203,3 @@ const deleteRoute = async (req, res) => {
   }
 };
 
-module.exports = {
-  getRoutes,
-  getRouteById,
-  createRoute,
-  updateRoute,
-  deleteRoute,
-};

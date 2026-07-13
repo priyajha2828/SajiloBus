@@ -51,7 +51,7 @@ function App() {
       <Route path="/drivers/edit/:id" element={<EditDriver />} />
       <Route path="/buses/view/:id" element={<ViewBus />} />
       <Route path="/buses/edit/:id" element={<EditBus />} />
-<<<<<<< HEAD
+
       <Route path="/assignments" element={<AssignmentManagement />} />
       <Route path="/passengers/view/:id" element={<ViewPassenger />} />
       <Route path="/schedules" element={<ScheduleManagement />} />
@@ -83,9 +83,7 @@ function App() {
       <Route path="/trips/edit/:id" element={<EditTrip />} />
 
       <Route path="/trips/view/:id" element={<ViewTrip />} />
-=======
 
->>>>>>> 20c3ca8643a1b4b50975f40c9f1c67be8a464915
     </Routes>
   );
 }

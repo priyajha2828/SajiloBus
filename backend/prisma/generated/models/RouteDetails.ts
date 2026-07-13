@@ -228,8 +228,8 @@ export type RouteDetailsWhereInput = {
   busStopId?: Prisma.IntFilter<"RouteDetails"> | number
   orderIndex?: Prisma.IntFilter<"RouteDetails"> | number
   remarks?: Prisma.StringNullableFilter<"RouteDetails"> | string | null
-  route?: Prisma.XOR<Prisma.RouteScalarRelationFilter, Prisma.RouteWhereInput>
   busStop?: Prisma.XOR<Prisma.BusStopScalarRelationFilter, Prisma.BusStopWhereInput>
+  route?: Prisma.XOR<Prisma.RouteScalarRelationFilter, Prisma.RouteWhereInput>
 }
 
 export type RouteDetailsOrderByWithRelationInput = {
@@ -238,8 +238,8 @@ export type RouteDetailsOrderByWithRelationInput = {
   busStopId?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
   remarks?: Prisma.SortOrderInput | Prisma.SortOrder
-  route?: Prisma.RouteOrderByWithRelationInput
   busStop?: Prisma.BusStopOrderByWithRelationInput
+  route?: Prisma.RouteOrderByWithRelationInput
 }
 
 export type RouteDetailsWhereUniqueInput = Prisma.AtLeast<{
@@ -251,8 +251,8 @@ export type RouteDetailsWhereUniqueInput = Prisma.AtLeast<{
   busStopId?: Prisma.IntFilter<"RouteDetails"> | number
   orderIndex?: Prisma.IntFilter<"RouteDetails"> | number
   remarks?: Prisma.StringNullableFilter<"RouteDetails"> | string | null
-  route?: Prisma.XOR<Prisma.RouteScalarRelationFilter, Prisma.RouteWhereInput>
   busStop?: Prisma.XOR<Prisma.BusStopScalarRelationFilter, Prisma.BusStopWhereInput>
+  route?: Prisma.XOR<Prisma.RouteScalarRelationFilter, Prisma.RouteWhereInput>
 }, "id">
 
 export type RouteDetailsOrderByWithAggregationInput = {
@@ -282,8 +282,8 @@ export type RouteDetailsScalarWhereWithAggregatesInput = {
 export type RouteDetailsCreateInput = {
   orderIndex: number
   remarks?: string | null
-  route: Prisma.RouteCreateNestedOneWithoutRouteDetailsInput
   busStop: Prisma.BusStopCreateNestedOneWithoutRouteDetailsInput
+  route: Prisma.RouteCreateNestedOneWithoutRouteDetailsInput
 }
 
 export type RouteDetailsUncheckedCreateInput = {
@@ -297,8 +297,8 @@ export type RouteDetailsUncheckedCreateInput = {
 export type RouteDetailsUpdateInput = {
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
   remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  route?: Prisma.RouteUpdateOneRequiredWithoutRouteDetailsNestedInput
   busStop?: Prisma.BusStopUpdateOneRequiredWithoutRouteDetailsNestedInput
+  route?: Prisma.RouteUpdateOneRequiredWithoutRouteDetailsNestedInput
 }
 
 export type RouteDetailsUncheckedUpdateInput = {
@@ -613,8 +613,8 @@ export type RouteDetailsSelect<ExtArgs extends runtime.Types.Extensions.Internal
   busStopId?: boolean
   orderIndex?: boolean
   remarks?: boolean
-  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
   busStop?: boolean | Prisma.BusStopDefaultArgs<ExtArgs>
+  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["routeDetails"]>
 
 export type RouteDetailsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -623,8 +623,8 @@ export type RouteDetailsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   busStopId?: boolean
   orderIndex?: boolean
   remarks?: boolean
-  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
   busStop?: boolean | Prisma.BusStopDefaultArgs<ExtArgs>
+  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["routeDetails"]>
 
 export type RouteDetailsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -633,8 +633,8 @@ export type RouteDetailsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   busStopId?: boolean
   orderIndex?: boolean
   remarks?: boolean
-  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
   busStop?: boolean | Prisma.BusStopDefaultArgs<ExtArgs>
+  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["routeDetails"]>
 
 export type RouteDetailsSelectScalar = {
@@ -647,23 +647,23 @@ export type RouteDetailsSelectScalar = {
 
 export type RouteDetailsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "routeId" | "busStopId" | "orderIndex" | "remarks", ExtArgs["result"]["routeDetails"]>
 export type RouteDetailsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
   busStop?: boolean | Prisma.BusStopDefaultArgs<ExtArgs>
+  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
 }
 export type RouteDetailsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
   busStop?: boolean | Prisma.BusStopDefaultArgs<ExtArgs>
+  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
 }
 export type RouteDetailsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
   busStop?: boolean | Prisma.BusStopDefaultArgs<ExtArgs>
+  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
 }
 
 export type $RouteDetailsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "RouteDetails"
   objects: {
-    route: Prisma.$RoutePayload<ExtArgs>
     busStop: Prisma.$BusStopPayload<ExtArgs>
+    route: Prisma.$RoutePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1065,8 +1065,8 @@ readonly fields: RouteDetailsFieldRefs;
  */
 export interface Prisma__RouteDetailsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  route<T extends Prisma.RouteDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RouteDefaultArgs<ExtArgs>>): Prisma.Prisma__RouteClient<runtime.Types.Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   busStop<T extends Prisma.BusStopDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BusStopDefaultArgs<ExtArgs>>): Prisma.Prisma__BusStopClient<runtime.Types.Result.GetResult<Prisma.$BusStopPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  route<T extends Prisma.RouteDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RouteDefaultArgs<ExtArgs>>): Prisma.Prisma__RouteClient<runtime.Types.Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

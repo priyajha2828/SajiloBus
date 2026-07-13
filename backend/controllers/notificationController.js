@@ -1,10 +1,10 @@
-const prisma = require("../config/prisma");
+import { prisma } from "../config/prisma.js";
 
 // =============================
 // Get All Notifications
 // =============================
 
-const getNotifications = async (req, res) => {
+export const getNotifications = async (req, res) => {
   try {
     const notifications = await prisma.notification.findMany({
       include: {
@@ -34,7 +34,7 @@ const getNotifications = async (req, res) => {
 // Create Notification
 // =============================
 
-const createNotification = async (req, res) => {
+export const createNotification = async (req, res) => {
   try {
     const {
       passengerId,
@@ -71,7 +71,7 @@ const createNotification = async (req, res) => {
 // Mark All Notifications As Read
 // =============================
 
-const markAllAsRead = async (req, res) => {
+export const markAllAsRead = async (req, res) => {
   try {
     await prisma.notification.updateMany({
       where: {
@@ -100,7 +100,7 @@ const markAllAsRead = async (req, res) => {
 // Delete Notification
 // =============================
 
-const deleteNotification = async (req, res) => {
+export const deleteNotification = async (req, res) => {
   try {
     const id = Number(req.params.id);
 
@@ -124,9 +124,3 @@ const deleteNotification = async (req, res) => {
   }
 };
 
-module.exports = {
-  getNotifications,
-  createNotification,
-  deleteNotification,
-  markAllAsRead,
-};

@@ -1,16 +1,21 @@
-<<<<<<< HEAD
-const express = require("express");
+import express from "express";
 
-const router = express.Router();
-
-const {
+import {
   getPassengers,
   getPassengerById,
   createPassenger,
   updatePassenger,
   deletePassenger,
   getPassengerCount,
-} = require("../controllers/passengerController");
+  registerPassenger,
+  loginPassenger,
+} from "../controllers/passengerController.js";
+
+const router = express.Router();
+
+// Authentication
+router.post("/register", registerPassenger);
+router.post("/login", loginPassenger);
 
 // Count
 router.get("/count", getPassengerCount);
@@ -30,16 +35,4 @@ router.put("/:id", updatePassenger);
 // Delete
 router.delete("/:id", deletePassenger);
 
-module.exports = router;
-=======
-import express from "express";
-import {registerPassenger,loginPassenger} from "../controllers/passengerController.js";
-
-export const router = express.Router();
-
-router.post("/register", registerPassenger);
-
- router.post("/login", loginPassenger);
-
-// export default router;
->>>>>>> 20c3ca8643a1b4b50975f40c9f1c67be8a464915
+export default router;

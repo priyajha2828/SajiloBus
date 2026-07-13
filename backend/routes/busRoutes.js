@@ -1,29 +1,28 @@
-import  express from "express";
-import  { getBuses, getBusById,createBus,updateBus,deleteBus,getBusCount,} from "../controllers/busController.js";
+import express from "express";
 
-<<<<<<< HEAD
-const router = express.Router();
-
-const {
+import {
   getBuses,
   getBusById,
   createBus,
   updateBus,
   deleteBus,
   getBusCount,
-   getLiveBusLocations,
-} = require("../controllers/busController");
-=======
-export const router = express.Router();
->>>>>>> 20c3ca8643a1b4b50975f40c9f1c67be8a464915
+  getLiveBusLocations,
+} from "../controllers/busController.js";
+
+const router = express.Router();
 
 // Count
 router.get("/count", getBusCount);
 
+// Live Location
+router.get("/live", getLiveBusLocations);
+
 // Get All
 router.get("/", getBuses);
 
-
+// Get By ID
+router.get("/:id", getBusById);
 
 // Create
 router.post("/", createBus);
@@ -34,10 +33,4 @@ router.put("/:id", updateBus);
 // Delete
 router.delete("/:id", deleteBus);
 
-<<<<<<< HEAD
-router.get("/:id", getBusById);
-
-module.exports = router;
-=======
-// export default router;
->>>>>>> 20c3ca8643a1b4b50975f40c9f1c67be8a464915
+export default router;

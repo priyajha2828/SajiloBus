@@ -1,8 +1,6 @@
-const express = require("express");
+import express from "express";
 
-const router = express.Router();
-
-const {
+import {
   getTrips,
   getTripById,
   createTrip,
@@ -11,7 +9,9 @@ const {
   deleteTrip,
   getTripCount,
   getRecentTrips,
-} = require("../controllers/tripController");
+} from "../controllers/tripController.js";
+
+const router = express.Router();
 
 // Count
 router.get("/count", getTripCount);
@@ -37,4 +37,4 @@ router.put("/end/:id", endTrip);
 // Delete Trip
 router.delete("/:id", deleteTrip);
 
-module.exports = router;
+export default router;

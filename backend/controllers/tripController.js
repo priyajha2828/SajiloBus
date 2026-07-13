@@ -1,12 +1,10 @@
-const { PrismaClient } = require("@prisma/client");
-
-const prisma = new PrismaClient();
+import { prisma } from "../config/prisma.js";
 
 /* =========================================
    GET ALL TRIPS
 ========================================= */
 
-const getTrips = async (req, res) => {
+export const getTrips = async (req, res) => {
   try {
     const { search } = req.query;
 
@@ -69,7 +67,7 @@ const getTrips = async (req, res) => {
    GET TRIP BY ID
 ========================================= */
 
-const getTripById = async (req, res) => {
+export const getTripById = async (req, res) => {
   try {
     const trip = await prisma.trip.findUnique({
       where: {
@@ -107,7 +105,7 @@ const getTripById = async (req, res) => {
    CREATE TRIP
 ========================================= */
 
-const createTrip = async (req, res) => {
+export const createTrip = async (req, res) => {
   try {
     const { driverId, busId, routeId } = req.body;
 
@@ -211,7 +209,7 @@ const createTrip = async (req, res) => {
    END TRIP
 ========================================= */
 
-const endTrip = async (req, res) => {
+export const endTrip = async (req, res) => {
   try {
     const trip = await prisma.trip.update({
       where: {
@@ -241,7 +239,7 @@ const endTrip = async (req, res) => {
    DELETE TRIP
 ========================================= */
 
-const deleteTrip = async (req, res) => {
+export const deleteTrip = async (req, res) => {
   try {
     await prisma.trip.delete({
       where: {
@@ -267,7 +265,7 @@ const deleteTrip = async (req, res) => {
    UPDATE TRIP
 ========================================= */
 
-const updateTrip = async (req, res) => {
+export const updateTrip = async (req, res) => {
   try {
     const { driverId, busId, routeId } = req.body;
     const { id } = req.params;
@@ -320,7 +318,7 @@ const updateTrip = async (req, res) => {
    COUNT
 ========================================= */
 
-const getTripCount = async (req, res) => {
+export const getTripCount = async (req, res) => {
   try {
     const count = await prisma.trip.count();
 
@@ -338,7 +336,7 @@ const getTripCount = async (req, res) => {
   }
 };
 
-const getRecentTrips = async (req, res) => {
+export const getRecentTrips = async (req, res) => {
   try {
     const trips = await prisma.trip.findMany({
       include: {
@@ -365,13 +363,3 @@ const getRecentTrips = async (req, res) => {
   }
 };
 
-module.exports = {
-  getTrips,
-  getTripById,
-  createTrip,
-  updateTrip,
-  endTrip,
-  deleteTrip,
-  getTripCount,
-  getRecentTrips,
-};

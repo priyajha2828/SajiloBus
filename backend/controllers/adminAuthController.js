@@ -1,29 +1,24 @@
-const { PrismaClient } = require("@prisma/client");
-const jwt = require("jsonwebtoken");
-const admin = require("../config/firebase");
-
-const prisma = new PrismaClient();
+import { prisma } from "../config/prisma.js";
+import { getAuth } from "../config/firebase.js";
+import jwt from "jsonwebtoken";
 
 /* ==========================
    REGISTER ADMIN
 ========================== */
 
-const registerAdmin = async (req, res) => {
+export const registerAdmin = async (req, res) => {
   try {
-
     const { idToken, phone } = req.body;
 
-    const decodedToken =
-      await admin.auth().verifyIdToken(idToken);
+    const decodedToken = await getAuth().verifyIdToken(idToken);
 
     const { uid, email, name } = decodedToken;
 
-    const existingAdmin =
-      await prisma.admin.findUnique({
-        where: {
-          firebaseUid: uid,
-        },
-      });
+    const existingAdmin = await prisma.admin.findUnique({
+      where: {
+        firebaseUid: uid,
+      },
+    });
 
     if (existingAdmin) {
       return res.status(400).json({
@@ -32,15 +27,14 @@ const registerAdmin = async (req, res) => {
       });
     }
 
-    const adminUser =
-      await prisma.admin.create({
-        data: {
-          firebaseUid: uid,
-          email,
-          name: name || "Admin",
-          phone,
-        },
-      });
+    const adminUser = await prisma.admin.create({
+      data: {
+        firebaseUid: uid,
+        email,
+        name: name || "Admin",
+        phone,
+      },
+    });
 
     res.status(201).json({
       success: true,
@@ -49,14 +43,12 @@ const registerAdmin = async (req, res) => {
     });
 
   } catch (error) {
-
-    console.log(error);
+    console.error(error);
 
     res.status(500).json({
       success: false,
-      message: "Registration failed",
+      message: error.message,
     });
-
   }
 };
 
@@ -64,77 +56,49 @@ const registerAdmin = async (req, res) => {
    LOGIN ADMIN
 ========================== */
 
-const loginAdmin = async (req, res) => {
-
+export const loginAdmin = async (req, res) => {
   try {
-
     const { idToken } = req.body;
 
-    const decodedToken =
-      await admin.auth().verifyIdToken(idToken);
+    const decodedToken = await getAuth().verifyIdToken(idToken);
 
-    const adminUser =
-      await prisma.admin.findUnique({
-        where: {
-          firebaseUid: decodedToken.uid,
-        },
-      });
+    const adminUser = await prisma.admin.findUnique({
+      where: {
+        firebaseUid: decodedToken.uid,
+      },
+    });
 
     if (!adminUser) {
-
       return res.status(404).json({
         success: false,
         message: "Admin not found",
       });
-
     }
 
     const token = jwt.sign(
-
       {
         id: adminUser.id,
         email: adminUser.email,
       },
-
       process.env.JWT_SECRET,
-
       {
         expiresIn: "7d",
       }
-
     );
 
-    res.json({
-
+    res.status(200).json({
       success: true,
+      message: "Login Successful",
       token,
-
-      admin: {
-        id: adminUser.id,
-        name: adminUser.name,
-        email: adminUser.email,
-      },
-
+      admin: adminUser,
     });
 
   } catch (error) {
-
-    console.log(error);
+    console.error(error);
 
     res.status(500).json({
-
       success: false,
-      message: "Login failed",
-
+      message: error.message,
     });
-
   }
-
-};
-
-module.exports = {
-
-  registerAdmin,
-  loginAdmin,
-
 };

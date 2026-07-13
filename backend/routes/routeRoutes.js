@@ -1,25 +1,28 @@
-const express = require("express");
+import express from "express";
 
-const router = express.Router();
-
-const {
+import {
   getRoutes,
   getRouteById,
   createRoute,
   updateRoute,
   deleteRoute,
-} = require("../controllers/routeController");
+} from "../controllers/routeController.js";
 
+const router = express.Router();
+
+// Get All Routes
 router.get("/", getRoutes);
 
+// Get Route By ID
 router.get("/:id", getRouteById);
 
+// Create Route
 router.post("/", createRoute);
 
+// Update Route
 router.put("/:id", updateRoute);
 
+// Delete Route
 router.delete("/:id", deleteRoute);
 
-
-
-module.exports = router;
+export default router;

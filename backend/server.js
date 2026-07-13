@@ -3,17 +3,25 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 
-const authRoutes = require("./routes/authRoutes");
-const driverRoutes = require("./routes/driverRoutes");
-const busRoutes = require("./routes/busRoutes");
+// Routes
+import adminAuthRoutes from "./routes/adminAuthRoutes.js";
+import driverRoutes from "./routes/driverRoutes.js";
+import busRoutes from "./routes/busRoutes.js";
+import routeRoutes from "./routes/routeRoutes.js";
+import passengerRoutes from "./routes/passengerRoutes.js";
+import notificationRoutes from "./routes/notificationRoutes.js";
+import busAssignmentRoutes from "./routes/busAssignmentRoutes.js";
+import tripRoutes from "./routes/tripRoutes.js";
+import scheduleRoutes from "./routes/scheduleRoutes.js";
 
 const app = express();
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Routes
-app.use("/auth", authRoutes);
+// API Routes
+app.use("/admin", adminAuthRoutes);
 app.use("/drivers", driverRoutes);
 app.use("/buses", busRoutes);
 app.use("/routes", routeRoutes);
@@ -23,15 +31,17 @@ app.use("/bus-assignments", busAssignmentRoutes);
 app.use("/trips", tripRoutes);
 app.use("/schedules", scheduleRoutes);
 
+// Test Route
 app.get("/", (req, res) => {
   res.json({
     success: true,
-    message: "Sajilo Bus Backend Running",
+    message: "SajiloBus Backend Running 🚍",
   });
 });
 
+// Start Server
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, "0.0.0.0",() => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

@@ -240,8 +240,8 @@ export type NotificationWhereInput = {
   message?: Prisma.StringFilter<"Notification"> | string
   isRead?: Prisma.BoolFilter<"Notification"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Notification"> | Date | string
-  passenger?: Prisma.XOR<Prisma.PassengerScalarRelationFilter, Prisma.PassengerWhereInput>
   admin?: Prisma.XOR<Prisma.AdminScalarRelationFilter, Prisma.AdminWhereInput>
+  passenger?: Prisma.XOR<Prisma.PassengerScalarRelationFilter, Prisma.PassengerWhereInput>
 }
 
 export type NotificationOrderByWithRelationInput = {
@@ -252,8 +252,8 @@ export type NotificationOrderByWithRelationInput = {
   message?: Prisma.SortOrder
   isRead?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  passenger?: Prisma.PassengerOrderByWithRelationInput
   admin?: Prisma.AdminOrderByWithRelationInput
+  passenger?: Prisma.PassengerOrderByWithRelationInput
 }
 
 export type NotificationWhereUniqueInput = Prisma.AtLeast<{
@@ -267,8 +267,8 @@ export type NotificationWhereUniqueInput = Prisma.AtLeast<{
   message?: Prisma.StringFilter<"Notification"> | string
   isRead?: Prisma.BoolFilter<"Notification"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Notification"> | Date | string
-  passenger?: Prisma.XOR<Prisma.PassengerScalarRelationFilter, Prisma.PassengerWhereInput>
   admin?: Prisma.XOR<Prisma.AdminScalarRelationFilter, Prisma.AdminWhereInput>
+  passenger?: Prisma.XOR<Prisma.PassengerScalarRelationFilter, Prisma.PassengerWhereInput>
 }, "id">
 
 export type NotificationOrderByWithAggregationInput = {
@@ -304,8 +304,8 @@ export type NotificationCreateInput = {
   message: string
   isRead?: boolean
   createdAt?: Date | string
-  passenger: Prisma.PassengerCreateNestedOneWithoutNotificationsInput
   admin: Prisma.AdminCreateNestedOneWithoutNotificationsInput
+  passenger: Prisma.PassengerCreateNestedOneWithoutNotificationsInput
 }
 
 export type NotificationUncheckedCreateInput = {
@@ -323,8 +323,8 @@ export type NotificationUpdateInput = {
   message?: Prisma.StringFieldUpdateOperationsInput | string
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  passenger?: Prisma.PassengerUpdateOneRequiredWithoutNotificationsNestedInput
   admin?: Prisma.AdminUpdateOneRequiredWithoutNotificationsNestedInput
+  passenger?: Prisma.PassengerUpdateOneRequiredWithoutNotificationsNestedInput
 }
 
 export type NotificationUncheckedUpdateInput = {
@@ -679,8 +679,8 @@ export type NotificationSelect<ExtArgs extends runtime.Types.Extensions.Internal
   message?: boolean
   isRead?: boolean
   createdAt?: boolean
-  passenger?: boolean | Prisma.PassengerDefaultArgs<ExtArgs>
   admin?: boolean | Prisma.AdminDefaultArgs<ExtArgs>
+  passenger?: boolean | Prisma.PassengerDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["notification"]>
 
 export type NotificationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -691,8 +691,8 @@ export type NotificationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   message?: boolean
   isRead?: boolean
   createdAt?: boolean
-  passenger?: boolean | Prisma.PassengerDefaultArgs<ExtArgs>
   admin?: boolean | Prisma.AdminDefaultArgs<ExtArgs>
+  passenger?: boolean | Prisma.PassengerDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["notification"]>
 
 export type NotificationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -703,8 +703,8 @@ export type NotificationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   message?: boolean
   isRead?: boolean
   createdAt?: boolean
-  passenger?: boolean | Prisma.PassengerDefaultArgs<ExtArgs>
   admin?: boolean | Prisma.AdminDefaultArgs<ExtArgs>
+  passenger?: boolean | Prisma.PassengerDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["notification"]>
 
 export type NotificationSelectScalar = {
@@ -719,23 +719,23 @@ export type NotificationSelectScalar = {
 
 export type NotificationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "passengerId" | "adminId" | "title" | "message" | "isRead" | "createdAt", ExtArgs["result"]["notification"]>
 export type NotificationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  passenger?: boolean | Prisma.PassengerDefaultArgs<ExtArgs>
   admin?: boolean | Prisma.AdminDefaultArgs<ExtArgs>
+  passenger?: boolean | Prisma.PassengerDefaultArgs<ExtArgs>
 }
 export type NotificationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  passenger?: boolean | Prisma.PassengerDefaultArgs<ExtArgs>
   admin?: boolean | Prisma.AdminDefaultArgs<ExtArgs>
+  passenger?: boolean | Prisma.PassengerDefaultArgs<ExtArgs>
 }
 export type NotificationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  passenger?: boolean | Prisma.PassengerDefaultArgs<ExtArgs>
   admin?: boolean | Prisma.AdminDefaultArgs<ExtArgs>
+  passenger?: boolean | Prisma.PassengerDefaultArgs<ExtArgs>
 }
 
 export type $NotificationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Notification"
   objects: {
-    passenger: Prisma.$PassengerPayload<ExtArgs>
     admin: Prisma.$AdminPayload<ExtArgs>
+    passenger: Prisma.$PassengerPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1139,8 +1139,8 @@ readonly fields: NotificationFieldRefs;
  */
 export interface Prisma__NotificationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  passenger<T extends Prisma.PassengerDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PassengerDefaultArgs<ExtArgs>>): Prisma.Prisma__PassengerClient<runtime.Types.Result.GetResult<Prisma.$PassengerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   admin<T extends Prisma.AdminDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AdminDefaultArgs<ExtArgs>>): Prisma.Prisma__AdminClient<runtime.Types.Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  passenger<T extends Prisma.PassengerDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PassengerDefaultArgs<ExtArgs>>): Prisma.Prisma__PassengerClient<runtime.Types.Result.GetResult<Prisma.$PassengerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

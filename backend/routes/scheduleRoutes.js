@@ -1,15 +1,15 @@
-const express = require("express");
+import express from "express";
 
-const router = express.Router();
-
-const {
+import {
   getSchedules,
   getScheduleById,
   createSchedule,
   updateSchedule,
   deleteSchedule,
   getScheduleCount,
-} = require("../controllers/scheduleController");
+} from "../controllers/scheduleController.js";
+
+const router = express.Router();
 
 // Count
 router.get("/count", getScheduleCount);
@@ -29,4 +29,4 @@ router.put("/:id", updateSchedule);
 // Delete
 router.delete("/:id", deleteSchedule);
 
-module.exports = router;
+export default router;

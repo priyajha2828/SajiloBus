@@ -1,16 +1,225 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
-  output = "./generated"
+  output   = "./generated"
 }
 
 datasource db {
   provider = "postgresql"
-  
+}
+
+model Admin {
+  id            Int            @id @default(autoincrement())
+  firebaseUid   String         @unique @map("firebase_uid")
+  name          String
+  email         String         @unique
+  phone         String?
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt @map("updated_at")
+  drivers       Driver[]
+  notifications Notification[]
+
+  @@map("admin")
+}
+
+model Passenger {
+  id            Int                 @id @default(autoincrement())
+  firebaseUid   String              @unique @map("firebase_uid")
+  name          String
+  email         String              @unique
+  phone         String?
+  createdAt     DateTime            @default(now()) @map("created_at")
+  updatedAt     DateTime            @updatedAt @map("updated_at")
+  notifications Notification[]
+  loginLogs     PassengerLoginLog[]
+  sosAlerts     SOS[]
+  sosContacts   SOSContact[]
+
+  @@map("passenger")
+}
+
+model Driver {
+  id          Int              @id @default(autoincrement())
+  firebaseUid String           @unique @map("firebase_uid")
+  name        String
+  email       String           @unique
+  phone       String?
+  licenseNo   String           @unique @map("license_no")
+  isAvailable Boolean          @default(true) @map("is_available")
+  createdAt   DateTime         @default(now()) @map("created_at")
+  updatedAt   DateTime         @updatedAt @map("updated_at")
+  adminId     Int?             @map("admin_id")
+  assignments BusAssignment[]
+  admin       Admin?           @relation(fields: [adminId], references: [id])
+  loginLogs   DriverLoginLog[]
+  trips       Trip[]
+
+  @@map("driver")
+}
+
+model Bus {
+  id          Int             @id @default(autoincrement())
+  busNumber   String          @unique @map("bus_number")
+  plateNumber String?         @unique @map("plate_number")
+  capacity    Int?
+  status      BusStatus       @default(ACTIVE)
+  createdAt   DateTime        @default(now()) @map("created_at")
+  updatedAt   DateTime        @updatedAt @map("updated_at")
+  assignments BusAssignment[]
+  schedules   BusSchedule[]
+  trips       Trip[]
+
+  @@map("bus")
+}
+
+model Route {
+  id           Int            @id @default(autoincrement())
+  routeName    String         @map("route_name")
+  startPoint   String         @map("start_point")
+  endPoint     String         @map("end_point")
+  distance     Decimal        @db.Decimal(10, 2)
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime       @updatedAt @map("updated_at")
+  schedules    BusSchedule[]
+  routeDetails RouteDetails[]
+  trips        Trip[]
+
+  @@map("route")
+}
+
+model BusStop {
+  id           Int            @id @default(autoincrement())
+  stopName     String         @map("stop_name")
+  latitude     Decimal        @db.Decimal(10, 7)
+  longitude    Decimal        @db.Decimal(10, 7)
+  routeDetails RouteDetails[]
+
+  @@map("bus_stop")
+}
+
+model RouteDetails {
+  id         Int     @id @default(autoincrement())
+  routeId    Int     @map("route_id")
+  busStopId  Int     @map("bus_stop_id")
+  orderIndex Int     @map("order_index")
+  remarks    String?
+  busStop    BusStop @relation(fields: [busStopId], references: [id])
+  route      Route   @relation(fields: [routeId], references: [id])
+
+  @@map("route_details")
+}
+
+model BusAssignment {
+  id           Int       @id @default(autoincrement())
+  driverId     Int       @map("driver_id")
+  busId        Int       @map("bus_id")
+  assignedFrom DateTime  @map("assigned_from")
+  assignedTo   DateTime? @map("assigned_to")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  bus          Bus       @relation(fields: [busId], references: [id])
+  driver       Driver    @relation(fields: [driverId], references: [id])
+
+  @@map("bus_assignment")
+}
+
+model Trip {
+  id          Int           @id @default(autoincrement())
+  routeId     Int           @map("route_id")
+  driverId    Int           @map("driver_id")
+  busId       Int           @map("bus_id")
+  startedAt   DateTime?     @map("started_at")
+  endedAt     DateTime?     @map("ended_at")
+  bus         Bus           @relation(fields: [busId], references: [id])
+  driver      Driver        @relation(fields: [driverId], references: [id])
+  route       Route         @relation(fields: [routeId], references: [id])
+  tripHistory TripHistory[]
+
+  @@map("trip")
+}
+
+model TripHistory {
+  id         Int      @id @default(autoincrement())
+  tripId     Int      @map("trip_id")
+  latitude   Decimal  @db.Decimal(10, 7)
+  longitude  Decimal  @db.Decimal(10, 7)
+  recordedAt DateTime @default(now()) @map("recorded_at")
+  trip       Trip     @relation(fields: [tripId], references: [id])
+
+  @@map("trip_history")
+}
+
+model Notification {
+  id          Int       @id @default(autoincrement())
+  passengerId Int       @map("passenger_id")
+  adminId     Int       @map("admin_id")
+  title       String
+  message     String
+  isRead      Boolean   @default(false) @map("is_read")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  admin       Admin     @relation(fields: [adminId], references: [id])
+  passenger   Passenger @relation(fields: [passengerId], references: [id])
+
+  @@map("notification")
+}
+
+model SOS {
+  id          Int       @id @default(autoincrement())
+  passengerId Int       @map("passenger_id")
+  latitude    Decimal   @db.Decimal(10, 7)
+  longitude   Decimal   @db.Decimal(10, 7)
+  message     String
+  status      SOSStatus @default(PENDING)
+  createdAt   DateTime  @default(now()) @map("created_at")
+  passenger   Passenger @relation(fields: [passengerId], references: [id])
+
+  @@map("sos")
+}
+
+model SOSContact {
+  id            Int       @id @default(autoincrement())
+  passengerId   Int       @map("passenger_id")
+  contactName   String    @map("contact_name")
+  contactNumber String    @map("contact_number")
+  relationship  String
+  createdAt     DateTime  @default(now()) @map("created_at")
+  passenger     Passenger @relation(fields: [passengerId], references: [id])
+
+  @@map("sos_contact")
+}
+
+model PassengerLoginLog {
+  id          Int         @id @default(autoincrement())
+  passengerId Int         @map("passenger_id")
+  loginTime   DateTime    @map("login_time")
+  logoutTime  DateTime?   @map("logout_time")
+  status      LoginStatus
+  passenger   Passenger   @relation(fields: [passengerId], references: [id])
+
+  @@map("passenger_login_log")
+}
+
+model DriverLoginLog {
+  id         Int         @id @default(autoincrement())
+  driverId   Int         @map("driver_id")
+  loginTime  DateTime    @map("login_time")
+  logoutTime DateTime?   @map("logout_time")
+  status     LoginStatus
+  driver     Driver      @relation(fields: [driverId], references: [id])
+
+  @@map("driver_login_log")
+}
+
+model BusSchedule {
+  id            Int      @id @default(autoincrement())
+  busId         Int      @map("bus_id")
+  routeId       Int      @map("route_id")
+  departureTime DateTime @map("departure_time") @db.Time(0)
+  dayOfWeek     String   @map("day_of_week")
+  isActive      Boolean  @default(true) @map("is_active")
+  createdAt     DateTime @default(now()) @map("created_at")
+  bus           Bus      @relation(fields: [busId], references: [id])
+  route         Route    @relation(fields: [routeId], references: [id])
+
+  @@map("bus_schedule")
 }
 
 enum BusStatus {
@@ -28,253 +237,4 @@ enum SOSStatus {
 enum LoginStatus {
   SUCCESS
   FAILED
-}
-
-model Admin {
-  id            Int            @id @default(autoincrement())
-  firebaseUid   String         @map("firebase_uid") @unique
-  name          String
-  email         String         @unique
-  phone         String?
-  createdAt     DateTime       @default(now()) @map("created_at")
-  updatedAt     DateTime       @updatedAt @map("updated_at")
-
-  drivers       Driver[]
-  notifications Notification[]
-
-  @@map("admin")
-}
-
-model Passenger {
-  id                Int                   @id @default(autoincrement())
-  firebaseUid       String                @map("firebase_uid") @unique
-  name              String
-  email             String                @unique
-  phone             String?
-  createdAt         DateTime              @default(now()) @map("created_at")
-  updatedAt         DateTime              @updatedAt @map("updated_at")
-
-  notifications     Notification[]
-  sosAlerts         SOS[]
-  sosContacts       SOSContact[]
-  loginLogs         PassengerLoginLog[]
-
-  @@map("passenger")
-}
-
-
-model Driver {
-  id              Int                 @id @default(autoincrement())
-  firebaseUid     String              @map("firebase_uid") @unique
-  name            String
-  email           String              @unique
-  phone           String?
-  licenseNo       String              @map("license_no") @unique
-  isAvailable     Boolean             @default(true) @map("is_available")
-  createdAt       DateTime            @default(now()) @map("created_at")
-  updatedAt       DateTime            @updatedAt @map("updated_at")
-
-  adminId         Int?                @map("admin_id")
-  admin           Admin?              @relation(fields: [adminId], references: [id])
-
-  trips           Trip[]
-  assignments     BusAssignment[]
-  loginLogs       DriverLoginLog[]
-
-  @@map("driver")
-}
-
-model Bus {
-  id              Int               @id @default(autoincrement())
-  busNumber       String            @unique @map("bus_number")
-  plateNumber     String?           @unique @map("plate_number")
-  capacity        Int?
-  status          BusStatus         @default(ACTIVE)
-  createdAt       DateTime          @default(now()) @map("created_at")
-  updatedAt       DateTime          @updatedAt @map("updated_at")
-
-  assignments     BusAssignment[]
-  trips           Trip[]
-  schedules       BusSchedule[]
-
-  @@map("bus")
-}
-
-model Route {
-  id              Int               @id @default(autoincrement())
-  routeName       String            @map("route_name")
-  startPoint      String            @map("start_point")
-  endPoint        String            @map("end_point")
-  distance        Decimal           @db.Decimal(10,2)
-  createdAt       DateTime          @default(now()) @map("created_at")
-  updatedAt       DateTime          @updatedAt @map("updated_at")
-
-  routeDetails    RouteDetails[]
-  trips           Trip[]
-  schedules       BusSchedule[]
-
-  @@map("route")
-}
-
-model BusStop {
-  id              Int              @id @default(autoincrement())
-  stopName        String           @map("stop_name")
-  latitude        Decimal          @db.Decimal(10,7)
-  longitude       Decimal          @db.Decimal(10,7)
-
-  routeDetails    RouteDetails[]
-
-  @@map("bus_stop")
-}
-
-model RouteDetails {
-  id              Int          @id @default(autoincrement())
-
-  routeId         Int          @map("route_id")
-  busStopId       Int          @map("bus_stop_id")
-
-  orderIndex      Int          @map("order_index")
-  remarks         String?
-
-  route           Route        @relation(fields: [routeId], references: [id])
-  busStop         BusStop      @relation(fields: [busStopId], references: [id])
-
-  @@map("route_details")
-}
-
-model BusAssignment {
-  id              Int         @id @default(autoincrement())
-
-  driverId        Int         @map("driver_id")
-  busId           Int         @map("bus_id")
-
-  assignedFrom    DateTime    @map("assigned_from")
-  assignedTo      DateTime?   @map("assigned_to")
-  createdAt       DateTime    @default(now()) @map("created_at")
-
-  driver          Driver      @relation(fields: [driverId], references: [id])
-  bus             Bus         @relation(fields: [busId], references: [id])
-
-  @@map("bus_assignment")
-}
-
-model Trip {
-  id              Int             @id @default(autoincrement())
-
-  routeId         Int             @map("route_id")
-  driverId        Int             @map("driver_id")
-  busId           Int             @map("bus_id")
-
-  startedAt       DateTime?       @map("started_at")
-  endedAt         DateTime?       @map("ended_at")
-
-  route           Route           @relation(fields: [routeId], references: [id])
-  driver          Driver          @relation(fields: [driverId], references: [id])
-  bus             Bus             @relation(fields: [busId], references: [id])
-
-  tripHistory     TripHistory[]
-
-  @@map("trip")
-}
-
-model TripHistory {
-  id              Int          @id @default(autoincrement())
-
-  tripId          Int          @map("trip_id")
-  latitude        Decimal      @db.Decimal(10,7)
-  longitude       Decimal      @db.Decimal(10,7)
-  recordedAt      DateTime     @default(now()) @map("recorded_at")
-
-  trip            Trip         @relation(fields: [tripId], references: [id])
-
-  @@map("trip_history")
-}
-
-model Notification {
-  id              Int          @id @default(autoincrement())
-
-  passengerId     Int          @map("passenger_id")
-  adminId         Int          @map("admin_id")
-
-  title           String
-  message         String
-  isRead          Boolean      @default(false) @map("is_read")
-  createdAt       DateTime     @default(now()) @map("created_at")
-
-  passenger       Passenger    @relation(fields: [passengerId], references: [id])
-  admin           Admin        @relation(fields: [adminId], references: [id])
-
-  @@map("notification")
-}
-
-model SOS {
-  id              Int          @id @default(autoincrement())
-
-  passengerId     Int          @map("passenger_id")
-  latitude        Decimal      @db.Decimal(10,7)
-  longitude       Decimal      @db.Decimal(10,7)
-  message         String
-  status          SOSStatus    @default(PENDING)
-  createdAt       DateTime     @default(now()) @map("created_at")
-
-  passenger       Passenger    @relation(fields: [passengerId], references: [id])
-
-  @@map("sos")
-}
-
-model SOSContact {
-  id               Int         @id @default(autoincrement())
-
-  passengerId      Int         @map("passenger_id")
-  contactName      String      @map("contact_name")
-  contactNumber    String      @map("contact_number")
-  relationship     String
-  createdAt        DateTime    @default(now()) @map("created_at")
-
-  passenger        Passenger   @relation(fields: [passengerId], references: [id])
-
-  @@map("sos_contact")
-}
-
-model PassengerLoginLog {
-  id              Int           @id @default(autoincrement())
-
-  passengerId     Int           @map("passenger_id")
-  loginTime       DateTime      @map("login_time")
-  logoutTime      DateTime?     @map("logout_time")
-  status          LoginStatus
-
-  passenger       Passenger     @relation(fields: [passengerId], references: [id])
-
-  @@map("passenger_login_log")
-}
-
-model DriverLoginLog {
-  id              Int           @id @default(autoincrement())
-
-  driverId        Int           @map("driver_id")
-  loginTime       DateTime      @map("login_time")
-  logoutTime      DateTime?     @map("logout_time")
-  status          LoginStatus
-
-  driver          Driver        @relation(fields: [driverId], references: [id])
-
-  @@map("driver_login_log")
-}
-
-model BusSchedule {
-  id              Int          @id @default(autoincrement())
-
-  busId           Int          @map("bus_id")
-  routeId         Int          @map("route_id")
-
-  departureTime   DateTime     @db.Time(0) @map("departure_time")
-  dayOfWeek       String       @map("day_of_week")
-  isActive        Boolean      @default(true) @map("is_active")
-  createdAt       DateTime     @default(now()) @map("created_at")
-
-  bus             Bus          @relation(fields: [busId], references: [id])
-  route           Route        @relation(fields: [routeId], references: [id])
-
-  @@map("bus_schedule")
 }

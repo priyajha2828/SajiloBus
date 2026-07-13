@@ -252,12 +252,8 @@ export const getBusCount = async (req, res) => {
   }
 };
 
-<<<<<<< HEAD
-// ==========================
-// Live Bus Locations
-// ==========================
 
-const getLiveBusLocations = async (req, res) => {
+export const getLiveBusLocations = async (req, res) => {
   try {
     const trips = await prisma.trip.findMany({
       include: {
@@ -295,23 +291,3 @@ const getLiveBusLocations = async (req, res) => {
     });
   }
 };
-
-module.exports = {
-  getBuses,
-  getBusById,
-  createBus,
-  updateBus,
-  deleteBus,
-  getBusCount,
-  getLiveBusLocations,
-};
-=======
-// export default {
-//   getBuses,
-//   getBusById,
-//   createBus,
-//   updateBus,
-//   deleteBus,
-//   getBusCount,
-// };
->>>>>>> 20c3ca8643a1b4b50975f40c9f1c67be8a464915

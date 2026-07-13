@@ -236,9 +236,9 @@ export type TripWhereInput = {
   busId?: Prisma.IntFilter<"Trip"> | number
   startedAt?: Prisma.DateTimeNullableFilter<"Trip"> | Date | string | null
   endedAt?: Prisma.DateTimeNullableFilter<"Trip"> | Date | string | null
-  route?: Prisma.XOR<Prisma.RouteScalarRelationFilter, Prisma.RouteWhereInput>
-  driver?: Prisma.XOR<Prisma.DriverScalarRelationFilter, Prisma.DriverWhereInput>
   bus?: Prisma.XOR<Prisma.BusScalarRelationFilter, Prisma.BusWhereInput>
+  driver?: Prisma.XOR<Prisma.DriverScalarRelationFilter, Prisma.DriverWhereInput>
+  route?: Prisma.XOR<Prisma.RouteScalarRelationFilter, Prisma.RouteWhereInput>
   tripHistory?: Prisma.TripHistoryListRelationFilter
 }
 
@@ -249,9 +249,9 @@ export type TripOrderByWithRelationInput = {
   busId?: Prisma.SortOrder
   startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   endedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  route?: Prisma.RouteOrderByWithRelationInput
-  driver?: Prisma.DriverOrderByWithRelationInput
   bus?: Prisma.BusOrderByWithRelationInput
+  driver?: Prisma.DriverOrderByWithRelationInput
+  route?: Prisma.RouteOrderByWithRelationInput
   tripHistory?: Prisma.TripHistoryOrderByRelationAggregateInput
 }
 
@@ -265,9 +265,9 @@ export type TripWhereUniqueInput = Prisma.AtLeast<{
   busId?: Prisma.IntFilter<"Trip"> | number
   startedAt?: Prisma.DateTimeNullableFilter<"Trip"> | Date | string | null
   endedAt?: Prisma.DateTimeNullableFilter<"Trip"> | Date | string | null
-  route?: Prisma.XOR<Prisma.RouteScalarRelationFilter, Prisma.RouteWhereInput>
-  driver?: Prisma.XOR<Prisma.DriverScalarRelationFilter, Prisma.DriverWhereInput>
   bus?: Prisma.XOR<Prisma.BusScalarRelationFilter, Prisma.BusWhereInput>
+  driver?: Prisma.XOR<Prisma.DriverScalarRelationFilter, Prisma.DriverWhereInput>
+  route?: Prisma.XOR<Prisma.RouteScalarRelationFilter, Prisma.RouteWhereInput>
   tripHistory?: Prisma.TripHistoryListRelationFilter
 }, "id">
 
@@ -300,9 +300,9 @@ export type TripScalarWhereWithAggregatesInput = {
 export type TripCreateInput = {
   startedAt?: Date | string | null
   endedAt?: Date | string | null
-  route: Prisma.RouteCreateNestedOneWithoutTripsInput
-  driver: Prisma.DriverCreateNestedOneWithoutTripsInput
   bus: Prisma.BusCreateNestedOneWithoutTripsInput
+  driver: Prisma.DriverCreateNestedOneWithoutTripsInput
+  route: Prisma.RouteCreateNestedOneWithoutTripsInput
   tripHistory?: Prisma.TripHistoryCreateNestedManyWithoutTripInput
 }
 
@@ -319,9 +319,9 @@ export type TripUncheckedCreateInput = {
 export type TripUpdateInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  route?: Prisma.RouteUpdateOneRequiredWithoutTripsNestedInput
-  driver?: Prisma.DriverUpdateOneRequiredWithoutTripsNestedInput
   bus?: Prisma.BusUpdateOneRequiredWithoutTripsNestedInput
+  driver?: Prisma.DriverUpdateOneRequiredWithoutTripsNestedInput
+  route?: Prisma.RouteUpdateOneRequiredWithoutTripsNestedInput
   tripHistory?: Prisma.TripHistoryUpdateManyWithoutTripNestedInput
 }
 
@@ -557,8 +557,8 @@ export type TripUpdateOneRequiredWithoutTripHistoryNestedInput = {
 export type TripCreateWithoutDriverInput = {
   startedAt?: Date | string | null
   endedAt?: Date | string | null
-  route: Prisma.RouteCreateNestedOneWithoutTripsInput
   bus: Prisma.BusCreateNestedOneWithoutTripsInput
+  route: Prisma.RouteCreateNestedOneWithoutTripsInput
   tripHistory?: Prisma.TripHistoryCreateNestedManyWithoutTripInput
 }
 
@@ -612,8 +612,8 @@ export type TripScalarWhereInput = {
 export type TripCreateWithoutBusInput = {
   startedAt?: Date | string | null
   endedAt?: Date | string | null
-  route: Prisma.RouteCreateNestedOneWithoutTripsInput
   driver: Prisma.DriverCreateNestedOneWithoutTripsInput
+  route: Prisma.RouteCreateNestedOneWithoutTripsInput
   tripHistory?: Prisma.TripHistoryCreateNestedManyWithoutTripInput
 }
 
@@ -655,8 +655,8 @@ export type TripUpdateManyWithWhereWithoutBusInput = {
 export type TripCreateWithoutRouteInput = {
   startedAt?: Date | string | null
   endedAt?: Date | string | null
-  driver: Prisma.DriverCreateNestedOneWithoutTripsInput
   bus: Prisma.BusCreateNestedOneWithoutTripsInput
+  driver: Prisma.DriverCreateNestedOneWithoutTripsInput
   tripHistory?: Prisma.TripHistoryCreateNestedManyWithoutTripInput
 }
 
@@ -698,9 +698,9 @@ export type TripUpdateManyWithWhereWithoutRouteInput = {
 export type TripCreateWithoutTripHistoryInput = {
   startedAt?: Date | string | null
   endedAt?: Date | string | null
-  route: Prisma.RouteCreateNestedOneWithoutTripsInput
-  driver: Prisma.DriverCreateNestedOneWithoutTripsInput
   bus: Prisma.BusCreateNestedOneWithoutTripsInput
+  driver: Prisma.DriverCreateNestedOneWithoutTripsInput
+  route: Prisma.RouteCreateNestedOneWithoutTripsInput
 }
 
 export type TripUncheckedCreateWithoutTripHistoryInput = {
@@ -731,9 +731,9 @@ export type TripUpdateToOneWithWhereWithoutTripHistoryInput = {
 export type TripUpdateWithoutTripHistoryInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  route?: Prisma.RouteUpdateOneRequiredWithoutTripsNestedInput
-  driver?: Prisma.DriverUpdateOneRequiredWithoutTripsNestedInput
   bus?: Prisma.BusUpdateOneRequiredWithoutTripsNestedInput
+  driver?: Prisma.DriverUpdateOneRequiredWithoutTripsNestedInput
+  route?: Prisma.RouteUpdateOneRequiredWithoutTripsNestedInput
 }
 
 export type TripUncheckedUpdateWithoutTripHistoryInput = {
@@ -756,8 +756,8 @@ export type TripCreateManyDriverInput = {
 export type TripUpdateWithoutDriverInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  route?: Prisma.RouteUpdateOneRequiredWithoutTripsNestedInput
   bus?: Prisma.BusUpdateOneRequiredWithoutTripsNestedInput
+  route?: Prisma.RouteUpdateOneRequiredWithoutTripsNestedInput
   tripHistory?: Prisma.TripHistoryUpdateManyWithoutTripNestedInput
 }
 
@@ -789,8 +789,8 @@ export type TripCreateManyBusInput = {
 export type TripUpdateWithoutBusInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  route?: Prisma.RouteUpdateOneRequiredWithoutTripsNestedInput
   driver?: Prisma.DriverUpdateOneRequiredWithoutTripsNestedInput
+  route?: Prisma.RouteUpdateOneRequiredWithoutTripsNestedInput
   tripHistory?: Prisma.TripHistoryUpdateManyWithoutTripNestedInput
 }
 
@@ -822,8 +822,8 @@ export type TripCreateManyRouteInput = {
 export type TripUpdateWithoutRouteInput = {
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  driver?: Prisma.DriverUpdateOneRequiredWithoutTripsNestedInput
   bus?: Prisma.BusUpdateOneRequiredWithoutTripsNestedInput
+  driver?: Prisma.DriverUpdateOneRequiredWithoutTripsNestedInput
   tripHistory?: Prisma.TripHistoryUpdateManyWithoutTripNestedInput
 }
 
@@ -882,9 +882,9 @@ export type TripSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   busId?: boolean
   startedAt?: boolean
   endedAt?: boolean
-  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
-  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
   bus?: boolean | Prisma.BusDefaultArgs<ExtArgs>
+  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
+  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
   tripHistory?: boolean | Prisma.Trip$tripHistoryArgs<ExtArgs>
   _count?: boolean | Prisma.TripCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trip"]>
@@ -896,9 +896,9 @@ export type TripSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   busId?: boolean
   startedAt?: boolean
   endedAt?: boolean
-  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
-  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
   bus?: boolean | Prisma.BusDefaultArgs<ExtArgs>
+  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
+  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trip"]>
 
 export type TripSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -908,9 +908,9 @@ export type TripSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   busId?: boolean
   startedAt?: boolean
   endedAt?: boolean
-  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
-  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
   bus?: boolean | Prisma.BusDefaultArgs<ExtArgs>
+  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
+  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trip"]>
 
 export type TripSelectScalar = {
@@ -924,29 +924,29 @@ export type TripSelectScalar = {
 
 export type TripOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "routeId" | "driverId" | "busId" | "startedAt" | "endedAt", ExtArgs["result"]["trip"]>
 export type TripInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
-  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
   bus?: boolean | Prisma.BusDefaultArgs<ExtArgs>
+  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
+  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
   tripHistory?: boolean | Prisma.Trip$tripHistoryArgs<ExtArgs>
   _count?: boolean | Prisma.TripCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TripIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
-  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
   bus?: boolean | Prisma.BusDefaultArgs<ExtArgs>
+  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
+  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
 }
 export type TripIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
-  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
   bus?: boolean | Prisma.BusDefaultArgs<ExtArgs>
+  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
+  route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
 }
 
 export type $TripPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Trip"
   objects: {
-    route: Prisma.$RoutePayload<ExtArgs>
-    driver: Prisma.$DriverPayload<ExtArgs>
     bus: Prisma.$BusPayload<ExtArgs>
+    driver: Prisma.$DriverPayload<ExtArgs>
+    route: Prisma.$RoutePayload<ExtArgs>
     tripHistory: Prisma.$TripHistoryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1350,9 +1350,9 @@ readonly fields: TripFieldRefs;
  */
 export interface Prisma__TripClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  route<T extends Prisma.RouteDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RouteDefaultArgs<ExtArgs>>): Prisma.Prisma__RouteClient<runtime.Types.Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  driver<T extends Prisma.DriverDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DriverDefaultArgs<ExtArgs>>): Prisma.Prisma__DriverClient<runtime.Types.Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   bus<T extends Prisma.BusDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BusDefaultArgs<ExtArgs>>): Prisma.Prisma__BusClient<runtime.Types.Result.GetResult<Prisma.$BusPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  driver<T extends Prisma.DriverDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DriverDefaultArgs<ExtArgs>>): Prisma.Prisma__DriverClient<runtime.Types.Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  route<T extends Prisma.RouteDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RouteDefaultArgs<ExtArgs>>): Prisma.Prisma__RouteClient<runtime.Types.Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   tripHistory<T extends Prisma.Trip$tripHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trip$tripHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TripHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.

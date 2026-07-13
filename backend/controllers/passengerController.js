@@ -1,11 +1,132 @@
-<<<<<<< HEAD
-const prisma = require("../config/prisma");
+import { prisma } from "../config/prisma.js";
+import { getAuth } from "../config/firebase.js";
+import jwt from "jsonwebtoken";
 
-// ==========================
-// Get All Passengers
-// ==========================
 
-const getPassengers = async (req, res) => {
+export const registerPassenger = async (req, res) => {
+  try {
+    const { idToken, name, phone } = req.body;
+
+    if (!idToken || !name || !phone) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required",
+      });
+    }
+
+    const decodedToken = await getAuth().verifyIdToken(idToken);
+
+    const firebaseUid = decodedToken.uid;
+    const email = decodedToken.email;
+
+    const existingPassenger = await prisma.passenger.findUnique({
+      where: {
+        firebaseUid,
+      },
+    });
+
+    if (existingPassenger) {
+      return res.status(200).json({
+        success: true,
+        message: "Passenger already exists",
+        passenger: existingPassenger,
+      });
+    }
+
+    const passenger = await prisma.passenger.create({
+      data: {
+        firebaseUid,
+        email,
+        name,
+        phone,
+      },
+    });
+
+    // Notification
+    try {
+      await prisma.notification.create({
+        data: {
+          adminId: 1,
+          passengerId: passenger.id,
+          title: "New Passenger Registered",
+          message: `${passenger.name} has registered successfully.`,
+        },
+      });
+    } catch (err) {
+      console.log("Notification Error:", err.message);
+    }
+
+    res.status(201).json({
+      success: true,
+      message: "Passenger Registered Successfully",
+      passenger,
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export const loginPassenger = async (req, res) => {
+  try {
+    const { idToken } = req.body;
+
+    if (!idToken) {
+      return res.status(400).json({
+        success: false,
+        message: "ID Token is required",
+      });
+    }
+
+    const decodedToken = await getAuth().verifyIdToken(idToken);
+
+    const passenger = await prisma.passenger.findUnique({
+      where: {
+        firebaseUid: decodedToken.uid,
+      },
+    });
+
+    if (!passenger) {
+      return res.status(404).json({
+        success: false,
+        message: "Passenger not found",
+      });
+    }
+
+    const token = jwt.sign(
+      {
+        id: passenger.id,
+        firebaseUid: passenger.firebaseUid,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "7d",
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Login Successful",
+      token,
+      passenger,
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export const getPassengers = async (req, res) => {
   try {
     const passengers = await prisma.passenger.findMany({
       orderBy: {
@@ -17,6 +138,7 @@ const getPassengers = async (req, res) => {
       success: true,
       passengers,
     });
+
   } catch (error) {
     console.log(error);
 
@@ -27,11 +149,7 @@ const getPassengers = async (req, res) => {
   }
 };
 
-// ==========================
-// Get Passenger By ID
-// ==========================
-
-const getPassengerById = async (req, res) => {
+export const getPassengerById = async (req, res) => {
   try {
     const id = Number(req.params.id);
 
@@ -52,6 +170,7 @@ const getPassengerById = async (req, res) => {
       success: true,
       passenger,
     });
+
   } catch (error) {
     console.log(error);
 
@@ -62,15 +181,7 @@ const getPassengerById = async (req, res) => {
   }
 };
 
-// ==========================
-// Create Passenger
-// ==========================
-
-// ==========================
-// Create Passenger
-// ==========================
-
-const createPassenger = async (req, res) => {
+export const createPassenger = async (req, res) => {
   try {
     const {
       firebaseUid,
@@ -79,7 +190,6 @@ const createPassenger = async (req, res) => {
       phone,
     } = req.body;
 
-    // Create Passenger
     const passenger = await prisma.passenger.create({
       data: {
         firebaseUid,
@@ -89,65 +199,21 @@ const createPassenger = async (req, res) => {
       },
     });
 
-    // Create Notification
-    await prisma.notification.create({
-      data: {
-        adminId: 1,
-        passengerId: passenger.id,
-        title: "New Passenger Registered",
-        message: `${passenger.name} has registered successfully.`,
-=======
-import {prisma} from "../config/prisma.js";
-import  { app , getAuth } from "../config/firebase.js";
-import jwt from "jsonwebtoken";
-
-export const registerPassenger = async (req, res) => {
-    try{
-        const {idToken, name, phone} = req.body;
-
-        //for validation
-        if(!idToken || !name || !phone){
-            return res.status(400).json({
-                success: false,
-                message: "All fields are required"
-            });
-        }
-         // Verify Firebase Token
-    const decodedToken = await getAuth().verifyIdToken(idToken);
-
-    const firebaseUid = decodedToken.uid;
-    const email = decodedToken.email;
-
-    // Check existing passenger
-    const existingPassenger = await prisma.passenger.findUnique({
-      where: {
-        firebaseUid: firebaseUid,
-      },
-    });
-    console.log("Existing Passenger:", existingPassenger); 
-
-    if (existingPassenger) {
-      return res.status(200).json({
-        success: true,
-        message: "Passenger already exists",
-        passenger: existingPassenger,
+    try {
+      await prisma.notification.create({
+        data: {
+          adminId: 1,
+          passengerId: passenger.id,
+          title: "New Passenger Added",
+          message: `${passenger.name} has been added successfully.`,
+        },
       });
+    } catch (err) {
+      console.log("Notification Error:", err.message);
     }
-
-// Create new passenger
-    const newPassenger = await prisma.passenger.create({
-      data: {
-        firebaseUid: firebaseUid,
-        email: email,
-        name: name,
-        phone: phone,
->>>>>>> 20c3ca8643a1b4b50975f40c9f1c67be8a464915
-      },
-    });
 
     res.status(201).json({
       success: true,
-<<<<<<< HEAD
       message: "Passenger Added Successfully",
       passenger,
     });
@@ -162,11 +228,7 @@ export const registerPassenger = async (req, res) => {
   }
 };
 
-// ==========================
-// Update Passenger
-// ==========================
-
-const updatePassenger = async (req, res) => {
+export const updatePassenger = async (req, res) => {
   try {
     const id = Number(req.params.id);
 
@@ -194,6 +256,7 @@ const updatePassenger = async (req, res) => {
       message: "Passenger Updated Successfully",
       passenger,
     });
+
   } catch (error) {
     console.log(error);
 
@@ -204,51 +267,14 @@ const updatePassenger = async (req, res) => {
   }
 };
 
-// ==========================
-// Delete Passenger
-// ==========================
-
-const deletePassenger = async (req, res) => {
+export const deletePassenger = async (req, res) => {
   try {
     const id = Number(req.params.id);
 
-    // Check passenger exists
-    const passenger = await prisma.passenger.findUnique({
-      where: { id },
-=======
-      message: "Passenger registered successfully",
-      passenger: newPassenger,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      success: false,
-      message: "Internal server error",
-    });
-  }
-};
-export const loginPassenger = async (req, res) => {
-  try {
-    const { idToken } = req.body;
-
-    if (!idToken) {
-      return res.status(400).json({
-        success: false,
-        message: "ID Token is required",
-      });
-    }
-
-    // Verify Firebase Token
-    const decodedToken = await getAuth().verifyIdToken(idToken);
-
-    const firebaseUid = decodedToken.uid;
-
-    // Check Passenger
     const passenger = await prisma.passenger.findUnique({
       where: {
-        firebaseUid,
+        id,
       },
->>>>>>> 20c3ca8643a1b4b50975f40c9f1c67be8a464915
     });
 
     if (!passenger) {
@@ -258,36 +284,35 @@ export const loginPassenger = async (req, res) => {
       });
     }
 
-<<<<<<< HEAD
-    // Delete related notifications
+    // Delete Notifications
     await prisma.notification.deleteMany({
       where: {
         passengerId: id,
       },
     });
 
-    // Delete related SOS
+    // Delete SOS
     await prisma.sOS.deleteMany({
       where: {
         passengerId: id,
       },
     });
 
-    // Delete related SOS Contacts
+    // Delete SOS Contacts
     await prisma.sOSContact.deleteMany({
       where: {
         passengerId: id,
       },
     });
 
-    // Delete login logs
+    // Delete Login Logs
     await prisma.passengerLoginLog.deleteMany({
       where: {
         passengerId: id,
       },
     });
 
-    // Finally delete passenger
+    // Delete Passenger
     await prisma.passenger.delete({
       where: {
         id,
@@ -301,29 +326,6 @@ export const loginPassenger = async (req, res) => {
 
   } catch (error) {
     console.log(error);
-=======
-    // Generate JWT
-    const token = jwt.sign(
-      {
-        id: passenger.id,
-        firebaseUid: passenger.firebaseUid,
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "7d",
-      }
-    );
-
-    res.status(200).json({
-      success: true,
-      message: "Login Successful",
-      token,
-      passenger,
-    });
-
-  } catch (error) {
-    console.error(error);
->>>>>>> 20c3ca8643a1b4b50975f40c9f1c67be8a464915
 
     res.status(500).json({
       success: false,
@@ -332,12 +334,7 @@ export const loginPassenger = async (req, res) => {
   }
 };
 
-<<<<<<< HEAD
-// ==========================
-// Passenger Count
-// ==========================
-
-const getPassengerCount = async (req, res) => {
+export const getPassengerCount = async (req, res) => {
   try {
     const count = await prisma.passenger.count();
 
@@ -345,6 +342,7 @@ const getPassengerCount = async (req, res) => {
       success: true,
       count,
     });
+
   } catch (error) {
     console.log(error);
 
@@ -355,19 +353,3 @@ const getPassengerCount = async (req, res) => {
   }
 };
 
-module.exports = {
-  getPassengers,
-  getPassengerById,
-  createPassenger,
-  updatePassenger,
-  deletePassenger,
-  getPassengerCount,
-};
-=======
-
-
-// export default {
-//     registerPassenger,
-//     loginPassenger,
-// };
->>>>>>> 20c3ca8643a1b4b50975f40c9f1c67be8a464915

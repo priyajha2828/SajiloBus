@@ -1,12 +1,12 @@
-const { PrismaClient } = require("@prisma/client");
+import { prisma } from "../config/prisma.js";
 
-const prisma = new PrismaClient();
+
 
 /* =========================================
    GET ALL SCHEDULES
 ========================================= */
 
-const getSchedules = async (req, res) => {
+export const getSchedules = async (req, res) => {
   try {
     const { search } = req.query;
 
@@ -68,7 +68,7 @@ const getSchedules = async (req, res) => {
    GET SCHEDULE BY ID
 ========================================= */
 
-const getScheduleById = async (req, res) => {
+export const getScheduleById = async (req, res) => {
   try {
     const schedule = await prisma.busSchedule.findUnique({
       where: {
@@ -106,7 +106,7 @@ const getScheduleById = async (req, res) => {
    CREATE SCHEDULE
 ========================================= */
 
-const createSchedule = async (req, res) => {
+export const createSchedule = async (req, res) => {
   try {
     const {
       busId,
@@ -197,7 +197,7 @@ const createSchedule = async (req, res) => {
    UPDATE SCHEDULE
 ========================================= */
 
-const updateSchedule = async (req, res) => {
+export const updateSchedule = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -264,7 +264,7 @@ const updateSchedule = async (req, res) => {
    DELETE SCHEDULE
 ========================================= */
 
-const deleteSchedule = async (req, res) => {
+export const deleteSchedule = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -305,7 +305,7 @@ const deleteSchedule = async (req, res) => {
    COUNT
 ========================================= */
 
-const getScheduleCount = async (req, res) => {
+export const getScheduleCount = async (req, res) => {
   try {
     const count = await prisma.busSchedule.count();
 
@@ -323,15 +323,3 @@ const getScheduleCount = async (req, res) => {
   }
 };
 
-/* =========================================
-   EXPORTS
-========================================= */
-
-module.exports = {
-  getSchedules,
-  getScheduleById,
-  createSchedule,
-  updateSchedule,
-  deleteSchedule,
-  getScheduleCount,
-};

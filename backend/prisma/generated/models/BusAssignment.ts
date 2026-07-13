@@ -232,8 +232,8 @@ export type BusAssignmentWhereInput = {
   assignedFrom?: Prisma.DateTimeFilter<"BusAssignment"> | Date | string
   assignedTo?: Prisma.DateTimeNullableFilter<"BusAssignment"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"BusAssignment"> | Date | string
-  driver?: Prisma.XOR<Prisma.DriverScalarRelationFilter, Prisma.DriverWhereInput>
   bus?: Prisma.XOR<Prisma.BusScalarRelationFilter, Prisma.BusWhereInput>
+  driver?: Prisma.XOR<Prisma.DriverScalarRelationFilter, Prisma.DriverWhereInput>
 }
 
 export type BusAssignmentOrderByWithRelationInput = {
@@ -243,8 +243,8 @@ export type BusAssignmentOrderByWithRelationInput = {
   assignedFrom?: Prisma.SortOrder
   assignedTo?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  driver?: Prisma.DriverOrderByWithRelationInput
   bus?: Prisma.BusOrderByWithRelationInput
+  driver?: Prisma.DriverOrderByWithRelationInput
 }
 
 export type BusAssignmentWhereUniqueInput = Prisma.AtLeast<{
@@ -257,8 +257,8 @@ export type BusAssignmentWhereUniqueInput = Prisma.AtLeast<{
   assignedFrom?: Prisma.DateTimeFilter<"BusAssignment"> | Date | string
   assignedTo?: Prisma.DateTimeNullableFilter<"BusAssignment"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"BusAssignment"> | Date | string
-  driver?: Prisma.XOR<Prisma.DriverScalarRelationFilter, Prisma.DriverWhereInput>
   bus?: Prisma.XOR<Prisma.BusScalarRelationFilter, Prisma.BusWhereInput>
+  driver?: Prisma.XOR<Prisma.DriverScalarRelationFilter, Prisma.DriverWhereInput>
 }, "id">
 
 export type BusAssignmentOrderByWithAggregationInput = {
@@ -291,8 +291,8 @@ export type BusAssignmentCreateInput = {
   assignedFrom: Date | string
   assignedTo?: Date | string | null
   createdAt?: Date | string
-  driver: Prisma.DriverCreateNestedOneWithoutAssignmentsInput
   bus: Prisma.BusCreateNestedOneWithoutAssignmentsInput
+  driver: Prisma.DriverCreateNestedOneWithoutAssignmentsInput
 }
 
 export type BusAssignmentUncheckedCreateInput = {
@@ -308,8 +308,8 @@ export type BusAssignmentUpdateInput = {
   assignedFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignedTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  driver?: Prisma.DriverUpdateOneRequiredWithoutAssignmentsNestedInput
   bus?: Prisma.BusUpdateOneRequiredWithoutAssignmentsNestedInput
+  driver?: Prisma.DriverUpdateOneRequiredWithoutAssignmentsNestedInput
 }
 
 export type BusAssignmentUncheckedUpdateInput = {
@@ -647,8 +647,8 @@ export type BusAssignmentSelect<ExtArgs extends runtime.Types.Extensions.Interna
   assignedFrom?: boolean
   assignedTo?: boolean
   createdAt?: boolean
-  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
   bus?: boolean | Prisma.BusDefaultArgs<ExtArgs>
+  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["busAssignment"]>
 
 export type BusAssignmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -658,8 +658,8 @@ export type BusAssignmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   assignedFrom?: boolean
   assignedTo?: boolean
   createdAt?: boolean
-  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
   bus?: boolean | Prisma.BusDefaultArgs<ExtArgs>
+  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["busAssignment"]>
 
 export type BusAssignmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -669,8 +669,8 @@ export type BusAssignmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   assignedFrom?: boolean
   assignedTo?: boolean
   createdAt?: boolean
-  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
   bus?: boolean | Prisma.BusDefaultArgs<ExtArgs>
+  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["busAssignment"]>
 
 export type BusAssignmentSelectScalar = {
@@ -684,23 +684,23 @@ export type BusAssignmentSelectScalar = {
 
 export type BusAssignmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "driverId" | "busId" | "assignedFrom" | "assignedTo" | "createdAt", ExtArgs["result"]["busAssignment"]>
 export type BusAssignmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
   bus?: boolean | Prisma.BusDefaultArgs<ExtArgs>
+  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
 }
 export type BusAssignmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
   bus?: boolean | Prisma.BusDefaultArgs<ExtArgs>
+  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
 }
 export type BusAssignmentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
   bus?: boolean | Prisma.BusDefaultArgs<ExtArgs>
+  driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
 }
 
 export type $BusAssignmentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "BusAssignment"
   objects: {
-    driver: Prisma.$DriverPayload<ExtArgs>
     bus: Prisma.$BusPayload<ExtArgs>
+    driver: Prisma.$DriverPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1103,8 +1103,8 @@ readonly fields: BusAssignmentFieldRefs;
  */
 export interface Prisma__BusAssignmentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  driver<T extends Prisma.DriverDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DriverDefaultArgs<ExtArgs>>): Prisma.Prisma__DriverClient<runtime.Types.Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   bus<T extends Prisma.BusDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BusDefaultArgs<ExtArgs>>): Prisma.Prisma__BusClient<runtime.Types.Result.GetResult<Prisma.$BusPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  driver<T extends Prisma.DriverDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DriverDefaultArgs<ExtArgs>>): Prisma.Prisma__DriverClient<runtime.Types.Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

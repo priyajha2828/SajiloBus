@@ -254,7 +254,9 @@ export const getDriverCount = async (req, res) => {
   }
 };
 
-const getDriverStatus = async (req, res) => {
+
+
+export const getDriverStatus = async (req, res) => {
   try {
     const drivers = await prisma.driver.findMany({
       include: {
@@ -298,29 +300,3 @@ const getDriverStatus = async (req, res) => {
     });
   }
 };
-
-
-// ===========================
-// Export
-// ===========================
-
-<<<<<<< HEAD
-module.exports = {
-  getDrivers,
-  getDriverById,
-  createDriver,
-  updateDriver,
-  deleteDriver,
-  getDriverCount,
-  getDriverStatus,
-};
-=======
-// export default {
-//   getDrivers,
-//   getDriverById,
-//   createDriver,
-//   updateDriver,
-//   deleteDriver,
-//   getDriverCount,
-// };
->>>>>>> 20c3ca8643a1b4b50975f40c9f1c67be8a464915
