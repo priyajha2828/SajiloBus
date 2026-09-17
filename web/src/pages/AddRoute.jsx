@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import { ArrowLeft } from "lucide-react";
-
+import api from "../services/api";
 import "../css/AddRoute.css";
 
 function AddRoute() {
@@ -33,30 +33,28 @@ function AddRoute() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const response = await fetch("http://localhost:5000/routes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(route),
-      });
+  try {
+    const response = await api.post("/routes", route);
 
-      const data = await response.json();
-
-      if (data.success) {
-        alert("Route Added Successfully");
-        navigate("/routes");
-      } else {
-        alert(data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      alert("Server Error");
+    if (response.data.success) {
+      alert("Route Added Successfully");
+      navigate("/routes");
+    } else {
+      alert(response.data.message);
     }
-  };
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Server Error"
+    );
+  }
+};
+
+
 
   return (
     <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>

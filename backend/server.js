@@ -4,15 +4,18 @@ import express from "express";
 import cors from "cors";
 
 // Routes
-import { router as adminRoutes } from "./routes/adminRoutes.js";
-import { router as passengerRoutes } from "./routes/passengerRoutes.js";
-import { router as driverRoutes } from "./routes/driverRoutes.js";
-import { router as busRoutes } from "./routes/busRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
+import passengerRoutes from "./routes/passengerRoutes.js";
+import driverRoutes from "./routes/driverRoutes.js";
+import busRoutes from "./routes/busRoutes.js";
 import routeRoutes from "./routes/routeRoutes.js";
 import notificationRoutes from "./routes/notificationRoutes.js";
 import busAssignmentRoutes from "./routes/busAssignmentRoutes.js";
 import tripRoutes from "./routes/tripRoutes.js";
 import scheduleRoutes from "./routes/scheduleRoutes.js";
+import busStopRoutes from "./routes/busStopRoutes.js";
+import routeDetailRoutes from "./routes/routeDetailRoutes.js";
+import trackingRoutes from "./routes/trackingRoutes.js";
 
 const app = express();
 
@@ -30,6 +33,9 @@ app.use("/notifications", notificationRoutes);
 app.use("/bus-assignments", busAssignmentRoutes);
 app.use("/trips", tripRoutes);
 app.use("/schedules", scheduleRoutes);
+app.use("/bus-stops", busStopRoutes);
+app.use("/route-details", routeDetailRoutes);
+app.use("/tracking", trackingRoutes);
 
 // Test Route
 app.get("/", (req, res) => {

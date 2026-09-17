@@ -9,7 +9,7 @@ import {
   Trash2,
   ArrowLeft,
 } from "lucide-react";
-
+import api from "../services/api";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -37,45 +37,35 @@ const [loading, setLoading] = useState(true);
 
 const fetchAssignments = async () => {
   try {
-    const response = await fetch(
-      "http://localhost:5000/bus-assignments"
-    );
+    const response = await api.get("/bus-assignments");
 
-    const data = await response.json();
-
-    if (data.success) {
-      setAssignments(data.assignments);
+    if (response.data.success) {
+      setAssignments(response.data.assignments);
     }
-
-    setLoading(false);
   } catch (error) {
-    console.log(error);
+    console.error(error);
+  } finally {
     setLoading(false);
   }
 };
 
 const deleteAssignment = async (id) => {
-
-  if (!window.confirm("Delete Assignment?"))
-    return;
+  if (!window.confirm("Delete Assignment?")) return;
 
   try {
+    const response = await api.delete(`/bus-assignments/${id}`);
 
-    const response = await fetch(
-  `http://localhost:5000/bus-assignments/${id}`,
-  {
-    method: "DELETE",
-  }
-);
-
-    const data = await response.json();
-
-    alert(data.message);
-
-    fetchAssignments();
-
+    if (response.data.success) {
+      alert(response.data.message);
+      fetchAssignments();
+    }
   } catch (error) {
-    console.log(error);
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Server Error"
+    );
   }
 };
 

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import { ArrowLeft } from "lucide-react";
-
+import api from "../services/api";
 import "../css/AddPassenger.css";
 
 function AddPassenger() {
@@ -13,62 +13,50 @@ function AddPassenger() {
     return localStorage.getItem("theme") === "dark";
   });
 
+
   const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem("theme", darkMode ? "dark" : "light");
   }, [darkMode]);
 
-  const [passenger, setPassenger] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    gender: "",
-    status: "Active",
-    password: "",
-    confirmPassword: "",
+ const [passenger, setPassenger] = useState({
+  name: "",
+  email: "",
+  phone: "",
+});
+
+ const handleChange = (e) => {
+  setPassenger({
+    ...passenger,
+    [e.target.name]: e.target.value,
   });
+};
 
-  const handleChange = (e) => {
-    setPassenger({
-      ...passenger,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
   e.preventDefault();
 
-  if (passenger.password !== passenger.confirmPassword) {
-    alert("Passwords do not match!");
-    return;
-  }
-
   try {
-    const response = await fetch("http://localhost:5000/passengers", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        firebaseUid: `passenger_${Date.now()}`, // temporary unique id
-        name: passenger.name,
-        email: passenger.email,
-        phone: passenger.phone,
-      }),
+    const response = await api.post("/passengers", {
+      firebaseUid: `passenger_${Date.now()}`, // Temporary UID for admin-created passenger
+      name: passenger.name,
+      email: passenger.email,
+      phone: passenger.phone,
     });
 
-    const data = await response.json();
-
-    if (data.success) {
-      alert("Passenger Added Successfully");
+    if (response.data.success) {
+      alert(response.data.message);
       navigate("/passengers");
     } else {
-      alert(data.message);
+      alert(response.data.message);
     }
   } catch (error) {
-    console.log(error);
-    alert("Server Error");
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Server Error"
+    );
   }
 };
 
@@ -148,60 +136,9 @@ function AddPassenger() {
               />
             </div>
 
-            <div className="form-group">
-              <label>Gender</label>
+            
 
-              <select
-                name="gender"
-                value={passenger.gender}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Select Gender</option>
-                <option>Male</option>
-                <option>Female</option>
-                <option>Other</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label>Status</label>
-
-              <select
-                name="status"
-                value={passenger.status}
-                onChange={handleChange}
-              >
-                <option>Active</option>
-                <option>Blocked</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label>Password</label>
-
-              <input
-                type="password"
-                name="password"
-                value={passenger.password}
-                onChange={handleChange}
-                placeholder="Enter Password"
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Confirm Password</label>
-
-              <input
-                type="password"
-                name="confirmPassword"
-                value={passenger.confirmPassword}
-                onChange={handleChange}
-                placeholder="Confirm Password"
-                required
-              />
-            </div>
+            
 
             <div className="button-group">
 

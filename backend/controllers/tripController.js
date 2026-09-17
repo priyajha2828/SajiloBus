@@ -1,365 +1,280 @@
 import { prisma } from "../config/prisma.js";
 
-/* =========================================
-   GET ALL TRIPS
-========================================= */
-
+// ===========================
+// Get All Trips
+// ===========================
 export const getTrips = async (req, res) => {
   try {
-    const { search } = req.query;
-
     const trips = await prisma.trip.findMany({
-      where: search
-        ? {
-            OR: [
-              {
-                driver: {
-                  name: {
-                    contains: search,
-                    mode: "insensitive",
-                  },
-                },
-              },
-              {
-                bus: {
-                  busNumber: {
-                    contains: search,
-                    mode: "insensitive",
-                  },
-                },
-              },
-              {
-                route: {
-                  routeName: {
-                    contains: search,
-                    mode: "insensitive",
-                  },
-                },
-              },
-            ],
-          }
-        : {},
       include: {
+        route: true,
         driver: true,
         bus: true,
-        route: true,
       },
       orderBy: {
         id: "desc",
       },
     });
 
-    res.json({
+    res.status(200).json({
       success: true,
       trips,
     });
   } catch (error) {
-    console.log(error);
-
+    console.error(error);
     res.status(500).json({
       success: false,
-      message: "Failed to fetch trips.",
+      message: error.message,
     });
   }
 };
 
-/* =========================================
-   GET TRIP BY ID
-========================================= */
-
+// ===========================
+// Get Trip By ID
+// ===========================
 export const getTripById = async (req, res) => {
   try {
+    const id = Number(req.params.id);
+
     const trip = await prisma.trip.findUnique({
-      where: {
-        id: Number(req.params.id),
-      },
+      where: { id },
       include: {
+        route: true,
         driver: true,
         bus: true,
-        route: true,
+        tripHistory: true,
       },
     });
 
     if (!trip) {
       return res.status(404).json({
         success: false,
-        message: "Trip not found.",
+        message: "Trip not found",
       });
     }
 
-    res.json({
+    res.status(200).json({
       success: true,
       trip,
     });
   } catch (error) {
-    console.log(error);
-
+    console.error(error);
     res.status(500).json({
       success: false,
-      message: "Failed to fetch trip.",
+      message: error.message,
     });
   }
 };
 
-/* =========================================
-   CREATE TRIP
-========================================= */
-
+// ===========================
+// Create Trip
+// ===========================
 export const createTrip = async (req, res) => {
   try {
-    const { driverId, busId, routeId } = req.body;
+    const { routeId, driverId, busId } = req.body;
 
-    // Check Driver
-    const driver = await prisma.driver.findUnique({
-      where: {
-        id: Number(driverId),
-      },
-    });
-
-    if (!driver) {
-      return res.status(404).json({
-        success: false,
-        message: "Driver not found.",
-      });
-    }
-
-    // Check Bus
-    const bus = await prisma.bus.findUnique({
-      where: {
-        id: Number(busId),
-      },
-    });
-
-    if (!bus) {
-      return res.status(404).json({
-        success: false,
-        message: "Bus not found.",
-      });
-    }
-
-    // Check Route
     const route = await prisma.route.findUnique({
-      where: {
-        id: Number(routeId),
-      },
+      where: { id: Number(routeId) },
     });
 
     if (!route) {
       return res.status(404).json({
         success: false,
-        message: "Route not found.",
+        message: "Route not found",
       });
     }
 
-    // Driver already running a trip
-    const activeDriverTrip = await prisma.trip.findFirst({
-      where: {
-        driverId: Number(driverId),
-        endedAt: null,
-      },
+    const driver = await prisma.driver.findUnique({
+      where: { id: Number(driverId) },
     });
 
-    if (activeDriverTrip) {
-      return res.status(400).json({
+    if (!driver) {
+      return res.status(404).json({
         success: false,
-        message: "Driver already has an active trip.",
+        message: "Driver not found",
       });
     }
 
-    // Bus already running a trip
-    const activeBusTrip = await prisma.trip.findFirst({
-      where: {
-        busId: Number(busId),
-        endedAt: null,
-      },
+    const bus = await prisma.bus.findUnique({
+      where: { id: Number(busId) },
     });
 
-    if (activeBusTrip) {
-      return res.status(400).json({
+    if (!bus) {
+      return res.status(404).json({
         success: false,
-        message: "Bus already has an active trip.",
+        message: "Bus not found",
       });
     }
 
     const trip = await prisma.trip.create({
       data: {
+        routeId: Number(routeId),
         driverId: Number(driverId),
         busId: Number(busId),
-        routeId: Number(routeId),
         startedAt: new Date(),
+      },
+      include: {
+        route: true,
+        driver: true,
+        bus: true,
       },
     });
 
     res.status(201).json({
       success: true,
-      message: "Trip started successfully.",
+      message: "Trip created successfully",
       trip,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
     res.status(500).json({
       success: false,
-      message: "Failed to create trip.",
+      message: error.message,
     });
   }
 };
 
-/* =========================================
-   END TRIP
-========================================= */
+// ===========================
+// Update Trip
+// ===========================
+export const updateTrip = async (req, res) => {
+  try {
+    const id = Number(req.params.id);
 
+    const { routeId, driverId, busId } = req.body;
+
+    const trip = await prisma.trip.update({
+      where: { id },
+      data: {
+        routeId: Number(routeId),
+        driverId: Number(driverId),
+        busId: Number(busId),
+      },
+      include: {
+        route: true,
+        driver: true,
+        bus: true,
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Trip updated successfully",
+      trip,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// ===========================
+// End Trip
+// ===========================
 export const endTrip = async (req, res) => {
   try {
+    const id = Number(req.params.id);
+
     const trip = await prisma.trip.update({
-      where: {
-        id: Number(req.params.id),
-      },
+      where: { id },
       data: {
         endedAt: new Date(),
       },
     });
 
-    res.json({
+    res.status(200).json({
       success: true,
-      message: "Trip ended successfully.",
+      message: "Trip ended successfully",
       trip,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
     res.status(500).json({
       success: false,
-      message: "Failed to end trip.",
+      message: error.message,
     });
   }
 };
 
-/* =========================================
-   DELETE TRIP
-========================================= */
-
+// ===========================
+// Delete Trip
+// ===========================
 export const deleteTrip = async (req, res) => {
   try {
+    const id = Number(req.params.id);
+
     await prisma.trip.delete({
-      where: {
-        id: Number(req.params.id),
-      },
+      where: { id },
     });
 
-    res.json({
+    res.status(200).json({
       success: true,
-      message: "Trip deleted successfully.",
+      message: "Trip deleted successfully",
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
     res.status(500).json({
       success: false,
-      message: "Failed to delete trip.",
+      message: error.message,
     });
   }
 };
 
-/* =========================================
-   UPDATE TRIP
-========================================= */
-
-export const updateTrip = async (req, res) => {
-  try {
-    const { driverId, busId, routeId } = req.body;
-    const { id } = req.params;
-
-    const existingTrip = await prisma.trip.findUnique({
-      where: {
-        id: Number(id),
-      },
-    });
-
-    if (!existingTrip) {
-      return res.status(404).json({
-        success: false,
-        message: "Trip not found.",
-      });
-    }
-
-    const updatedTrip = await prisma.trip.update({
-      where: {
-        id: Number(id),
-      },
-      data: {
-        driverId: Number(driverId),
-        busId: Number(busId),
-        routeId: Number(routeId),
-      },
-      include: {
-        driver: true,
-        bus: true,
-        route: true,
-      },
-    });
-
-    res.json({
-      success: true,
-      message: "Trip updated successfully.",
-      trip: updatedTrip,
-    });
-  } catch (error) {
-    console.log(error);
-
-    res.status(500).json({
-      success: false,
-      message: "Failed to update trip.",
-    });
-  }
-};
-
-/* =========================================
-   COUNT
-========================================= */
-
+// ===========================
+// Trip Count
+// ===========================
 export const getTripCount = async (req, res) => {
   try {
     const count = await prisma.trip.count();
 
-    res.json({
+    res.status(200).json({
       success: true,
       count,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
     res.status(500).json({
       success: false,
-      message: "Failed to get trip count.",
+      message: error.message,
     });
   }
 };
 
+// ===========================
+// Recent Trips
+// ===========================
 export const getRecentTrips = async (req, res) => {
   try {
     const trips = await prisma.trip.findMany({
       include: {
+        route: true,
         driver: true,
         bus: true,
       },
       orderBy: {
-        startedAt: "desc",
+        createdAt: "desc",
       },
       take: 5,
     });
 
-    res.json({
+    res.status(200).json({
       success: true,
       trips,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
     res.status(500).json({
       success: false,
-      message: "Failed to fetch recent trips.",
+      message: error.message,
     });
   }
 };
-

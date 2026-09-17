@@ -31,6 +31,18 @@ import ScheduleManagement from "./pages/ScheduleManagement";
 import AddSchedule from "./pages/AddSchedule";
 import EditSchedule from "./pages/EditSchedule";
 import ViewSchedule from "./pages/ViewSchedule";
+import BusStopManagement from "./pages/BusStopManagement";
+import AddBusStop from "./pages/AddBusStop";
+import EditBusStop from "./pages/EditBusStop";
+import ViewBusStop from "./pages/ViewBusStop";
+import RouteDetailsManagement from "./pages/RouteDetailsManagement";
+import AddRouteDetail from "./pages/AddRouteDetail";
+import EditRouteDetail from "./pages/EditRouteDetail";
+import ViewRouteDetail from "./pages/ViewRouteDetail";
+import NotificationManagement from "./pages/NotificationManagement";
+import ViewNotification from "./pages/ViewNotification";
+import LiveTracking from "./pages/LiveTracking";
+import Tracking from "./pages/Tracking";
 
 function App() {
   return (
@@ -51,39 +63,34 @@ function App() {
       <Route path="/drivers/edit/:id" element={<EditDriver />} />
       <Route path="/buses/view/:id" element={<ViewBus />} />
       <Route path="/buses/edit/:id" element={<EditBus />} />
-
       <Route path="/assignments" element={<AssignmentManagement />} />
       <Route path="/passengers/view/:id" element={<ViewPassenger />} />
       <Route path="/schedules" element={<ScheduleManagement />} />
-      <Route
-  path="/schedules/view/:id"
-  element={<ViewSchedule />}
-/>
-
+      <Route path="/schedules/view/:id" element={<ViewSchedule />} />
+      <Route path="/bus-stops" element={<BusStopManagement />} />
+      <Route path="/bus-stops/add" element={<AddBusStop />} />
+      <Route path="/bus-stops/edit/:id" element={<EditBusStop />} />
+      <Route path="/bus-stops/view/:id" element={<ViewBusStop />} />
       <Route path="/schedules/add" element={<AddSchedule />} />
-
       <Route path="/schedules/edit/:id" element={<EditSchedule />} />
-
       <Route path="/passengers/edit/:id" element={<EditPassenger />} />
-
       <Route path="/assignments/add" element={<AddAssignment />} />
-
       <Route path="/routes/view/:id" element={<ViewRoute />} />
-
       <Route path="/routes/edit/:id" element={<EditRoute />} />
-
       <Route path="/assignments/edit/:id" element={<EditAssignment />} />
-
       <Route path="/assignments/view/:id" element={<ViewAssignment />} />
-
       <Route path="/trips" element={<TripManagement />} />
-
       <Route path="/trips/add" element={<AddTrip />} />
-
       <Route path="/trips/edit/:id" element={<EditTrip />} />
-
       <Route path="/trips/view/:id" element={<ViewTrip />} />
-
+      <Route path="/route-details" element={<RouteDetailsManagement />} />
+      <Route path="/route-details/add" element={<AddRouteDetail />} />
+      <Route path="/route-details/edit/:id" element={<EditRouteDetail />} />
+      <Route path="/route-details/view/:id" element={<ViewRouteDetail />} />
+      <Route path="/notifications" element={<NotificationManagement />} />
+      <Route path="/notifications/view/:id" element={<ViewNotification />} />
+      <Route path="/live-tracking" element={<LiveTracking />} />
+      <Route path="/tracking" element={<Tracking />} />
     </Routes>
   );
 }

@@ -1,5 +1,4 @@
 import express from "express";
-
 import {
   getRoutes,
   getRouteById,
@@ -8,21 +7,14 @@ import {
   deleteRoute,
 } from "../controllers/routeController.js";
 
+import { verifyToken, isAdmin } from "../middleware/authMiddleware.js";
+
 const router = express.Router();
 
-// Get All Routes
-router.get("/", getRoutes);
-
-// Get Route By ID
-router.get("/:id", getRouteById);
-
-// Create Route
-router.post("/", createRoute);
-
-// Update Route
-router.put("/:id", updateRoute);
-
-// Delete Route
-router.delete("/:id", deleteRoute);
+router.get("/", verifyToken, isAdmin, getRoutes);
+router.get("/:id", verifyToken, isAdmin, getRouteById);
+router.post("/", verifyToken, isAdmin, createRoute);
+router.put("/:id", verifyToken, isAdmin, updateRoute);
+router.delete("/:id", verifyToken, isAdmin, deleteRoute);
 
 export default router;

@@ -1,0 +1,51 @@
+.view-route-detail-container {
+  max-width: 700px;
+  margin: auto;
+}
+
+.view-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.route-detail-card {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,.08);
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-row span {
+  font-weight: 600;
+}
+
+.detail-row strong {
+  color: #444;
+}
+
+.dark-theme .route-detail-card {
+  background: #1f2937;
+}
+
+.dark-theme .detail-row {
+  border-color: #374151;
+}
+
+.dark-theme .detail-row span,
+.dark-theme .detail-row strong,
+.dark-theme .view-header h2 {
+  color: white;
+}

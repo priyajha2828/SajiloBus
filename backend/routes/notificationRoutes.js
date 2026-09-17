@@ -2,23 +2,48 @@ import express from "express";
 
 import {
   getNotifications,
-  createNotification,
+  getNotificationById,
   deleteNotification,
-  markAllAsRead,
+  getNotificationCount,
 } from "../controllers/notificationController.js";
+
+import {
+  verifyToken,
+  isAdmin,
+} from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// Get All Notifications
-router.get("/", getNotifications);
+// Count
+router.get(
+  "/count",
+  verifyToken,
+  isAdmin,
+  getNotificationCount
+);
 
-// Create Notification
-router.post("/", createNotification);
+// Get All
+router.get(
+  "/",
+  verifyToken,
+  isAdmin,
+  getNotifications
+);
 
-// Mark All as Read
-router.put("/read-all", markAllAsRead);
+// Get By ID
+router.get(
+  "/:id",
+  verifyToken,
+  isAdmin,
+  getNotificationById
+);
 
-// Delete Notification
-router.delete("/:id", deleteNotification);
+// Delete
+router.delete(
+  "/:id",
+  verifyToken,
+  isAdmin,
+  deleteNotification
+);
 
 export default router;

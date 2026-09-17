@@ -31,30 +31,32 @@ export const getNotifications = async (req, res) => {
 };
 
 // =============================
-// Create Notification
+// Get Notification By ID
 // =============================
 
-export const createNotification = async (req, res) => {
+export const getNotificationById = async (req, res) => {
   try {
-    const {
-      passengerId,
-      adminId,
-      title,
-      message,
-    } = req.body;
+    const id = Number(req.params.id);
 
-    const notification = await prisma.notification.create({
-      data: {
-        passengerId: Number(passengerId),
-        adminId: Number(adminId),
-        title,
-        message,
+    const notification = await prisma.notification.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        passenger: true,
+        admin: true,
       },
     });
 
-    res.status(201).json({
+    if (!notification) {
+      return res.status(404).json({
+        success: false,
+        message: "Notification not found",
+      });
+    }
+
+    res.status(200).json({
       success: true,
-      message: "Notification Created Successfully",
       notification,
     });
   } catch (error) {
@@ -67,34 +69,7 @@ export const createNotification = async (req, res) => {
   }
 };
 
-// =============================
-// Mark All Notifications As Read
-// =============================
 
-export const markAllAsRead = async (req, res) => {
-  try {
-    await prisma.notification.updateMany({
-      where: {
-        isRead: false,
-      },
-      data: {
-        isRead: true,
-      },
-    });
-
-    res.status(200).json({
-      success: true,
-      message: "All notifications marked as read",
-    });
-  } catch (error) {
-    console.log(error);
-
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
 
 // =============================
 // Delete Notification
@@ -113,6 +88,28 @@ export const deleteNotification = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Notification Deleted Successfully",
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// =============================
+// Notification Count
+// =============================
+
+export const getNotificationCount = async (req, res) => {
+  try {
+    const count = await prisma.notification.count();
+
+    res.status(200).json({
+      success: true,
+      count,
     });
   } catch (error) {
     console.log(error);

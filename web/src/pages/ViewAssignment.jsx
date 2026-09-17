@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, ClipboardList } from "lucide-react";
-
+import api from "../services/api";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -23,14 +23,27 @@ function ViewAssignment() {
     );
   }, [darkMode]);
 
-  // Dummy Data
-  const assignment = {
-    id,
-    driver: "Ram Sharma",
-    bus: "BA 2 PA 1234",
-    assignedFrom: "08 Jul 2026",
-    assignedTo: "20 Jul 2026",
-  };
+ const [assignment, setAssignment] = useState(null);
+
+useEffect(() => {
+  if (id) {
+    fetchAssignment();
+  }
+}, [id]);
+
+const fetchAssignment = async () => {
+  try {
+    const response = await api.get(`/bus-assignments/${id}`);
+
+    if (response.data.success) {
+      setAssignment(response.data.assignment);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
 
   return (
     <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>
@@ -71,22 +84,30 @@ function ViewAssignment() {
 
             <div className="view-row">
               <label>Driver</label>
-              <span>{assignment.driver}</span>
+             <span>{assignment?.driver?.name || "-"}</span>
             </div>
 
             <div className="view-row">
               <label>Bus</label>
-              <span>{assignment.bus}</span>
+              <span>{assignment?.bus?.busNumber || "-"}</span>
             </div>
 
             <div className="view-row">
               <label>Assigned From</label>
-              <span>{assignment.assignedFrom}</span>
+              <span>
+  {assignment?.assignedFrom
+    ? new Date(assignment.assignedFrom).toLocaleDateString()
+    : "-"}
+</span>
             </div>
 
             <div className="view-row">
               <label>Assigned To</label>
-              <span>{assignment.assignedTo}</span>
+              <span>
+  {assignment?.assignedTo
+    ? new Date(assignment.assignedTo).toLocaleDateString()
+    : "-"}
+</span>
             </div>
 
           </div>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Save } from "lucide-react";
-
+import api from "../services/api";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -46,27 +46,25 @@ useEffect(() => {
 
 const fetchDrivers = async () => {
   try {
-    const response = await fetch("http://localhost:5000/drivers");
-    const data = await response.json();
+    const response = await api.get("/drivers");
 
-    if (data.success) {
-      setDrivers(data.drivers);
+    if (response.data.success) {
+      setDrivers(response.data.drivers);
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
 const fetchBuses = async () => {
   try {
-    const response = await fetch("http://localhost:5000/buses");
-    const data = await response.json();
+    const response = await api.get("/buses");
 
-    if (data.success) {
-      setBuses(data.buses);
+    if (response.data.success) {
+      setBuses(response.data.buses);
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -79,37 +77,28 @@ const fetchBuses = async () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
   e.preventDefault();
 
   try {
-    const response = await fetch(
-      "http://localhost:5000/bus-assignments",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          driverId: Number(formData.driverId),
-          busId: Number(formData.busId),
-          assignedFrom: formData.assignedFrom,
-          assignedTo: formData.assignedTo || null,
-        }),
-      }
-    );
+    const response = await api.post("/bus-assignments", {
+      driverId: Number(formData.driverId),
+      busId: Number(formData.busId),
+      assignedFrom: formData.assignedFrom,
+      assignedTo: formData.assignedTo || null,
+    });
 
-    const data = await response.json();
-
-    if (data.success) {
-      alert(data.message);
+    if (response.data.success) {
+      alert(response.data.message);
       navigate("/assignments");
-    } else {
-      alert(data.message);
     }
   } catch (error) {
-    console.log(error);
-    alert("Something went wrong");
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Something went wrong"
+    );
   }
 };
 

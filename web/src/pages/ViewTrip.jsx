@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { CheckCircle, PlayCircle } from "lucide-react";
-
+import api from "../services/api";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -30,29 +30,52 @@ function ViewTrip() {
     fetchTrip();
   }, []);
 
-  const fetchTrip = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:5000/trips/${id}`
-      );
+ const fetchTrip = async () => {
+  try {
+    const response = await api.get(`/trips/${id}`);
 
-      const data = await response.json();
-
-      if (data.success) {
-        setTrip(data.trip);
-      }
-    } catch (error) {
-      console.log(error);
+    if (response.data.success) {
+      setTrip(response.data.trip);
     }
-  };
+  } catch (error) {
+    console.error(error);
 
-  if (!trip) {
-    return (
-      <div className="loading">
-        Loading...
-      </div>
+    alert(
+      error.response?.data?.message ||
+      "Failed to fetch trip"
     );
   }
+};
+
+
+if (!trip) {
+  return (
+    <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>
+      <Sidebar
+        collapsed={collapsed}
+        setCollapsed={setCollapsed}
+        darkMode={darkMode}
+      />
+
+      <div
+        className={`dashboard-content ${
+          collapsed ? "collapsed-content" : ""
+        }`}
+      >
+        <Navbar
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+        />
+
+        <div className="view-trip-container">
+          <h2>Loading Trip...</h2>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
 
   return (
     <div
@@ -95,30 +118,30 @@ function ViewTrip() {
 
             <div className="trip-row">
               <span>Trip ID</span>
-              <strong>{trip.id}</strong>
+              <strong>{trip?.id}</strong>
             </div>
 
             <div className="trip-row">
               <span>Driver</span>
-              <strong>{trip.driver.name}</strong>
+              <strong>{trip?.driver?.name || "-"}</strong>
             </div>
 
             <div className="trip-row">
               <span>Bus</span>
-              <strong>{trip.bus.busNumber}</strong>
+              <strong>{trip?.bus?.busNumber || "-"}</strong>
             </div>
 
             <div className="trip-row">
               <span>Route</span>
-              <strong>{trip.route.routeName}</strong>
+             <strong>{trip?.route?.routeName || "-"}</strong>
             </div>
 
             <div className="trip-row">
               <span>Started At</span>
               <strong>
-                {new Date(
-                  trip.startedAt
-                ).toLocaleString()}
+                {trip?.startedAt
+  ? new Date(trip.startedAt).toLocaleString()
+  : "-"}
               </strong>
             </div>
 

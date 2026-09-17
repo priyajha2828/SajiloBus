@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, Save } from "lucide-react";
-
+import api from "../services/api";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -41,60 +41,51 @@ function EditSchedule() {
     fetchSchedule();
   }, []);
 
-  const fetchBuses = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5000/buses"
-      );
+const fetchBuses = async () => {
+  try {
+    const response = await api.get("/buses");
 
-      const data = await response.json();
-
-      if (data.success) {
-        setBuses(data.buses);
-      }
-    } catch (error) {
-      console.log(error);
+    if (response.data.success) {
+      setBuses(response.data.buses);
     }
-  };
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-  const fetchRoutes = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5000/routes"
-      );
+const fetchRoutes = async () => {
+  try {
+    const response = await api.get("/routes");
 
-      const data = await response.json();
-
-      if (data.success) {
-        setRoutes(data.routes);
-      }
-    } catch (error) {
-      console.log(error);
+    if (response.data.success) {
+      setRoutes(response.data.routes);
     }
-  };
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-  const fetchSchedule = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:5000/schedules/${id}`
-      );
+const fetchSchedule = async () => {
+  try {
+    const response = await api.get(`/schedules/${id}`);
 
-      const data = await response.json();
-
-      if (data.success) {
-        setFormData({
-          busId: data.schedule.busId,
-          routeId: data.schedule.routeId,
-          departureTime:
-            data.schedule.departureTime.substring(0, 5),
-          dayOfWeek: data.schedule.dayOfWeek,
-          isActive: data.schedule.isActive,
-        });
-      }
-    } catch (error) {
-      console.log(error);
+    if (response.data.success) {
+      setFormData({
+        busId: response.data.schedule.busId.toString(),
+        routeId: response.data.schedule.routeId.toString(),
+        departureTime: new Date(
+          response.data.schedule.departureTime
+        )
+          .toISOString()
+          .substring(11, 16),
+        dayOfWeek: response.data.schedule.dayOfWeek,
+        isActive: response.data.schedule.isActive,
+      });
     }
-  };
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   const handleChange = (e) => {
     setFormData({
@@ -107,34 +98,27 @@ function EditSchedule() {
   e.preventDefault();
 
   try {
-    const response = await fetch(
-      `http://localhost:5000/schedules/${id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          busId: Number(formData.busId),
-          routeId: Number(formData.routeId),
-          departureTime: formData.departureTime,
-          dayOfWeek: formData.dayOfWeek,
-          isActive: formData.isActive,
-        }),
-      }
-    );
+    const response = await api.put(`/schedules/${id}`, {
+      busId: Number(formData.busId),
+      routeId: Number(formData.routeId),
+      departureTime: formData.departureTime,
+      dayOfWeek: formData.dayOfWeek,
+      isActive: formData.isActive,
+    });
 
-    const data = await response.json();
-
-    if (data.success) {
-      alert(data.message);
+    if (response.data.success) {
+      alert(response.data.message);
       navigate("/schedules");
     } else {
-      alert(data.message);
+      alert(response.data.message);
     }
   } catch (error) {
-    console.log(error);
-    alert("Something went wrong");
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Something went wrong"
+    );
   }
 };
 

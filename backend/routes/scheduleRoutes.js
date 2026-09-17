@@ -1,5 +1,5 @@
 import express from "express";
-
+import { verifyToken, isAdmin } from "../middleware/authMiddleware.js";
 import {
   getSchedules,
   getScheduleById,
@@ -11,22 +11,11 @@ import {
 
 const router = express.Router();
 
-// Count
-router.get("/count", getScheduleCount);
-
-// Get All
-router.get("/", getSchedules);
-
-// Get By ID
-router.get("/:id", getScheduleById);
-
-// Create
-router.post("/", createSchedule);
-
-// Update
-router.put("/:id", updateSchedule);
-
-// Delete
-router.delete("/:id", deleteSchedule);
+router.get("/count", verifyToken, isAdmin, getScheduleCount);
+router.get("/", verifyToken, isAdmin, getSchedules);
+router.get("/:id", verifyToken, isAdmin, getScheduleById);
+router.post("/", verifyToken, isAdmin, createSchedule);
+router.put("/:id", verifyToken, isAdmin, updateSchedule);
+router.delete("/:id", verifyToken, isAdmin, deleteSchedule);
 
 export default router;

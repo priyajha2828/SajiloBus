@@ -9,7 +9,7 @@ import {
   Trash2,
   ArrowLeft,
 } from "lucide-react";
-
+import api from "../services/api";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -36,40 +36,42 @@ function ScheduleManagement() {
     fetchSchedules();
   }, []);
 
-  const fetchSchedules = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/schedules");
+const fetchSchedules = async () => {
+  try {
+    const response = await api.get("/schedules");
 
-      const data = await response.json();
-
-      if (data.success) {
-        setSchedules(data.schedules);
-      }
-
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
+    if (response.data.success) {
+      setSchedules(response.data.schedules);
     }
-  };
+  } catch (error) {
+    console.error(error);
+    alert(error.response?.data?.message || "Failed to fetch schedules");
+  } finally {
+    setLoading(false);
+  }
+};
 
-  const deleteSchedule = async (id) => {
-    if (!window.confirm("Delete this schedule?")) return;
+ const deleteSchedule = async (id) => {
+  if (!window.confirm("Delete this schedule?")) return;
 
-    try {
-      const response = await fetch(`http://localhost:5000/schedules/${id}`, {
-        method: "DELETE",
-      });
+  try {
+    const response = await api.delete(`/schedules/${id}`);
 
-      const data = await response.json();
-
-      alert(data.message);
-
+    if (response.data.success) {
+      alert(response.data.message);
       fetchSchedules();
-    } catch (error) {
-      console.log(error);
+    } else {
+      alert(response.data.message);
     }
-  };
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Failed to delete schedule"
+    );
+  }
+};
 
   return (
     <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>
@@ -195,23 +197,22 @@ function ScheduleManagement() {
                       <td>
                         <div className="actions">
                           <Eye
-                            size={18}
-                            onClick={() =>
-                              navigate(`/schedules/view/${schedule.id}`)
-                            }
-                          />
+  size={18}
+  style={{ cursor: "pointer" }}
+  onClick={() => navigate(`/schedules/view/${schedule.id}`)}
+/>
 
-                          <Pencil
-                            size={18}
-                            onClick={() =>
-                              navigate(`/schedules/edit/${schedule.id}`)
-                            }
-                          />
+<Pencil
+  size={18}
+  style={{ cursor: "pointer" }}
+  onClick={() => navigate(`/schedules/edit/${schedule.id}`)}
+/>
 
-                          <Trash2
-                            size={18}
-                            onClick={() => deleteSchedule(schedule.id)}
-                          />
+<Trash2
+  size={18}
+  style={{ cursor: "pointer" }}
+  onClick={() => deleteSchedule(schedule.id)}
+/>
                         </div>
                       </td>
                     </tr>

@@ -12,6 +12,8 @@ import {
   Settings,
 } from "lucide-react";
 import "../css/Navbar.css";
+import api from "../services/api";
+
 
 function Navbar({ collapsed, setCollapsed, darkMode, setDarkMode }) {
   const [showMenu, setShowMenu] = useState(false);
@@ -25,14 +27,10 @@ useEffect(() => {
 
 const fetchNotifications = async () => {
   try {
-    const response = await fetch(
-      "http://localhost:5000/notifications"
-    );
+    const response = await api.get("/notifications");
 
-    const data = await response.json();
-
-    if (data.success) {
-      setNotifications(data.notifications);
+    if (response.data.success) {
+      setNotifications(response.data.notifications);
     }
   } catch (error) {
     console.log(error);
@@ -41,12 +39,7 @@ const fetchNotifications = async () => {
 
 const markAllAsRead = async () => {
   try {
-    await fetch(
-      "http://localhost:5000/notifications/read-all",
-      {
-        method: "PUT",
-      }
-    );
+    await api.put("/notifications/read-all");
 
     fetchNotifications();
   } catch (error) {
@@ -96,11 +89,11 @@ const unreadCount = notifications.filter(
     <Bell size={20} />
   </button>
 
-  {unreadCount > 0 && (
+  {/* {unreadCount > 0 && (
   <span className="notification-badge">
     {unreadCount}
   </span>
-)}
+)} */}
 
   {showNotifications && (
     <div className="notification-dropdown">

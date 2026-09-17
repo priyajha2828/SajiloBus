@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-
+import api from "../services/api";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -34,20 +34,16 @@ function EditRoute() {
   }, []);
 
   const fetchRoute = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:5000/routes/${id}`
-      );
+  try {
+    const response = await api.get(`/routes/${id}`);
 
-      const data = await response.json();
-
-      if (data.success) {
-        setRoute(data.route);
-      }
-    } catch (error) {
-      console.log(error);
+    if (response.data.success) {
+      setRoute(response.data.route);
     }
-  };
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   const handleChange = (e) => {
     setRoute({
@@ -57,33 +53,29 @@ function EditRoute() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const response = await fetch(
-        `http://localhost:5000/routes/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(route),
-        }
-      );
+  try {
+    const response = await api.put(
+      `/routes/${id}`,
+      route
+    );
 
-      const data = await response.json();
-
-      if (data.success) {
-        alert("Route Updated Successfully");
-        navigate("/routes");
-      } else {
-        alert(data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      alert("Server Error");
+    if (response.data.success) {
+      alert("Route Updated Successfully");
+      navigate("/routes");
+    } else {
+      alert(response.data.message);
     }
-  };
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Server Error"
+    );
+  }
+};
 
   return (
     <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>
