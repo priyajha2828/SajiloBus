@@ -9,7 +9,7 @@ import {
   Square,
   ArrowLeft,
 } from "lucide-react";
-
+import api from "../services/api";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -43,43 +43,39 @@ function TripManagement() {
   try {
     setLoading(true);
 
-    const response = await fetch(
-      `http://localhost:5000/trips?search=${search}`
-    );
+    const response = await api.get(`/trips?search=${search}`);
 
-    const data = await response.json();
-
-    if (data.success) {
-      setTrips(data.trips);
+    if (response.data.success) {
+      setTrips(response.data.trips);
     }
-
-    setLoading(false);
   } catch (error) {
-    console.log(error);
+    console.error(error);
+  } finally {
     setLoading(false);
   }
 };
 
   const endTrip = async (id) => {
-    if (!window.confirm("End this trip?")) return;
+  if (!window.confirm("End this trip?")) return;
 
-    try {
-      const response = await fetch(
-        `http://localhost:5000/trips/end/${id}`,
-        {
-          method: "PUT",
-        }
-      );
+  try {
+    const response = await api.put(`/trips/end/${id}`);
 
-      const data = await response.json();
+    alert(response.data.message);
 
-      alert(data.message);
+    fetchTrips();
+  } catch (error) {
+    console.error(error);
 
-      fetchTrips();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    alert(
+      error.response?.data?.message ||
+      "Server Error"
+    );
+  }
+};
+
+
+
 
   return (
     <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>

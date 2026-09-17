@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-
+import api from "../services/api";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -29,20 +29,21 @@ function ViewBus() {
   }, [id]);
 
   const fetchBus = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:5000/buses/${id}`
-      );
+  try {
+    const response = await api.get(`/buses/${id}`);
 
-      const data = await response.json();
-
-      if (data.success) {
-        setBus(data.bus);
-      }
-    } catch (error) {
-      console.log(error);
+    if (response.data.success) {
+      setBus(response.data.bus);
     }
-  };
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Failed to fetch bus"
+    );
+  }
+};
 
   return (
     <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>

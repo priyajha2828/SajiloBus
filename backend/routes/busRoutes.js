@@ -1,11 +1,4 @@
-<<<<<<< HEAD
 import express from "express";
-=======
-import  express from "express";
-import  { getBuses, getBusById,createBus,updateBus,deleteBus,getBusCount,} from "../controllers/busController.js";
-import { isAdmin, verifyToken } from "../middleware/authMiddleware.js";
->>>>>>> 6b440c43b355ae0215ef1a8d276cfea7c92e0780
-
 import {
   getBuses,
   getBusById,
@@ -16,32 +9,29 @@ import {
   getLiveBusLocations,
 } from "../controllers/busController.js";
 
+import { verifyToken, isAdmin } from "../middleware/authMiddleware.js";
+
 const router = express.Router();
 
 // Count
-router.get("/count", getBusCount, isAdmin, verifyToken);
+router.get("/count", verifyToken, isAdmin, getBusCount);
 
-// Live Location
-router.get("/live", getLiveBusLocations);
+// Live Bus Locations
+router.get("/live", verifyToken, isAdmin, getLiveBusLocations);
 
-// Get All
-router.get("/", getBuses, isAdmin, verifyToken);
+// Get All Buses
+router.get("/", verifyToken, isAdmin, getBuses);
 
-<<<<<<< HEAD
-// Get By ID
-router.get("/:id", getBusById);
-=======
-// Get One
-router.get("/:id", getBusById, isAdmin, verifyToken);
->>>>>>> 6b440c43b355ae0215ef1a8d276cfea7c92e0780
+// Get Bus By ID
+router.get("/:id", verifyToken, isAdmin, getBusById);
 
-// Create
-router.post("/", createBus, isAdmin, verifyToken);
+// Create Bus
+router.post("/", verifyToken, isAdmin, createBus);
 
-// Update
-router.put("/:id", updateBus, isAdmin, verifyToken);
+// Update Bus
+router.put("/:id", verifyToken, isAdmin, updateBus);
 
-// Delete
-router.delete("/:id", deleteBus, isAdmin, verifyToken);
+// Delete Bus
+router.delete("/:id", verifyToken, isAdmin, deleteBus);
 
 export default router;

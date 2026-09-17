@@ -11,7 +11,7 @@ import {
   ArrowLeft,
 
 } from "lucide-react";
-
+import api from "../services/api";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -44,20 +44,24 @@ useEffect(() => {
 
 const fetchBuses = async () => {
   try {
-    const response = await fetch("http://localhost:5000/buses");
-    const data = await response.json();
+    const response = await api.get("/buses");
 
-    if (data.success) {
-      setBuses(data.buses);
+    if (response.data.success) {
+      setBuses(response.data.buses);
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Failed to fetch buses"
+    );
   } finally {
     setLoading(false);
   }
 };
 
-const deleteBus = async (id) => {
+    const deleteBus = async (id) => {
   const confirmDelete = window.confirm(
     "Are you sure you want to delete this bus?"
   );
@@ -65,23 +69,21 @@ const deleteBus = async (id) => {
   if (!confirmDelete) return;
 
   try {
-    const response = await fetch(
-      `http://localhost:5000/buses/${id}`,
-      {
-        method: "DELETE",
-      }
-    );
+    const response = await api.delete(`/buses/${id}`);
 
-    const data = await response.json();
-
-    if (data.success) {
+    if (response.data.success) {
       alert("Bus deleted successfully");
       fetchBuses();
     } else {
-      alert(data.message);
+      alert(response.data.message);
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Failed to delete bus"
+    );
   }
 };
 
@@ -116,7 +118,7 @@ const deleteBus = async (id) => {
   <ArrowLeft size={24} />
 </button>
 
-            <bus size={30} />
+            <Bus size={30} />
 
             <h2>Bus Management</h2>
           </div>

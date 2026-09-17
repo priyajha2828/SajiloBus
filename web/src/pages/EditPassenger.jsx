@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-
+import api from "../services/api";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -34,20 +34,16 @@ function EditPassenger() {
   }, []);
 
   const fetchPassenger = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:5000/passengers/${id}`
-      );
+  try {
+    const response = await api.get(`/passengers/${id}`);
 
-      const data = await response.json();
-
-      if (data.success) {
-        setPassenger(data.passenger);
-      }
-    } catch (error) {
-      console.log(error);
+    if (response.data.success) {
+      setPassenger(response.data.passenger);
     }
-  };
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   const handleChange = (e) => {
     setPassenger({
@@ -57,33 +53,30 @@ function EditPassenger() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const response = await fetch(
-        `http://localhost:5000/passengers/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(passenger),
-        }
-      );
+  try {
+    const response = await api.put(
+      `/passengers/${id}`,
+      passenger
+    );
 
-      const data = await response.json();
-
-      if (data.success) {
-        alert("Passenger Updated Successfully");
-        navigate("/passengers");
-      } else {
-        alert(data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      alert("Server Error");
+    if (response.data.success) {
+      alert(response.data.message);
+      navigate("/passengers");
+    } else {
+      alert(response.data.message);
     }
-  };
+
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Server Error"
+    );
+  }
+};
 
   return (
     <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>

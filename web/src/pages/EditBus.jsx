@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-
+import api from "../services/api";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -32,18 +32,22 @@ function EditBus() {
     fetchBus();
   }, []);
 
-  const fetchBus = async () => {
-    try {
-      const response = await fetch(`http://localhost:5000/buses/${id}`);
-      const data = await response.json();
+ const fetchBus = async () => {
+  try {
+    const response = await api.get(`/buses/${id}`);
 
-      if (data.success) {
-        setBus(data.bus);
-      }
-    } catch (error) {
-      console.log(error);
+    if (response.data.success) {
+      setBus(response.data.bus);
     }
-  };
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Failed to fetch bus"
+    );
+  }
+};
 
   const handleChange = (e) => {
     setBus({
@@ -52,34 +56,27 @@ function EditBus() {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      const response = await fetch(
-        `http://localhost:5000/buses/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(bus),
-        }
-      );
+  try {
+    const response = await api.put(`/buses/${id}`, bus);
 
-      const data = await response.json();
-
-      if (data.success) {
-        alert("Bus Updated Successfully");
-        navigate("/buses");
-      } else {
-        alert(data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      alert("Server Error");
+    if (response.data.success) {
+      alert("Bus Updated Successfully");
+      navigate("/buses");
+    } else {
+      alert(response.data.message);
     }
-  };
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Server Error"
+    );
+  }
+};
 
   return (
     <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>

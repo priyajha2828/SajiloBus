@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-
+import api from "../services/api";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -29,20 +29,23 @@ function ViewDriver() {
   }, [id]);
 
   const fetchDriver = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:5000/drivers/${id}`
-      );
+  try {
+    const response = await api.get(`/drivers/${id}`);
 
-      const data = await response.json();
-
-      if (data.success) {
-        setDriver(data.driver);
-      }
-    } catch (error) {
-      console.log(error);
+    if (response.data.success) {
+      setDriver(response.data.driver);
+    } else {
+      alert(response.data.message);
     }
-  };
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Failed to fetch driver"
+    );
+  }
+};
 
   return (
     <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>

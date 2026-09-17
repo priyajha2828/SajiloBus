@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-
+import api from "../services/api";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -28,21 +28,24 @@ function ViewPassenger() {
   }
 }, [id]);
 
-  const fetchPassenger = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:5000/passengers/${id}`
-      );
+const fetchPassenger = async () => {
+  try {
+    const response = await api.get(`/passengers/${id}`);
 
-      const data = await response.json();
-
-      if (data.success) {
-        setPassenger(data.passenger);
-      }
-    } catch (error) {
-      console.log(error);
+    if (response.data.success) {
+      setPassenger(response.data.passenger);
+    } else {
+      alert(response.data.message);
     }
-  };
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Failed to fetch passenger"
+    );
+  }
+};
 
  <div className="driver-card">
   <div className="driver-row">

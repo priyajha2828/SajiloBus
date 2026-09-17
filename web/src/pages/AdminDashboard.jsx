@@ -3,6 +3,7 @@ import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import LiveMap from "../components/LiveMap";
 import "../css/AdminDashboard.css";
+import api from "../services/api";
 import { useEffect } from "react";
 import { Bus, UserCheck, Users, Route } from "lucide-react";
 
@@ -35,84 +36,73 @@ useEffect(() => {
 
 const fetchTripCount = async () => {
   try {
-    const response = await fetch(
-      "http://localhost:5000/trips/count"
-    );
+    const response = await api.get("/trips/count");
 
-    const data = await response.json();
-
-    if (data.success) {
-      setTotalTrips(data.count);
+    if (response.data.success) {
+      setTotalTrips(response.data.count);
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
 const fetchBusCount = async () => {
   try {
-    const response = await fetch("http://localhost:5000/buses/count");
-    const data = await response.json();
+    const response = await api.get("/buses/count");
 
-    if (data.success) {
-      setTotalBuses(data.count);
+    if (response.data.success) {
+      setTotalBuses(response.data.count);
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
 const fetchDriverCount = async () => {
-  const response = await fetch("http://localhost:5000/drivers/count");
-  const data = await response.json();
+  try {
+    const response = await api.get("/drivers/count");
 
-  if (data.success) {
-    setTotalDrivers(data.count);
+    if (response.data.success) {
+      setTotalDrivers(response.data.count);
+    }
+  } catch (error) {
+    console.error(error);
   }
 };
 
 const fetchPassengerCount = async () => {
   try {
-    const response = await fetch("http://localhost:5000/passengers/count");
-    const data = await response.json();
+    const response = await api.get("/passengers/count");
 
-    if (data.success) {
-      setTotalPassengers(data.count);
+    if (response.data.success) {
+      setTotalPassengers(response.data.count);
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
 const fetchRecentTrips = async () => {
   try {
-    const response = await fetch(
-      "http://localhost:5000/trips/recent"
-    );
+    const response = await api.get("/trips/recent");
 
-    const data = await response.json();
-
-    if (data.success) {
-      setRecentTrips(data.trips);
+    if (response.data.success) {
+      setRecentTrips(response.data.trips);
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
 const fetchDriverStatus = async () => {
   try {
-    const response = await fetch(
-      "http://localhost:5000/drivers/status"
-    );
+    const response = await api.get("/drivers/status");
 
-    const data = await response.json();
-
-    if (data.success) {
-      setDriverStatus(data.drivers);
+    if (response.data.success) {
+      setDriverStatus(response.data.drivers);
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 

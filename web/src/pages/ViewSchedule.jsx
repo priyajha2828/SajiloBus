@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-
+import api from "../services/api";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -31,21 +31,46 @@ function ViewSchedule() {
     }
   }, [id]);
 
-  const fetchSchedule = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:5000/schedules/${id}`
-      );
+const fetchSchedule = async () => {
+  try {
+    const response = await api.get(`/schedules/${id}`);
 
-      const data = await response.json();
-
-      if (data.success) {
-        setSchedule(data.schedule);
-      }
-    } catch (error) {
-      console.log(error);
+    if (response.data.success) {
+      setSchedule(response.data.schedule);
     }
-  };
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Failed to fetch schedule"
+    );
+  }
+};
+
+
+if (!schedule) {
+  return (
+    <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>
+      <Sidebar
+        collapsed={collapsed}
+        setCollapsed={setCollapsed}
+        darkMode={darkMode}
+      />
+
+      <div
+        className={`dashboard-content ${
+          collapsed ? "collapsed-content" : ""
+        }`}
+      >
+        <Navbar
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+        />
+      </div>
+    </div>
+  );
+}
 
   return (
     <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>

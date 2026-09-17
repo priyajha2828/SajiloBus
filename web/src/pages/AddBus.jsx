@@ -4,7 +4,7 @@ import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-
+import api from "../services/api";
 import "../css/AddBus.css";
 
 function AddBus() {
@@ -27,39 +27,35 @@ function AddBus() {
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+  const { name, value } = e.target;
 
-    setBus({
-      ...bus,
-      [name]: value,
-    });
-  };
+  setBus((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+};
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const response = await fetch("http://localhost:5000/buses", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(bus),
-      });
+  try {
+    const response = await api.post("/buses", bus);
 
-      const data = await response.json();
-
-      if (data.success) {
-        alert("Bus Added Successfully");
-        navigate("/buses");
-      } else {
-        alert(data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      alert("Server Error");
+    if (response.data.success) {
+      alert("Bus Added Successfully");
+      navigate("/buses");
+    } else {
+      alert(response.data.message);
     }
-  };
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Server Error"
+    );
+  }
+};
 
   return (
     <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>

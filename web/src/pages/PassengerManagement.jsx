@@ -9,7 +9,7 @@ import {
   Trash2,
   ArrowLeft,
 } from "lucide-react";
-
+import api from "../services/api";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -36,48 +36,44 @@ function PassengerManagement() {
   }, []);
 
   const fetchPassengers = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/passengers");
-      const data = await response.json();
+  try {
+    const response = await api.get("/passengers");
 
-      if (data.success) {
-        setPassengers(data.passengers);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
+    if (response.data.success) {
+      setPassengers(response.data.passengers);
     }
-  };
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
+};
 
-  const deletePassenger = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this passenger?"
+const deletePassenger = async (id) => {
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete this passenger?"
+  );
+
+  if (!confirmDelete) return;
+
+  try {
+    const response = await api.delete(`/passengers/${id}`);
+
+    if (response.data.success) {
+      alert(response.data.message);
+      fetchPassengers();
+    } else {
+      alert(response.data.message);
+    }
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Server Error"
     );
-
-    if (!confirmDelete) return;
-
-    try {
-      const response = await fetch(
-        `http://localhost:5000/passengers/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
-
-      const data = await response.json();
-
-      if (data.success) {
-        alert("Passenger deleted successfully");
-        fetchPassengers();
-      } else {
-        alert(data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      alert("Server Error");
-    }
-  };
+  }
+};
 
   return (
     <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>

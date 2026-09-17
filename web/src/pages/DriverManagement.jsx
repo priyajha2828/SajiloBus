@@ -3,6 +3,7 @@ import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import api from "../services/api";
 import {
   UserCheck,
   Plus,
@@ -35,21 +36,27 @@ function DriverManagement() {
     fetchDrivers();
   }, []);
 
-  const fetchDrivers = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/drivers");
+const fetchDrivers = async () => {
+  try {
+    const response = await api.get("/drivers");
 
-      const data = await response.json();
-
-      if (data.success) {
-        setDrivers(data.drivers);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
+    if (response.data.success) {
+      setDrivers(response.data.drivers);
+    } else {
+      alert(response.data.message);
     }
-  };
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Failed to fetch drivers"
+    );
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const deleteDriver = async (id) => {
   const confirmDelete = window.confirm(
@@ -59,24 +66,23 @@ function DriverManagement() {
   if (!confirmDelete) return;
 
   try {
-    const response = await fetch(
-      `http://localhost:5000/drivers/${id}`,
-      {
-        method: "DELETE",
-      }
-    );
+    const response = await api.delete(`/drivers/${id}`);
 
-    const data = await response.json();
-
-    if (data.success) {
+    if (response.data.success) {
       alert("Driver deleted successfully");
-      fetchDrivers(); // Refresh the table
+      fetchDrivers();
+    } else {
+      alert(response.data.message);
     }
   } catch (error) {
     console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Failed to delete driver"
+    );
   }
 };
-
 
 
   return (

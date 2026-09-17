@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, Save } from "lucide-react";
-
+import api from "../services/api";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -38,45 +38,58 @@ function EditTrip() {
     fetchTrip();
   }, []);
 
-  const fetchDrivers = async () => {
-    const res = await fetch("http://localhost:5000/drivers");
-    const data = await res.json();
-
-    if (data.success) {
-      setDrivers(data.drivers);
-    }
-  };
-
-  const fetchBuses = async () => {
-    const res = await fetch("http://localhost:5000/buses");
-    const data = await res.json();
-
-    if (data.success) {
-      setBuses(data.buses);
-    }
-  };
-
-  const fetchRoutes = async () => {
-    const res = await fetch("http://localhost:5000/routes");
-    const data = await res.json();
-
-    if (data.success) {
-      setRoutes(data.routes);
-    }
-  };
 
   const fetchTrip = async () => {
-    const res = await fetch(`http://localhost:5000/trips/${id}`);
-    const data = await res.json();
+  try {
+    const response = await api.get(`/trips/${id}`);
 
-    if (data.success) {
+    if (response.data.success) {
       setFormData({
-        driverId: data.trip.driverId.toString(),
-        busId: data.trip.busId.toString(),
-        routeId: data.trip.routeId.toString(),
+        driverId: response.data.trip.driverId.toString(),
+        busId: response.data.trip.busId.toString(),
+        routeId: response.data.trip.routeId.toString(),
       });
     }
-  };
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+ const fetchDrivers = async () => {
+  try {
+    const response = await api.get("/drivers");
+
+    if (response.data.success) {
+      setDrivers(response.data.drivers);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const fetchBuses = async () => {
+  try {
+    const response = await api.get("/buses");
+
+    if (response.data.success) {
+      setBuses(response.data.buses);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const fetchRoutes = async () => {
+  try {
+    const response = await api.get("/routes");
+
+    if (response.data.success) {
+      setRoutes(response.data.routes);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   const handleChange = (e) => {
     setFormData({
@@ -85,33 +98,31 @@ function EditTrip() {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const res = await fetch(
-      `http://localhost:5000/trips/${id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          driverId: Number(formData.driverId),
-          busId: Number(formData.busId),
-          routeId: Number(formData.routeId),
-        }),
-      }
-    );
+  try {
+    const response = await api.put(`/trips/${id}`, {
+      driverId: Number(formData.driverId),
+      busId: Number(formData.busId),
+      routeId: Number(formData.routeId),
+    });
 
-    const data = await res.json();
-
-    if (data.success) {
-      alert(data.message);
+    if (response.data.success) {
+      alert(response.data.message);
       navigate("/trips");
     } else {
-      alert(data.message);
+      alert(response.data.message);
     }
-  };
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Server Error"
+    );
+  }
+};
 
   return (
     <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>

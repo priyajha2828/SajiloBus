@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-
+import api from "../services/api";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -34,17 +34,22 @@ function EditDriver() {
   }, []);
 
   const fetchDriver = async () => {
-    try {
-      const response = await fetch(`http://localhost:5000/drivers/${id}`);
-      const data = await response.json();
+  try {
+    const response = await api.get(`/drivers/${id}`);
 
-      if (data.success) {
-        setDriver(data.driver);
-      }
-    } catch (error) {
-      console.log(error);
+    if (response.data.success) {
+      setDriver(response.data.driver);
+    } else {
+      alert(response.data.message);
     }
-  };
+  } catch (error) {
+    console.error(error);
+    alert(
+      error.response?.data?.message ||
+      "Failed to fetch driver"
+    );
+  }
+};
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,32 +61,29 @@ function EditDriver() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const response = await fetch(
-        `http://localhost:5000/drivers/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(driver),
-        }
-      );
+  try {
+    const response = await api.put(
+      `/drivers/${id}`,
+      driver
+    );
 
-      const data = await response.json();
-
-      if (data.success) {
-        alert("Driver Updated Successfully");
-        navigate("/drivers");
-      } else {
-        alert(data.message);
-      }
-    } catch (error) {
-      console.log(error);
+    if (response.data.success) {
+      alert("Driver Updated Successfully");
+      navigate("/drivers");
+    } else {
+      alert(response.data.message);
     }
-  };
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Failed to update driver"
+    );
+  }
+};
 
   return (
     <div className={`dashboard ${darkMode ? "dark-theme" : ""}`}>

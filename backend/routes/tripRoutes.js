@@ -11,30 +11,21 @@ import {
   getRecentTrips,
 } from "../controllers/tripController.js";
 
+import { verifyToken, isAdmin } from "../middleware/authMiddleware.js";
+
 const router = express.Router();
 
-// Count
-router.get("/count", getTripCount);
+router.get("/", verifyToken, isAdmin, getTrips);
+router.get("/count", verifyToken, isAdmin, getTripCount);
+router.get("/recent", verifyToken, isAdmin, getRecentTrips);
+router.get("/:id", verifyToken, isAdmin, getTripById);
 
-// Recent Trips
-router.get("/recent", getRecentTrips);
+router.post("/", verifyToken, isAdmin, createTrip);
 
-// Get All Trips
-router.get("/", getTrips);
+router.put("/:id", verifyToken, isAdmin, updateTrip);
 
-// Get Trip By ID
-router.get("/:id", getTripById);
+router.put("/end/:id", verifyToken, isAdmin, endTrip);
 
-// Start Trip
-router.post("/", createTrip);
-
-// Update Trip
-router.put("/:id", updateTrip);
-
-// End Trip
-router.put("/end/:id", endTrip);
-
-// Delete Trip
-router.delete("/:id", deleteTrip);
+router.delete("/:id", verifyToken, isAdmin, deleteTrip);
 
 export default router;

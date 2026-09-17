@@ -10,7 +10,7 @@ import {
   ArrowLeft,
   Trash2,
 } from "lucide-react";
-
+import api from "../services/api";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -35,43 +35,40 @@ function RouteManagement() {
     fetchRoutes();
   }, []);
 
-  const fetchRoutes = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/routes");
-      const data = await response.json();
+const fetchRoutes = async () => {
+  try {
+    const response = await api.get("/routes");
 
-      if (data.success) {
-        setRoutes(data.routes);
-      }
-    } catch (error) {
-      console.log(error);
+    if (response.data.success) {
+      setRoutes(response.data.routes);
     }
-  };
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   const deleteRoute = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this route?")) return;
+  if (!window.confirm("Are you sure you want to delete this route?"))
+    return;
 
-    try {
-      const response = await fetch(
-        `http://localhost:5000/routes/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+  try {
+    const response = await api.delete(`/routes/${id}`);
 
-      const data = await response.json();
-
-      if (data.success) {
-        alert(data.message);
-        fetchRoutes();
-      } else {
-        alert(data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      alert("Server Error");
+    if (response.data.success) {
+      alert(response.data.message);
+      fetchRoutes();
+    } else {
+      alert(response.data.message);
     }
-  };
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Server Error"
+    );
+  }
+};
 
   // Filter Routes
   const filteredRoutes = routes.filter((route) => {

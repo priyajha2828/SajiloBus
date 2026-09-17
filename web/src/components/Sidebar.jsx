@@ -4,6 +4,7 @@ import {
   ChevronsRight,
   LayoutDashboard,
   Bus,
+  Bell,
   Users,
   Route,
   UserCheck,
@@ -21,46 +22,31 @@ import logo from "../assets/logo.png";
 function Sidebar({ collapsed, setCollapsed, darkMode }) {
   return (
     <aside
-  className={`sidebar ${
-    collapsed ? "collapsed" : ""
-  } ${darkMode ? "dark-sidebar" : "light-sidebar"}`}
->
-
+      className={`sidebar ${
+        collapsed ? "collapsed" : ""
+      } ${darkMode ? "dark-sidebar" : "light-sidebar"}`}
+    >
       {/* Top */}
 
-     <div className="sidebar-header">
+      <div className="sidebar-header">
+        <div className="sidebar-brand">
+          <img
+            src={logo}
+            alt="Vehicle Tracking Logo"
+            className="sidebar-logo-img"
+          />
 
-  <div className="sidebar-brand">
+          {!collapsed && <h2 className="logo">Vehicle Tracking</h2>}
+        </div>
 
-    <img
-      src={logo}
-      alt="Vehicle Tracking Logo"
-      className="sidebar-logo-img"
-    />
-
-    {!collapsed && (
-      <h2 className="logo">Vehicle Tracking</h2>
-    )}
-
-  </div>
-
-  <button
-    className="toggle-btn"
-    onClick={() => setCollapsed(!collapsed)}
-  >
-    {collapsed ? (
-      <ChevronsRight size={22} />
-    ) : (
-      <Menu size={22} />
-    )}
-  </button>
-
-</div>
+        <button className="toggle-btn" onClick={() => setCollapsed(!collapsed)}>
+          {collapsed ? <ChevronsRight size={22} /> : <Menu size={22} />}
+        </button>
+      </div>
 
       {/* Menu */}
 
       <nav className="sidebar-menu">
-
         <Link to="/admin/dashboard">
           <LayoutDashboard size={20} />
           {!collapsed && <span>Dashboard</span>}
@@ -86,21 +72,30 @@ function Sidebar({ collapsed, setCollapsed, darkMode }) {
           {!collapsed && <span>Routes</span>}
         </Link>
 
+        <Link to="/bus-stops">
+          <MapPinned size={20} />
+          {!collapsed && <span>Bus Stops</span>}
+        </Link>
+
+        <Link to="/route-details">
+          <MapPinned size={20} />
+          {!collapsed && <span>Route Details</span>}
+        </Link>
+
         <Link to="/assignments">
-  <ClipboardList size={20} />
-  {!collapsed && <span>Bus Assignments</span>}
-</Link>
+          <ClipboardList size={20} />
+          {!collapsed && <span>Bus Assignments</span>}
+        </Link>
 
-<Link to="/trips">
-  <MapPinned size={20} />
-  {!collapsed && <span>Trips</span>}
-</Link>
+        <Link to="/trips">
+          <MapPinned size={20} />
+          {!collapsed && <span>Trips</span>}
+        </Link>
 
-<Link to="/schedules">
-    <Clock3 size={20} />
-    {!collapsed && <span>Bus Schedule</span>}
-</Link>
-
+        <Link to="/schedules">
+          <Clock3 size={20} />
+          {!collapsed && <span>Bus Schedule</span>}
+        </Link>
 
         <Link to="/tracking">
           <MapPinned size={20} />
@@ -112,27 +107,25 @@ function Sidebar({ collapsed, setCollapsed, darkMode }) {
           {!collapsed && <span>Reports</span>}
         </Link>
 
+        <Link to="/notifications">
+  <Bell size={20} />
+  {!collapsed && <span>Notifications</span>}
+</Link>
+
         <Link to="/settings">
           <Settings size={20} />
           {!collapsed && <span>Settings</span>}
         </Link>
-
-        
-        
-
       </nav>
 
       {/* Logout */}
 
       <div className="logout-section">
-
         <Link to="/">
           <LogOut size={20} />
           {!collapsed && <span>Logout</span>}
         </Link>
-
       </div>
-
     </aside>
   );
 }

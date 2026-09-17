@@ -9,18 +9,20 @@ import {
   getAssignmentCount,
 } from "../controllers/busAssignmentController.js";
 
+import { verifyToken, isAdmin } from "../middleware/authMiddleware.js";
+
 const router = express.Router();
 
-router.get("/count", getAssignmentCount);
+router.get("/count", verifyToken, isAdmin, getAssignmentCount);
 
-router.get("/", getAssignments);
+router.get("/", verifyToken, isAdmin, getAssignments);
 
-router.get("/:id", getAssignmentById);
+router.get("/:id", verifyToken, isAdmin, getAssignmentById);
 
-router.post("/", createAssignment);
+router.post("/", verifyToken, isAdmin, createAssignment);
 
-router.put("/:id", updateAssignment);
+router.put("/:id", verifyToken, isAdmin, updateAssignment);
 
-router.delete("/:id", deleteAssignment);
+router.delete("/:id", verifyToken, isAdmin, deleteAssignment);
 
 export default router;

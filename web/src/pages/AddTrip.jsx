@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Save } from "lucide-react";
-
+import api from "../services/api";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
@@ -39,92 +39,71 @@ function AddTrip() {
     fetchRoutes();
   }, []);
 
-  const fetchDrivers = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5000/drivers"
-      );
-
-      const data = await response.json();
-
-      if (data.success) {
-        setDrivers(data.drivers);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchBuses = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5000/buses"
-      );
-
-      const data = await response.json();
-
-      if (data.success) {
-        setBuses(data.buses);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchRoutes = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5000/routes"
-      );
-
-      const data = await response.json();
-
-      if (data.success) {
-        setRoutes(data.routes);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const { name, value } = e.target;
 
-  const handleSubmit = async (e) => {
+  setFormData((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+};
+
+  const fetchDrivers = async () => {
+  try {
+    const response = await api.get("/drivers");
+
+    if (response.data.success) {
+      setDrivers(response.data.drivers);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+ const fetchBuses = async () => {
+  try {
+    const response = await api.get("/buses");
+
+    if (response.data.success) {
+      setBuses(response.data.buses);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+  const fetchRoutes = async () => {
+  try {
+    const response = await api.get("/routes");
+
+    if (response.data.success) {
+      setRoutes(response.data.routes);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const handleSubmit = async (e) => {
   e.preventDefault();
 
   try {
-    const response = await fetch("http://localhost:5000/trips", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        driverId: Number(formData.driverId),
-        busId: Number(formData.busId),
-        routeId: Number(formData.routeId),
-      }),
+    const response = await api.post("/trips", {
+      driverId: Number(formData.driverId),
+      busId: Number(formData.busId),
+      routeId: Number(formData.routeId),
     });
 
-    const data = await response.json();
-
-    console.log(data);
-
-    if (!response.ok) {
-      alert(data.message);
-      return;
-    }
-
-    alert(data.message);
+    alert(response.data.message);
     navigate("/trips");
-
   } catch (error) {
     console.error(error);
-    alert(error.message);
+
+    alert(
+      error.response?.data?.message ||
+      "Server Error"
+    );
   }
 };
 

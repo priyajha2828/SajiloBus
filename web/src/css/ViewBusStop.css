@@ -1,0 +1,147 @@
+/* ===========================
+   Container
+=========================== */
+
+.view-busstop-container{
+    max-width:700px;
+    margin:30px auto;
+}
+
+/* ===========================
+   Header
+=========================== */
+
+.view-header{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.view-header h2{
+    margin:0;
+    font-size:28px;
+    color:#1e293b;
+}
+
+/* ===========================
+   Card
+=========================== */
+
+.busstop-card{
+    background:#fff;
+    border-radius:15px;
+    padding:30px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+/* ===========================
+   Rows
+=========================== */
+
+.busstop-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 0;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.busstop-row:last-child{
+    border-bottom:none;
+}
+
+.busstop-row label{
+    font-weight:600;
+    color:#64748b;
+}
+
+.busstop-row span{
+    color:#1e293b;
+    font-weight:500;
+    text-align:right;
+}
+
+/* ===========================
+   Back Button
+=========================== */
+
+.back-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    text-decoration:none;
+    color:#64748b;
+    transition:.3s;
+}
+
+.back-btn:hover{
+    background:#f1f5f9;
+    color:#1976d2;
+}
+
+/* ===========================
+   Dark Theme
+=========================== */
+
+.dashboard.dark-theme .view-header h2{
+    color:#fff;
+}
+
+.dashboard.dark-theme .busstop-card{
+    background:#1e293b;
+}
+
+.dashboard.dark-theme .busstop-row{
+    border-bottom:1px solid #334155;
+}
+
+.dashboard.dark-theme .busstop-row label{
+    color:#cbd5e1;
+}
+
+.dashboard.dark-theme .busstop-row span{
+    color:#fff;
+}
+
+.dashboard.dark-theme .back-btn{
+    color:#cbd5e1;
+}
+
+.dashboard.dark-theme .back-btn:hover{
+    background:#334155;
+    color:#60a5fa;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:768px){
+
+.view-busstop-container{
+    margin:20px;
+}
+
+.busstop-card{
+    padding:20px;
+}
+
+.view-header h2{
+    font-size:22px;
+}
+
+.busstop-row{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:8px;
+}
+
+.busstop-row span{
+    text-align:left;
+}
+
+}

@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 import express from "express";
-
 import {
   getDrivers,
   getDriverById,
@@ -11,49 +9,29 @@ import {
   getDriverStatus,
 } from "../controllers/driverController.js";
 
+import { verifyToken, isAdmin } from "../middleware/authMiddleware.js";
+
 const router = express.Router();
 
 // Count (must be before /:id)
-router.get("/count", getDriverCount);
+router.get("/count", verifyToken, isAdmin, getDriverCount);
 
 // Driver Status
-router.get("/status", getDriverStatus);
+router.get("/status", verifyToken, isAdmin, getDriverStatus);
 
-// Get All
-router.get("/", getDrivers);
+// Get All Drivers
+router.get("/", verifyToken, isAdmin, getDrivers);
 
-// Get By ID
-router.get("/:id", getDriverById);
-=======
-import  express from "express";
-import {
-    getDrivers,
-    getDriverById,
-    createDriver,
-    updateDriver,
-    deleteDriver,
-    getDriverCount,
-} from "../controllers/driverController.js";
-import { isAdmin, verifyToken } from "../middleware/authMiddleware.js";
+// Get Driver By ID
+router.get("/:id", verifyToken, isAdmin, getDriverById);
 
-export const router = express.Router();
-// Count (MUST be before /:id)
-router.get("/count", getDriverCount,isAdmin, verifyToken);
+// Create Driver
+router.post("/", verifyToken, isAdmin, createDriver);
 
-// Get all drivers
-router.get("/", getDrivers,isAdmin, verifyToken);
+// Update Driver
+router.put("/:id", verifyToken, isAdmin, updateDriver);
 
-// Get one driver
-router.get("/:id", getDriverById,isAdmin, verifyToken);
->>>>>>> 6b440c43b355ae0215ef1a8d276cfea7c92e0780
-
-// Create
-router.post("/", createDriver,isAdmin, verifyToken);
-
-// Update
-router.put("/:id", updateDriver,isAdmin, verifyToken);
-
-// Delete
-router.delete("/:id", deleteDriver);
+// Delete Driver
+router.delete("/:id", verifyToken, isAdmin, deleteDriver);
 
 export default router;

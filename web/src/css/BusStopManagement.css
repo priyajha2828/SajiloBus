@@ -1,0 +1,251 @@
+/* ===========================
+   Bus Stop Header
+=========================== */
+
+.busstop-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:25px 0;
+}
+
+.busstop-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.busstop-title h2{
+    margin:0;
+    font-size:28px;
+    font-weight:700;
+    color:#1e293b;
+}
+
+.busstop-title svg{
+    color:#1976d2;
+}
+
+/* ===========================
+   Add Button
+=========================== */
+
+.add-busstop-btn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    text-decoration:none;
+    background:#1976d2;
+    color:#fff;
+    padding:10px 18px;
+    border-radius:8px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.add-busstop-btn:hover{
+    background:#1565c0;
+}
+
+/* ===========================
+   Toolbar
+=========================== */
+
+.busstop-toolbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.search-busstop{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:300px;
+    height:45px;
+    padding:0 15px;
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:10px;
+}
+
+.search-busstop svg{
+    color:#666;
+}
+
+.search-busstop input{
+    flex:1;
+    height:100%;
+    border:none;
+    outline:none;
+    background:transparent;
+    font-size:15px;
+    margin:0;
+    padding:0;
+}
+
+/* ===========================
+   Table Card
+=========================== */
+
+.busstop-table-card{
+    background:#fff;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+/* ===========================
+   Table
+=========================== */
+
+.busstop-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.busstop-table th{
+    text-align:left;
+    padding:18px 15px;
+    color:#555;
+    border-bottom:2px solid #e5e7eb;
+}
+
+.busstop-table td{
+    padding:18px 15px;
+    border-bottom:1px solid #eee;
+    color:#1e293b;
+}
+
+.busstop-table tr:hover{
+    background:#f8fafc;
+}
+
+/* ===========================
+   Actions
+=========================== */
+
+.actions{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.actions svg{
+    cursor:pointer;
+    color:#64748b;
+    transition:.3s;
+}
+
+.actions svg:hover{
+    color:#1976d2;
+    transform:scale(1.1);
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:900px){
+
+.busstop-toolbar{
+    flex-direction:column;
+    gap:15px;
+    align-items:flex-start;
+}
+
+.search-busstop{
+    width:100%;
+}
+
+.busstop-table-card{
+    overflow-x:auto;
+}
+
+}
+
+/* ===========================
+   DARK THEME
+=========================== */
+
+.dashboard.dark-theme .busstop-title h2{
+    color:#fff;
+}
+
+.dashboard.dark-theme .busstop-title svg{
+    color:#60a5fa;
+}
+
+.dashboard.dark-theme .search-busstop{
+    background:#1e293b;
+    border:1px solid #475569;
+}
+
+.dashboard.dark-theme .search-busstop svg{
+    color:#94a3b8;
+}
+
+.dashboard.dark-theme .search-busstop input{
+    color:#fff;
+}
+
+.dashboard.dark-theme .search-busstop input::placeholder{
+    color:#94a3b8;
+}
+
+.dashboard.dark-theme .busstop-table-card{
+    background:#1e293b;
+}
+
+.dashboard.dark-theme .busstop-table th{
+    color:#cbd5e1;
+    border-bottom:2px solid #475569;
+}
+
+.dashboard.dark-theme .busstop-table td{
+    color:#fff;
+    border-bottom:1px solid #334155;
+}
+
+.dashboard.dark-theme .busstop-table tr:hover{
+    background:#273449;
+}
+
+.dashboard.dark-theme .actions svg{
+    color:#cbd5e1;
+}
+
+.dashboard.dark-theme .actions svg:hover{
+    color:#60a5fa;
+}
+
+/* ===========================
+   Back Arrow
+=========================== */
+
+.back-arrow{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    text-decoration:none;
+    color:#64748b;
+    transition:.3s;
+}
+
+.back-arrow:hover{
+    background:#f3f4f6;
+    color:#1976d2;
+}
+
+.dashboard.dark-theme .back-arrow{
+    color:#cbd5e1;
+}
+
+.dashboard.dark-theme .back-arrow:hover{
+    background:#334155;
+    color:#60a5fa;
+}
