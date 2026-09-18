@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: bitnami/postgresql:latest
+    container_name: vehicle-tracking-postgres
+    restart: unless-stopped
+
+    ports:
+      - "5432:5432"
+
+    environment:
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_PASSWORD=admin123
+      - POSTGRESQL_DATABASE=VehicleTracking
+
+    volumes:
+      - postgres_data:/bitnami/postgresql
+
+volumes:
+  postgres_data:

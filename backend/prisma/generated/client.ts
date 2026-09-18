@@ -92,6 +92,11 @@ export type Trip = Prisma.TripModel
  */
 export type TripHistory = Prisma.TripHistoryModel
 /**
+ * Model TripStopEvent
+ * 
+ */
+export type TripStopEvent = Prisma.TripStopEventModel
+/**
  * Model Notification
  * 
  */

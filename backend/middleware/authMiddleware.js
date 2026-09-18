@@ -40,3 +40,25 @@ export const isAdmin = (req, res, next) => {
 
   next();
 };
+
+export const isDriver = (req, res, next) => {
+  if (req.user.role !== "DRIVER") {
+    return res.status(403).json({
+      success: false,
+      message: "Access denied. Drivers only.",
+    });
+  }
+
+  next();
+};
+
+export const isDriverOrAdmin = (req, res, next) => {
+  if (req.user.role !== "DRIVER" && req.user.role !== "ADMIN") {
+    return res.status(403).json({
+      success: false,
+      message: "Access denied.",
+    });
+  }
+
+  next();
+};

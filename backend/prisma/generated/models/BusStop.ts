@@ -217,6 +217,7 @@ export type BusStopWhereInput = {
   latitude?: Prisma.DecimalFilter<"BusStop"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   longitude?: Prisma.DecimalFilter<"BusStop"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   routeDetails?: Prisma.RouteDetailsListRelationFilter
+  tripStopEvents?: Prisma.TripStopEventListRelationFilter
 }
 
 export type BusStopOrderByWithRelationInput = {
@@ -225,6 +226,7 @@ export type BusStopOrderByWithRelationInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   routeDetails?: Prisma.RouteDetailsOrderByRelationAggregateInput
+  tripStopEvents?: Prisma.TripStopEventOrderByRelationAggregateInput
 }
 
 export type BusStopWhereUniqueInput = Prisma.AtLeast<{
@@ -236,6 +238,7 @@ export type BusStopWhereUniqueInput = Prisma.AtLeast<{
   latitude?: Prisma.DecimalFilter<"BusStop"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   longitude?: Prisma.DecimalFilter<"BusStop"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   routeDetails?: Prisma.RouteDetailsListRelationFilter
+  tripStopEvents?: Prisma.TripStopEventListRelationFilter
 }, "id">
 
 export type BusStopOrderByWithAggregationInput = {
@@ -265,6 +268,7 @@ export type BusStopCreateInput = {
   latitude: runtime.Decimal | runtime.DecimalJsLike | number | string
   longitude: runtime.Decimal | runtime.DecimalJsLike | number | string
   routeDetails?: Prisma.RouteDetailsCreateNestedManyWithoutBusStopInput
+  tripStopEvents?: Prisma.TripStopEventCreateNestedManyWithoutBusStopInput
 }
 
 export type BusStopUncheckedCreateInput = {
@@ -273,6 +277,7 @@ export type BusStopUncheckedCreateInput = {
   latitude: runtime.Decimal | runtime.DecimalJsLike | number | string
   longitude: runtime.Decimal | runtime.DecimalJsLike | number | string
   routeDetails?: Prisma.RouteDetailsUncheckedCreateNestedManyWithoutBusStopInput
+  tripStopEvents?: Prisma.TripStopEventUncheckedCreateNestedManyWithoutBusStopInput
 }
 
 export type BusStopUpdateInput = {
@@ -280,6 +285,7 @@ export type BusStopUpdateInput = {
   latitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   longitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   routeDetails?: Prisma.RouteDetailsUpdateManyWithoutBusStopNestedInput
+  tripStopEvents?: Prisma.TripStopEventUpdateManyWithoutBusStopNestedInput
 }
 
 export type BusStopUncheckedUpdateInput = {
@@ -288,6 +294,7 @@ export type BusStopUncheckedUpdateInput = {
   latitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   longitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   routeDetails?: Prisma.RouteDetailsUncheckedUpdateManyWithoutBusStopNestedInput
+  tripStopEvents?: Prisma.TripStopEventUncheckedUpdateManyWithoutBusStopNestedInput
 }
 
 export type BusStopCreateManyInput = {
@@ -362,10 +369,25 @@ export type BusStopUpdateOneRequiredWithoutRouteDetailsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BusStopUpdateToOneWithWhereWithoutRouteDetailsInput, Prisma.BusStopUpdateWithoutRouteDetailsInput>, Prisma.BusStopUncheckedUpdateWithoutRouteDetailsInput>
 }
 
+export type BusStopCreateNestedOneWithoutTripStopEventsInput = {
+  create?: Prisma.XOR<Prisma.BusStopCreateWithoutTripStopEventsInput, Prisma.BusStopUncheckedCreateWithoutTripStopEventsInput>
+  connectOrCreate?: Prisma.BusStopCreateOrConnectWithoutTripStopEventsInput
+  connect?: Prisma.BusStopWhereUniqueInput
+}
+
+export type BusStopUpdateOneRequiredWithoutTripStopEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.BusStopCreateWithoutTripStopEventsInput, Prisma.BusStopUncheckedCreateWithoutTripStopEventsInput>
+  connectOrCreate?: Prisma.BusStopCreateOrConnectWithoutTripStopEventsInput
+  upsert?: Prisma.BusStopUpsertWithoutTripStopEventsInput
+  connect?: Prisma.BusStopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusStopUpdateToOneWithWhereWithoutTripStopEventsInput, Prisma.BusStopUpdateWithoutTripStopEventsInput>, Prisma.BusStopUncheckedUpdateWithoutTripStopEventsInput>
+}
+
 export type BusStopCreateWithoutRouteDetailsInput = {
   stopName: string
   latitude: runtime.Decimal | runtime.DecimalJsLike | number | string
   longitude: runtime.Decimal | runtime.DecimalJsLike | number | string
+  tripStopEvents?: Prisma.TripStopEventCreateNestedManyWithoutBusStopInput
 }
 
 export type BusStopUncheckedCreateWithoutRouteDetailsInput = {
@@ -373,6 +395,7 @@ export type BusStopUncheckedCreateWithoutRouteDetailsInput = {
   stopName: string
   latitude: runtime.Decimal | runtime.DecimalJsLike | number | string
   longitude: runtime.Decimal | runtime.DecimalJsLike | number | string
+  tripStopEvents?: Prisma.TripStopEventUncheckedCreateNestedManyWithoutBusStopInput
 }
 
 export type BusStopCreateOrConnectWithoutRouteDetailsInput = {
@@ -395,6 +418,7 @@ export type BusStopUpdateWithoutRouteDetailsInput = {
   stopName?: Prisma.StringFieldUpdateOperationsInput | string
   latitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   longitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tripStopEvents?: Prisma.TripStopEventUpdateManyWithoutBusStopNestedInput
 }
 
 export type BusStopUncheckedUpdateWithoutRouteDetailsInput = {
@@ -402,6 +426,53 @@ export type BusStopUncheckedUpdateWithoutRouteDetailsInput = {
   stopName?: Prisma.StringFieldUpdateOperationsInput | string
   latitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   longitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  tripStopEvents?: Prisma.TripStopEventUncheckedUpdateManyWithoutBusStopNestedInput
+}
+
+export type BusStopCreateWithoutTripStopEventsInput = {
+  stopName: string
+  latitude: runtime.Decimal | runtime.DecimalJsLike | number | string
+  longitude: runtime.Decimal | runtime.DecimalJsLike | number | string
+  routeDetails?: Prisma.RouteDetailsCreateNestedManyWithoutBusStopInput
+}
+
+export type BusStopUncheckedCreateWithoutTripStopEventsInput = {
+  id?: number
+  stopName: string
+  latitude: runtime.Decimal | runtime.DecimalJsLike | number | string
+  longitude: runtime.Decimal | runtime.DecimalJsLike | number | string
+  routeDetails?: Prisma.RouteDetailsUncheckedCreateNestedManyWithoutBusStopInput
+}
+
+export type BusStopCreateOrConnectWithoutTripStopEventsInput = {
+  where: Prisma.BusStopWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusStopCreateWithoutTripStopEventsInput, Prisma.BusStopUncheckedCreateWithoutTripStopEventsInput>
+}
+
+export type BusStopUpsertWithoutTripStopEventsInput = {
+  update: Prisma.XOR<Prisma.BusStopUpdateWithoutTripStopEventsInput, Prisma.BusStopUncheckedUpdateWithoutTripStopEventsInput>
+  create: Prisma.XOR<Prisma.BusStopCreateWithoutTripStopEventsInput, Prisma.BusStopUncheckedCreateWithoutTripStopEventsInput>
+  where?: Prisma.BusStopWhereInput
+}
+
+export type BusStopUpdateToOneWithWhereWithoutTripStopEventsInput = {
+  where?: Prisma.BusStopWhereInput
+  data: Prisma.XOR<Prisma.BusStopUpdateWithoutTripStopEventsInput, Prisma.BusStopUncheckedUpdateWithoutTripStopEventsInput>
+}
+
+export type BusStopUpdateWithoutTripStopEventsInput = {
+  stopName?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  longitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  routeDetails?: Prisma.RouteDetailsUpdateManyWithoutBusStopNestedInput
+}
+
+export type BusStopUncheckedUpdateWithoutTripStopEventsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  stopName?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  longitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  routeDetails?: Prisma.RouteDetailsUncheckedUpdateManyWithoutBusStopNestedInput
 }
 
 
@@ -411,10 +482,12 @@ export type BusStopUncheckedUpdateWithoutRouteDetailsInput = {
 
 export type BusStopCountOutputType = {
   routeDetails: number
+  tripStopEvents: number
 }
 
 export type BusStopCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   routeDetails?: boolean | BusStopCountOutputTypeCountRouteDetailsArgs
+  tripStopEvents?: boolean | BusStopCountOutputTypeCountTripStopEventsArgs
 }
 
 /**
@@ -434,6 +507,13 @@ export type BusStopCountOutputTypeCountRouteDetailsArgs<ExtArgs extends runtime.
   where?: Prisma.RouteDetailsWhereInput
 }
 
+/**
+ * BusStopCountOutputType without action
+ */
+export type BusStopCountOutputTypeCountTripStopEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TripStopEventWhereInput
+}
+
 
 export type BusStopSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -441,6 +521,7 @@ export type BusStopSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   latitude?: boolean
   longitude?: boolean
   routeDetails?: boolean | Prisma.BusStop$routeDetailsArgs<ExtArgs>
+  tripStopEvents?: boolean | Prisma.BusStop$tripStopEventsArgs<ExtArgs>
   _count?: boolean | Prisma.BusStopCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["busStop"]>
 
@@ -468,6 +549,7 @@ export type BusStopSelectScalar = {
 export type BusStopOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "stopName" | "latitude" | "longitude", ExtArgs["result"]["busStop"]>
 export type BusStopInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   routeDetails?: boolean | Prisma.BusStop$routeDetailsArgs<ExtArgs>
+  tripStopEvents?: boolean | Prisma.BusStop$tripStopEventsArgs<ExtArgs>
   _count?: boolean | Prisma.BusStopCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BusStopIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -477,6 +559,7 @@ export type $BusStopPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   name: "BusStop"
   objects: {
     routeDetails: Prisma.$RouteDetailsPayload<ExtArgs>[]
+    tripStopEvents: Prisma.$TripStopEventPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -878,6 +961,7 @@ readonly fields: BusStopFieldRefs;
 export interface Prisma__BusStopClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   routeDetails<T extends Prisma.BusStop$routeDetailsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BusStop$routeDetailsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RouteDetailsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tripStopEvents<T extends Prisma.BusStop$tripStopEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BusStop$tripStopEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TripStopEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1325,6 +1409,30 @@ export type BusStop$routeDetailsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.RouteDetailsScalarFieldEnum | Prisma.RouteDetailsScalarFieldEnum[]
+}
+
+/**
+ * BusStop.tripStopEvents
+ */
+export type BusStop$tripStopEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TripStopEvent
+   */
+  select?: Prisma.TripStopEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TripStopEvent
+   */
+  omit?: Prisma.TripStopEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TripStopEventInclude<ExtArgs> | null
+  where?: Prisma.TripStopEventWhereInput
+  orderBy?: Prisma.TripStopEventOrderByWithRelationInput | Prisma.TripStopEventOrderByWithRelationInput[]
+  cursor?: Prisma.TripStopEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TripStopEventScalarFieldEnum | Prisma.TripStopEventScalarFieldEnum[]
 }
 
 /**

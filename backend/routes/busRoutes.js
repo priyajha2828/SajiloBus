@@ -2,36 +2,30 @@ import express from "express";
 import {
   getBuses,
   getBusById,
+  getNearbyBuses,
   createBus,
   updateBus,
   deleteBus,
   getBusCount,
   getLiveBusLocations,
 } from "../controllers/busController.js";
-
 import { verifyToken, isAdmin } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// Count
+// Specific routes (MUST come before /:id)
+router.get("/nearby", verifyToken, getNearbyBuses);
 router.get("/count", verifyToken, isAdmin, getBusCount);
+router.get("/live", verifyToken, getLiveBusLocations);
 
-// Live Bus Locations
-router.get("/live", verifyToken, isAdmin, getLiveBusLocations);
+// General list & ID routes
+router.get("/", verifyToken, getBuses);
+router.get("/:id", verifyToken, getBusById);
 
-// Get All Buses
-router.get("/", verifyToken, isAdmin, getBuses);
-
-// Get Bus By ID
-router.get("/:id", verifyToken, isAdmin, getBusById);
-
-// Create Bus
+// Admin CRUD routes
 router.post("/", verifyToken, isAdmin, createBus);
-
-// Update Bus
 router.put("/:id", verifyToken, isAdmin, updateBus);
-
-// Delete Bus
+router.patch("/:id", verifyToken, isAdmin, updateBus);
 router.delete("/:id", verifyToken, isAdmin, deleteBus);
 
 export default router;

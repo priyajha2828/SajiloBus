@@ -12,6 +12,7 @@ model Admin {
   firebaseUid   String         @unique @map("firebase_uid")
   name          String
   email         String         @unique
+  role          Role           @default(ADMIN)
   phone         String?
   createdAt     DateTime       @default(now()) @map("created_at")
   updatedAt     DateTime       @updatedAt @map("updated_at")
@@ -26,6 +27,7 @@ model Passenger {
   firebaseUid   String              @unique @map("firebase_uid")
   name          String
   email         String              @unique
+  role          Role                @default(PASSENGER)
   phone         String?
   createdAt     DateTime            @default(now()) @map("created_at")
   updatedAt     DateTime            @updatedAt @map("updated_at")
@@ -42,6 +44,7 @@ model Driver {
   firebaseUid String           @unique @map("firebase_uid")
   name        String
   email       String           @unique
+  role        Role             @default(DRIVER)
   phone       String?
   licenseNo   String           @unique @map("license_no")
   isAvailable Boolean          @default(true) @map("is_available")
@@ -87,11 +90,12 @@ model Route {
 }
 
 model BusStop {
-  id           Int            @id @default(autoincrement())
-  stopName     String         @map("stop_name")
-  latitude     Decimal        @db.Decimal(10, 7)
-  longitude    Decimal        @db.Decimal(10, 7)
-  routeDetails RouteDetails[]
+  id             Int              @id @default(autoincrement())
+  stopName       String           @map("stop_name")
+  latitude       Decimal          @db.Decimal(10, 7)
+  longitude      Decimal          @db.Decimal(10, 7)
+  routeDetails   RouteDetails[]
+  tripStopEvents TripStopEvent[]
 
   @@map("bus_stop")
 }
@@ -122,16 +126,18 @@ model BusAssignment {
 }
 
 model Trip {
-  id          Int           @id @default(autoincrement())
-  routeId     Int           @map("route_id")
-  driverId    Int           @map("driver_id")
-  busId       Int           @map("bus_id")
-  startedAt   DateTime?     @map("started_at")
-  endedAt     DateTime?     @map("ended_at")
-  bus         Bus           @relation(fields: [busId], references: [id])
-  driver      Driver        @relation(fields: [driverId], references: [id])
-  route       Route         @relation(fields: [routeId], references: [id])
+  id          Int             @id @default(autoincrement())
+  routeId     Int             @map("route_id")
+  driverId    Int             @map("driver_id")
+  busId       Int             @map("bus_id")
+  startedAt   DateTime?       @map("started_at")
+  endedAt     DateTime?       @map("ended_at")
+  createdAt   DateTime        @default(now()) @map("created_at")
+  bus         Bus             @relation(fields: [busId], references: [id])
+  driver      Driver          @relation(fields: [driverId], references: [id])
+  route       Route           @relation(fields: [routeId], references: [id])
   tripHistory TripHistory[]
+  stopEvents  TripStopEvent[]
 
   @@map("trip")
 }
@@ -145,6 +151,21 @@ model TripHistory {
   trip       Trip     @relation(fields: [tripId], references: [id])
 
   @@map("trip_history")
+}
+
+model TripStopEvent {
+  id             Int          @id @default(autoincrement())
+  tripId         Int          @map("trip_id")
+  busStopId      Int          @map("bus_stop_id")
+  eventType      StopEventType @map("event_type")
+  eventTime      DateTime     @default(now()) @map("event_time")
+  boardingCount  Int          @default(0) @map("boarding_count")
+  alightingCount Int          @default(0) @map("alighting_count")
+  remarks        String?
+  trip           Trip         @relation(fields: [tripId], references: [id])
+  busStop        BusStop      @relation(fields: [busStopId], references: [id])
+
+  @@map("trip_stop_event")
 }
 
 model Notification {
@@ -237,4 +258,15 @@ enum SOSStatus {
 enum LoginStatus {
   SUCCESS
   FAILED
+}
+
+enum StopEventType {
+  REACHED
+  SKIPPED
+}
+
+enum Role{
+ADMIN
+PASSENGER
+DRIVER
 }

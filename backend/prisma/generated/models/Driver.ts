@@ -41,6 +41,7 @@ export type DriverMinAggregateOutputType = {
   firebaseUid: string | null
   name: string | null
   email: string | null
+  role: $Enums.Role | null
   phone: string | null
   licenseNo: string | null
   isAvailable: boolean | null
@@ -54,6 +55,7 @@ export type DriverMaxAggregateOutputType = {
   firebaseUid: string | null
   name: string | null
   email: string | null
+  role: $Enums.Role | null
   phone: string | null
   licenseNo: string | null
   isAvailable: boolean | null
@@ -67,6 +69,7 @@ export type DriverCountAggregateOutputType = {
   firebaseUid: number
   name: number
   email: number
+  role: number
   phone: number
   licenseNo: number
   isAvailable: number
@@ -92,6 +95,7 @@ export type DriverMinAggregateInputType = {
   firebaseUid?: true
   name?: true
   email?: true
+  role?: true
   phone?: true
   licenseNo?: true
   isAvailable?: true
@@ -105,6 +109,7 @@ export type DriverMaxAggregateInputType = {
   firebaseUid?: true
   name?: true
   email?: true
+  role?: true
   phone?: true
   licenseNo?: true
   isAvailable?: true
@@ -118,6 +123,7 @@ export type DriverCountAggregateInputType = {
   firebaseUid?: true
   name?: true
   email?: true
+  role?: true
   phone?: true
   licenseNo?: true
   isAvailable?: true
@@ -218,6 +224,7 @@ export type DriverGroupByOutputType = {
   firebaseUid: string
   name: string
   email: string
+  role: $Enums.Role
   phone: string | null
   licenseNo: string
   isAvailable: boolean
@@ -254,6 +261,7 @@ export type DriverWhereInput = {
   firebaseUid?: Prisma.StringFilter<"Driver"> | string
   name?: Prisma.StringFilter<"Driver"> | string
   email?: Prisma.StringFilter<"Driver"> | string
+  role?: Prisma.EnumRoleFilter<"Driver"> | $Enums.Role
   phone?: Prisma.StringNullableFilter<"Driver"> | string | null
   licenseNo?: Prisma.StringFilter<"Driver"> | string
   isAvailable?: Prisma.BoolFilter<"Driver"> | boolean
@@ -271,6 +279,7 @@ export type DriverOrderByWithRelationInput = {
   firebaseUid?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   licenseNo?: Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
@@ -292,6 +301,7 @@ export type DriverWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.DriverWhereInput[]
   NOT?: Prisma.DriverWhereInput | Prisma.DriverWhereInput[]
   name?: Prisma.StringFilter<"Driver"> | string
+  role?: Prisma.EnumRoleFilter<"Driver"> | $Enums.Role
   phone?: Prisma.StringNullableFilter<"Driver"> | string | null
   isAvailable?: Prisma.BoolFilter<"Driver"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Driver"> | Date | string
@@ -308,6 +318,7 @@ export type DriverOrderByWithAggregationInput = {
   firebaseUid?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   licenseNo?: Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
@@ -329,6 +340,7 @@ export type DriverScalarWhereWithAggregatesInput = {
   firebaseUid?: Prisma.StringWithAggregatesFilter<"Driver"> | string
   name?: Prisma.StringWithAggregatesFilter<"Driver"> | string
   email?: Prisma.StringWithAggregatesFilter<"Driver"> | string
+  role?: Prisma.EnumRoleWithAggregatesFilter<"Driver"> | $Enums.Role
   phone?: Prisma.StringNullableWithAggregatesFilter<"Driver"> | string | null
   licenseNo?: Prisma.StringWithAggregatesFilter<"Driver"> | string
   isAvailable?: Prisma.BoolWithAggregatesFilter<"Driver"> | boolean
@@ -341,6 +353,7 @@ export type DriverCreateInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   licenseNo: string
   isAvailable?: boolean
@@ -357,6 +370,7 @@ export type DriverUncheckedCreateInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   licenseNo: string
   isAvailable?: boolean
@@ -372,6 +386,7 @@ export type DriverUpdateInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -388,6 +403,7 @@ export type DriverUncheckedUpdateInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -404,6 +420,7 @@ export type DriverCreateManyInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   licenseNo: string
   isAvailable?: boolean
@@ -416,6 +433,7 @@ export type DriverUpdateManyMutationInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -428,6 +446,7 @@ export type DriverUncheckedUpdateManyInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -451,6 +470,7 @@ export type DriverCountOrderByAggregateInput = {
   firebaseUid?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   licenseNo?: Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
@@ -469,6 +489,7 @@ export type DriverMaxOrderByAggregateInput = {
   firebaseUid?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   licenseNo?: Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
@@ -482,6 +503,7 @@ export type DriverMinOrderByAggregateInput = {
   firebaseUid?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   licenseNo?: Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
@@ -600,6 +622,7 @@ export type DriverCreateWithoutAdminInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   licenseNo: string
   isAvailable?: boolean
@@ -615,6 +638,7 @@ export type DriverUncheckedCreateWithoutAdminInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   licenseNo: string
   isAvailable?: boolean
@@ -659,6 +683,7 @@ export type DriverScalarWhereInput = {
   firebaseUid?: Prisma.StringFilter<"Driver"> | string
   name?: Prisma.StringFilter<"Driver"> | string
   email?: Prisma.StringFilter<"Driver"> | string
+  role?: Prisma.EnumRoleFilter<"Driver"> | $Enums.Role
   phone?: Prisma.StringNullableFilter<"Driver"> | string | null
   licenseNo?: Prisma.StringFilter<"Driver"> | string
   isAvailable?: Prisma.BoolFilter<"Driver"> | boolean
@@ -671,6 +696,7 @@ export type DriverCreateWithoutAssignmentsInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   licenseNo: string
   isAvailable?: boolean
@@ -686,6 +712,7 @@ export type DriverUncheckedCreateWithoutAssignmentsInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   licenseNo: string
   isAvailable?: boolean
@@ -716,6 +743,7 @@ export type DriverUpdateWithoutAssignmentsInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -731,6 +759,7 @@ export type DriverUncheckedUpdateWithoutAssignmentsInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -745,6 +774,7 @@ export type DriverCreateWithoutTripsInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   licenseNo: string
   isAvailable?: boolean
@@ -760,6 +790,7 @@ export type DriverUncheckedCreateWithoutTripsInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   licenseNo: string
   isAvailable?: boolean
@@ -790,6 +821,7 @@ export type DriverUpdateWithoutTripsInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -805,6 +837,7 @@ export type DriverUncheckedUpdateWithoutTripsInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -819,6 +852,7 @@ export type DriverCreateWithoutLoginLogsInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   licenseNo: string
   isAvailable?: boolean
@@ -834,6 +868,7 @@ export type DriverUncheckedCreateWithoutLoginLogsInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   licenseNo: string
   isAvailable?: boolean
@@ -864,6 +899,7 @@ export type DriverUpdateWithoutLoginLogsInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -879,6 +915,7 @@ export type DriverUncheckedUpdateWithoutLoginLogsInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -894,6 +931,7 @@ export type DriverCreateManyAdminInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   licenseNo: string
   isAvailable?: boolean
@@ -905,6 +943,7 @@ export type DriverUpdateWithoutAdminInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -920,6 +959,7 @@ export type DriverUncheckedUpdateWithoutAdminInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -935,6 +975,7 @@ export type DriverUncheckedUpdateManyWithoutAdminInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNo?: Prisma.StringFieldUpdateOperationsInput | string
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -996,6 +1037,7 @@ export type DriverSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   firebaseUid?: boolean
   name?: boolean
   email?: boolean
+  role?: boolean
   phone?: boolean
   licenseNo?: boolean
   isAvailable?: boolean
@@ -1014,6 +1056,7 @@ export type DriverSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   firebaseUid?: boolean
   name?: boolean
   email?: boolean
+  role?: boolean
   phone?: boolean
   licenseNo?: boolean
   isAvailable?: boolean
@@ -1028,6 +1071,7 @@ export type DriverSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   firebaseUid?: boolean
   name?: boolean
   email?: boolean
+  role?: boolean
   phone?: boolean
   licenseNo?: boolean
   isAvailable?: boolean
@@ -1042,6 +1086,7 @@ export type DriverSelectScalar = {
   firebaseUid?: boolean
   name?: boolean
   email?: boolean
+  role?: boolean
   phone?: boolean
   licenseNo?: boolean
   isAvailable?: boolean
@@ -1050,7 +1095,7 @@ export type DriverSelectScalar = {
   adminId?: boolean
 }
 
-export type DriverOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firebaseUid" | "name" | "email" | "phone" | "licenseNo" | "isAvailable" | "createdAt" | "updatedAt" | "adminId", ExtArgs["result"]["driver"]>
+export type DriverOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firebaseUid" | "name" | "email" | "role" | "phone" | "licenseNo" | "isAvailable" | "createdAt" | "updatedAt" | "adminId", ExtArgs["result"]["driver"]>
 export type DriverInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   assignments?: boolean | Prisma.Driver$assignmentsArgs<ExtArgs>
   admin?: boolean | Prisma.Driver$adminArgs<ExtArgs>
@@ -1078,6 +1123,7 @@ export type $DriverPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     firebaseUid: string
     name: string
     email: string
+    role: $Enums.Role
     phone: string | null
     licenseNo: string
     isAvailable: boolean
@@ -1515,6 +1561,7 @@ export interface DriverFieldRefs {
   readonly firebaseUid: Prisma.FieldRef<"Driver", 'String'>
   readonly name: Prisma.FieldRef<"Driver", 'String'>
   readonly email: Prisma.FieldRef<"Driver", 'String'>
+  readonly role: Prisma.FieldRef<"Driver", 'Role'>
   readonly phone: Prisma.FieldRef<"Driver", 'String'>
   readonly licenseNo: Prisma.FieldRef<"Driver", 'String'>
   readonly isAvailable: Prisma.FieldRef<"Driver", 'Boolean'>

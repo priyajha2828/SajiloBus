@@ -61,6 +61,7 @@ export const ModelName = {
   BusAssignment: 'BusAssignment',
   Trip: 'Trip',
   TripHistory: 'TripHistory',
+  TripStopEvent: 'TripStopEvent',
   Notification: 'Notification',
   SOS: 'SOS',
   SOSContact: 'SOSContact',
@@ -90,6 +91,7 @@ export const AdminScalarFieldEnum = {
   firebaseUid: 'firebaseUid',
   name: 'name',
   email: 'email',
+  role: 'role',
   phone: 'phone',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -103,6 +105,7 @@ export const PassengerScalarFieldEnum = {
   firebaseUid: 'firebaseUid',
   name: 'name',
   email: 'email',
+  role: 'role',
   phone: 'phone',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -116,6 +119,7 @@ export const DriverScalarFieldEnum = {
   firebaseUid: 'firebaseUid',
   name: 'name',
   email: 'email',
+  role: 'role',
   phone: 'phone',
   licenseNo: 'licenseNo',
   isAvailable: 'isAvailable',
@@ -192,7 +196,8 @@ export const TripScalarFieldEnum = {
   driverId: 'driverId',
   busId: 'busId',
   startedAt: 'startedAt',
-  endedAt: 'endedAt'
+  endedAt: 'endedAt',
+  createdAt: 'createdAt'
 } as const
 
 export type TripScalarFieldEnum = (typeof TripScalarFieldEnum)[keyof typeof TripScalarFieldEnum]
@@ -207,6 +212,20 @@ export const TripHistoryScalarFieldEnum = {
 } as const
 
 export type TripHistoryScalarFieldEnum = (typeof TripHistoryScalarFieldEnum)[keyof typeof TripHistoryScalarFieldEnum]
+
+
+export const TripStopEventScalarFieldEnum = {
+  id: 'id',
+  tripId: 'tripId',
+  busStopId: 'busStopId',
+  eventType: 'eventType',
+  eventTime: 'eventTime',
+  boardingCount: 'boardingCount',
+  alightingCount: 'alightingCount',
+  remarks: 'remarks'
+} as const
+
+export type TripStopEventScalarFieldEnum = (typeof TripStopEventScalarFieldEnum)[keyof typeof TripStopEventScalarFieldEnum]
 
 
 export const NotificationScalarFieldEnum = {
