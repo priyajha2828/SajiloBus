@@ -275,8 +275,6 @@ export const createRoute = async (req, res) => {
     try {
       await prisma.notification.create({
         data: {
-          adminId: 1,
-          passengerId: 1,
           title: "New Route Added",
           message: `${route.routeName} has been added successfully.`,
         },

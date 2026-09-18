@@ -41,6 +41,7 @@ import EditRouteDetail from "./pages/EditRouteDetail";
 import ViewRouteDetail from "./pages/ViewRouteDetail";
 import NotificationManagement from "./pages/NotificationManagement";
 import ViewNotification from "./pages/ViewNotification";
+import SOSManagement from "./pages/SOSManagement";
 import LiveTracking from "./pages/LiveTracking";
 import Tracking from "./pages/Tracking";
 
@@ -89,6 +90,7 @@ function App() {
       <Route path="/route-details/view/:id" element={<ViewRouteDetail />} />
       <Route path="/notifications" element={<NotificationManagement />} />
       <Route path="/notifications/view/:id" element={<ViewNotification />} />
+      <Route path="/sos-queue" element={<SOSManagement />} />
       <Route path="/live-tracking" element={<LiveTracking />} />
       <Route path="/tracking" element={<Tracking />} />
     </Routes>
