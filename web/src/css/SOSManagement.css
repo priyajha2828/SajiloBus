@@ -1,0 +1,223 @@
+.sos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.sos-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sos-title-group h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-color, #1e293b);
+  margin: 0;
+}
+
+.sos-badge-count {
+  background: #ef4444;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sos-filter-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.sos-tab {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  color: #64748b;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sos-tab.active {
+  background: #dc2626;
+  color: white;
+  border-color: #dc2626;
+}
+
+.sos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 20px;
+}
+
+.sos-card {
+  background: white;
+  border-radius: 12px;
+  border: 2px solid #fee2e2;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.sos-card.pending {
+  border-color: #ef4444;
+  animation: sosPulse 2s infinite;
+}
+
+@keyframes sosPulse {
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.sos-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+}
+
+.sos-ticket-id {
+  font-weight: 800;
+  font-size: 16px;
+  color: #dc2626;
+}
+
+.sos-status-tag {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.sos-status-tag.PENDING {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.sos-status-tag.IN_PROGRESS {
+  background: #fffbeb;
+  color: #d97706;
+  border: 1px solid #fde68a;
+}
+
+.sos-status-tag.RESOLVED {
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+.sos-passenger-box {
+  background: #f8fafc;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.sos-passenger-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+.sos-passenger-phone {
+  font-size: 13px;
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+.sos-contacts-section {
+  margin-top: 12px;
+  margin-bottom: 14px;
+}
+
+.sos-contacts-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.sos-contact-pill {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f1f5f9;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+
+.sos-contact-name {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.sos-contact-num {
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.sos-coords-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #eff6ff;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #1e40af;
+  margin-bottom: 16px;
+}
+
+.sos-actions-row {
+  display: flex;
+  gap: 10px;
+}
+
+.sos-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 0.2s ease;
+}
+
+.sos-btn-progress {
+  background: #f59e0b;
+  color: white;
+}
+
+.sos-btn-resolve {
+  background: #10b981;
+  color: white;
+}
+
+.sos-btn-map {
+  background: #3b82f6;
+  color: white;
+  text-decoration: none;
+}
