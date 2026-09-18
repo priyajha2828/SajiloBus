@@ -394,6 +394,7 @@ export const ModelName = {
   BusAssignment: 'BusAssignment',
   Trip: 'Trip',
   TripHistory: 'TripHistory',
+  TripStopEvent: 'TripStopEvent',
   Notification: 'Notification',
   SOS: 'SOS',
   SOSContact: 'SOSContact',
@@ -415,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "admin" | "passenger" | "driver" | "bus" | "route" | "busStop" | "routeDetails" | "busAssignment" | "trip" | "tripHistory" | "notification" | "sOS" | "sOSContact" | "passengerLoginLog" | "driverLoginLog" | "busSchedule"
+    modelProps: "admin" | "passenger" | "driver" | "bus" | "route" | "busStop" | "routeDetails" | "busAssignment" | "trip" | "tripHistory" | "tripStopEvent" | "notification" | "sOS" | "sOSContact" | "passengerLoginLog" | "driverLoginLog" | "busSchedule"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1159,6 +1160,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TripStopEvent: {
+      payload: Prisma.$TripStopEventPayload<ExtArgs>
+      fields: Prisma.TripStopEventFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TripStopEventFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TripStopEventPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TripStopEventFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TripStopEventPayload>
+        }
+        findFirst: {
+          args: Prisma.TripStopEventFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TripStopEventPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TripStopEventFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TripStopEventPayload>
+        }
+        findMany: {
+          args: Prisma.TripStopEventFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TripStopEventPayload>[]
+        }
+        create: {
+          args: Prisma.TripStopEventCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TripStopEventPayload>
+        }
+        createMany: {
+          args: Prisma.TripStopEventCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TripStopEventCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TripStopEventPayload>[]
+        }
+        delete: {
+          args: Prisma.TripStopEventDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TripStopEventPayload>
+        }
+        update: {
+          args: Prisma.TripStopEventUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TripStopEventPayload>
+        }
+        deleteMany: {
+          args: Prisma.TripStopEventDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TripStopEventUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TripStopEventUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TripStopEventPayload>[]
+        }
+        upsert: {
+          args: Prisma.TripStopEventUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TripStopEventPayload>
+        }
+        aggregate: {
+          args: Prisma.TripStopEventAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTripStopEvent>
+        }
+        groupBy: {
+          args: Prisma.TripStopEventGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TripStopEventGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TripStopEventCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TripStopEventCountAggregateOutputType> | number
+        }
+      }
+    }
     Notification: {
       payload: Prisma.$NotificationPayload<ExtArgs>
       fields: Prisma.NotificationFieldRefs
@@ -1647,6 +1722,7 @@ export const AdminScalarFieldEnum = {
   firebaseUid: 'firebaseUid',
   name: 'name',
   email: 'email',
+  role: 'role',
   phone: 'phone',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1660,6 +1736,7 @@ export const PassengerScalarFieldEnum = {
   firebaseUid: 'firebaseUid',
   name: 'name',
   email: 'email',
+  role: 'role',
   phone: 'phone',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1673,6 +1750,7 @@ export const DriverScalarFieldEnum = {
   firebaseUid: 'firebaseUid',
   name: 'name',
   email: 'email',
+  role: 'role',
   phone: 'phone',
   licenseNo: 'licenseNo',
   isAvailable: 'isAvailable',
@@ -1749,7 +1827,8 @@ export const TripScalarFieldEnum = {
   driverId: 'driverId',
   busId: 'busId',
   startedAt: 'startedAt',
-  endedAt: 'endedAt'
+  endedAt: 'endedAt',
+  createdAt: 'createdAt'
 } as const
 
 export type TripScalarFieldEnum = (typeof TripScalarFieldEnum)[keyof typeof TripScalarFieldEnum]
@@ -1764,6 +1843,20 @@ export const TripHistoryScalarFieldEnum = {
 } as const
 
 export type TripHistoryScalarFieldEnum = (typeof TripHistoryScalarFieldEnum)[keyof typeof TripHistoryScalarFieldEnum]
+
+
+export const TripStopEventScalarFieldEnum = {
+  id: 'id',
+  tripId: 'tripId',
+  busStopId: 'busStopId',
+  eventType: 'eventType',
+  eventTime: 'eventTime',
+  boardingCount: 'boardingCount',
+  alightingCount: 'alightingCount',
+  remarks: 'remarks'
+} as const
+
+export type TripStopEventScalarFieldEnum = (typeof TripStopEventScalarFieldEnum)[keyof typeof TripStopEventScalarFieldEnum]
 
 
 export const NotificationScalarFieldEnum = {
@@ -1898,6 +1991,20 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
+ * Reference to a field of type 'Role'
+ */
+export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
+    
+
+
+/**
+ * Reference to a field of type 'Role[]'
+ */
+export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+    
+
+
+/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -1943,6 +2050,20 @@ export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
  * Reference to a field of type 'Decimal[]'
  */
 export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+/**
+ * Reference to a field of type 'StopEventType'
+ */
+export type EnumStopEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StopEventType'>
+    
+
+
+/**
+ * Reference to a field of type 'StopEventType[]'
+ */
+export type ListEnumStopEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StopEventType[]'>
     
 
 
@@ -2107,6 +2228,7 @@ export type GlobalOmitConfig = {
   busAssignment?: Prisma.BusAssignmentOmit
   trip?: Prisma.TripOmit
   tripHistory?: Prisma.TripHistoryOmit
+  tripStopEvent?: Prisma.TripStopEventOmit
   notification?: Prisma.NotificationOmit
   sOS?: Prisma.SOSOmit
   sOSContact?: Prisma.SOSContactOmit

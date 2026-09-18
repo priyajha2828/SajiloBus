@@ -10,9 +10,9 @@ async function main() {
 
     await prisma.admin.create({
         data: {
-            firebaseUid: "hiDzVHotU0Ys6JeiwMIkM8knbVp2",
+            firebaseUid: "gXxJpyr9HRhsFzs3WUiZzj4oZJA2",
             name:"Admin",
-            email: "admin123@gmail.com",
+            email: "admin1234@gmail.com",
             phone:"9800000000",
 },
     });

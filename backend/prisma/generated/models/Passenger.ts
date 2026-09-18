@@ -39,6 +39,7 @@ export type PassengerMinAggregateOutputType = {
   firebaseUid: string | null
   name: string | null
   email: string | null
+  role: $Enums.Role | null
   phone: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -49,6 +50,7 @@ export type PassengerMaxAggregateOutputType = {
   firebaseUid: string | null
   name: string | null
   email: string | null
+  role: $Enums.Role | null
   phone: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -59,6 +61,7 @@ export type PassengerCountAggregateOutputType = {
   firebaseUid: number
   name: number
   email: number
+  role: number
   phone: number
   createdAt: number
   updatedAt: number
@@ -79,6 +82,7 @@ export type PassengerMinAggregateInputType = {
   firebaseUid?: true
   name?: true
   email?: true
+  role?: true
   phone?: true
   createdAt?: true
   updatedAt?: true
@@ -89,6 +93,7 @@ export type PassengerMaxAggregateInputType = {
   firebaseUid?: true
   name?: true
   email?: true
+  role?: true
   phone?: true
   createdAt?: true
   updatedAt?: true
@@ -99,6 +104,7 @@ export type PassengerCountAggregateInputType = {
   firebaseUid?: true
   name?: true
   email?: true
+  role?: true
   phone?: true
   createdAt?: true
   updatedAt?: true
@@ -196,6 +202,7 @@ export type PassengerGroupByOutputType = {
   firebaseUid: string
   name: string
   email: string
+  role: $Enums.Role
   phone: string | null
   createdAt: Date
   updatedAt: Date
@@ -229,6 +236,7 @@ export type PassengerWhereInput = {
   firebaseUid?: Prisma.StringFilter<"Passenger"> | string
   name?: Prisma.StringFilter<"Passenger"> | string
   email?: Prisma.StringFilter<"Passenger"> | string
+  role?: Prisma.EnumRoleFilter<"Passenger"> | $Enums.Role
   phone?: Prisma.StringNullableFilter<"Passenger"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Passenger"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Passenger"> | Date | string
@@ -243,6 +251,7 @@ export type PassengerOrderByWithRelationInput = {
   firebaseUid?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -260,6 +269,7 @@ export type PassengerWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.PassengerWhereInput[]
   NOT?: Prisma.PassengerWhereInput | Prisma.PassengerWhereInput[]
   name?: Prisma.StringFilter<"Passenger"> | string
+  role?: Prisma.EnumRoleFilter<"Passenger"> | $Enums.Role
   phone?: Prisma.StringNullableFilter<"Passenger"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Passenger"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Passenger"> | Date | string
@@ -274,6 +284,7 @@ export type PassengerOrderByWithAggregationInput = {
   firebaseUid?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -292,6 +303,7 @@ export type PassengerScalarWhereWithAggregatesInput = {
   firebaseUid?: Prisma.StringWithAggregatesFilter<"Passenger"> | string
   name?: Prisma.StringWithAggregatesFilter<"Passenger"> | string
   email?: Prisma.StringWithAggregatesFilter<"Passenger"> | string
+  role?: Prisma.EnumRoleWithAggregatesFilter<"Passenger"> | $Enums.Role
   phone?: Prisma.StringNullableWithAggregatesFilter<"Passenger"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Passenger"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Passenger"> | Date | string
@@ -301,6 +313,7 @@ export type PassengerCreateInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -315,6 +328,7 @@ export type PassengerUncheckedCreateInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -328,6 +342,7 @@ export type PassengerUpdateInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -342,6 +357,7 @@ export type PassengerUncheckedUpdateInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -356,6 +372,7 @@ export type PassengerCreateManyInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -365,6 +382,7 @@ export type PassengerUpdateManyMutationInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -375,6 +393,7 @@ export type PassengerUncheckedUpdateManyInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -385,6 +404,7 @@ export type PassengerCountOrderByAggregateInput = {
   firebaseUid?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -399,6 +419,7 @@ export type PassengerMaxOrderByAggregateInput = {
   firebaseUid?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -409,6 +430,7 @@ export type PassengerMinOrderByAggregateInput = {
   firebaseUid?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -483,6 +505,7 @@ export type PassengerCreateWithoutNotificationsInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -496,6 +519,7 @@ export type PassengerUncheckedCreateWithoutNotificationsInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -524,6 +548,7 @@ export type PassengerUpdateWithoutNotificationsInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -537,6 +562,7 @@ export type PassengerUncheckedUpdateWithoutNotificationsInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -549,6 +575,7 @@ export type PassengerCreateWithoutSosAlertsInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -562,6 +589,7 @@ export type PassengerUncheckedCreateWithoutSosAlertsInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -590,6 +618,7 @@ export type PassengerUpdateWithoutSosAlertsInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -603,6 +632,7 @@ export type PassengerUncheckedUpdateWithoutSosAlertsInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -615,6 +645,7 @@ export type PassengerCreateWithoutSosContactsInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -628,6 +659,7 @@ export type PassengerUncheckedCreateWithoutSosContactsInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -656,6 +688,7 @@ export type PassengerUpdateWithoutSosContactsInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -669,6 +702,7 @@ export type PassengerUncheckedUpdateWithoutSosContactsInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -681,6 +715,7 @@ export type PassengerCreateWithoutLoginLogsInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -694,6 +729,7 @@ export type PassengerUncheckedCreateWithoutLoginLogsInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -722,6 +758,7 @@ export type PassengerUpdateWithoutLoginLogsInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -735,6 +772,7 @@ export type PassengerUncheckedUpdateWithoutLoginLogsInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -806,6 +844,7 @@ export type PassengerSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   firebaseUid?: boolean
   name?: boolean
   email?: boolean
+  role?: boolean
   phone?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -821,6 +860,7 @@ export type PassengerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   firebaseUid?: boolean
   name?: boolean
   email?: boolean
+  role?: boolean
   phone?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -831,6 +871,7 @@ export type PassengerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   firebaseUid?: boolean
   name?: boolean
   email?: boolean
+  role?: boolean
   phone?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -841,12 +882,13 @@ export type PassengerSelectScalar = {
   firebaseUid?: boolean
   name?: boolean
   email?: boolean
+  role?: boolean
   phone?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PassengerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firebaseUid" | "name" | "email" | "phone" | "createdAt" | "updatedAt", ExtArgs["result"]["passenger"]>
+export type PassengerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firebaseUid" | "name" | "email" | "role" | "phone" | "createdAt" | "updatedAt", ExtArgs["result"]["passenger"]>
 export type PassengerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   notifications?: boolean | Prisma.Passenger$notificationsArgs<ExtArgs>
   loginLogs?: boolean | Prisma.Passenger$loginLogsArgs<ExtArgs>
@@ -870,6 +912,7 @@ export type $PassengerPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     firebaseUid: string
     name: string
     email: string
+    role: $Enums.Role
     phone: string | null
     createdAt: Date
     updatedAt: Date
@@ -1304,6 +1347,7 @@ export interface PassengerFieldRefs {
   readonly firebaseUid: Prisma.FieldRef<"Passenger", 'String'>
   readonly name: Prisma.FieldRef<"Passenger", 'String'>
   readonly email: Prisma.FieldRef<"Passenger", 'String'>
+  readonly role: Prisma.FieldRef<"Passenger", 'Role'>
   readonly phone: Prisma.FieldRef<"Passenger", 'String'>
   readonly createdAt: Prisma.FieldRef<"Passenger", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Passenger", 'DateTime'>

@@ -39,6 +39,7 @@ export type AdminMinAggregateOutputType = {
   firebaseUid: string | null
   name: string | null
   email: string | null
+  role: $Enums.Role | null
   phone: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -49,6 +50,7 @@ export type AdminMaxAggregateOutputType = {
   firebaseUid: string | null
   name: string | null
   email: string | null
+  role: $Enums.Role | null
   phone: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -59,6 +61,7 @@ export type AdminCountAggregateOutputType = {
   firebaseUid: number
   name: number
   email: number
+  role: number
   phone: number
   createdAt: number
   updatedAt: number
@@ -79,6 +82,7 @@ export type AdminMinAggregateInputType = {
   firebaseUid?: true
   name?: true
   email?: true
+  role?: true
   phone?: true
   createdAt?: true
   updatedAt?: true
@@ -89,6 +93,7 @@ export type AdminMaxAggregateInputType = {
   firebaseUid?: true
   name?: true
   email?: true
+  role?: true
   phone?: true
   createdAt?: true
   updatedAt?: true
@@ -99,6 +104,7 @@ export type AdminCountAggregateInputType = {
   firebaseUid?: true
   name?: true
   email?: true
+  role?: true
   phone?: true
   createdAt?: true
   updatedAt?: true
@@ -196,6 +202,7 @@ export type AdminGroupByOutputType = {
   firebaseUid: string
   name: string
   email: string
+  role: $Enums.Role
   phone: string | null
   createdAt: Date
   updatedAt: Date
@@ -229,6 +236,7 @@ export type AdminWhereInput = {
   firebaseUid?: Prisma.StringFilter<"Admin"> | string
   name?: Prisma.StringFilter<"Admin"> | string
   email?: Prisma.StringFilter<"Admin"> | string
+  role?: Prisma.EnumRoleFilter<"Admin"> | $Enums.Role
   phone?: Prisma.StringNullableFilter<"Admin"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Admin"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Admin"> | Date | string
@@ -241,6 +249,7 @@ export type AdminOrderByWithRelationInput = {
   firebaseUid?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -256,6 +265,7 @@ export type AdminWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.AdminWhereInput[]
   NOT?: Prisma.AdminWhereInput | Prisma.AdminWhereInput[]
   name?: Prisma.StringFilter<"Admin"> | string
+  role?: Prisma.EnumRoleFilter<"Admin"> | $Enums.Role
   phone?: Prisma.StringNullableFilter<"Admin"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Admin"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Admin"> | Date | string
@@ -268,6 +278,7 @@ export type AdminOrderByWithAggregationInput = {
   firebaseUid?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -286,6 +297,7 @@ export type AdminScalarWhereWithAggregatesInput = {
   firebaseUid?: Prisma.StringWithAggregatesFilter<"Admin"> | string
   name?: Prisma.StringWithAggregatesFilter<"Admin"> | string
   email?: Prisma.StringWithAggregatesFilter<"Admin"> | string
+  role?: Prisma.EnumRoleWithAggregatesFilter<"Admin"> | $Enums.Role
   phone?: Prisma.StringNullableWithAggregatesFilter<"Admin"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Admin"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Admin"> | Date | string
@@ -295,6 +307,7 @@ export type AdminCreateInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -307,6 +320,7 @@ export type AdminUncheckedCreateInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -318,6 +332,7 @@ export type AdminUpdateInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -330,6 +345,7 @@ export type AdminUncheckedUpdateInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -342,6 +358,7 @@ export type AdminCreateManyInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -351,6 +368,7 @@ export type AdminUpdateManyMutationInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -361,6 +379,7 @@ export type AdminUncheckedUpdateManyInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -371,6 +390,7 @@ export type AdminCountOrderByAggregateInput = {
   firebaseUid?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -385,6 +405,7 @@ export type AdminMaxOrderByAggregateInput = {
   firebaseUid?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -395,6 +416,7 @@ export type AdminMinOrderByAggregateInput = {
   firebaseUid?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -416,6 +438,10 @@ export type AdminScalarRelationFilter = {
 
 export type StringFieldUpdateOperationsInput = {
   set?: string
+}
+
+export type EnumRoleFieldUpdateOperationsInput = {
+  set?: $Enums.Role
 }
 
 export type NullableStringFieldUpdateOperationsInput = {
@@ -468,6 +494,7 @@ export type AdminCreateWithoutDriversInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -479,6 +506,7 @@ export type AdminUncheckedCreateWithoutDriversInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -505,6 +533,7 @@ export type AdminUpdateWithoutDriversInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -516,6 +545,7 @@ export type AdminUncheckedUpdateWithoutDriversInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -526,6 +556,7 @@ export type AdminCreateWithoutNotificationsInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -537,6 +568,7 @@ export type AdminUncheckedCreateWithoutNotificationsInput = {
   firebaseUid: string
   name: string
   email: string
+  role?: $Enums.Role
   phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -563,6 +595,7 @@ export type AdminUpdateWithoutNotificationsInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -574,6 +607,7 @@ export type AdminUncheckedUpdateWithoutNotificationsInput = {
   firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -625,6 +659,7 @@ export type AdminSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   firebaseUid?: boolean
   name?: boolean
   email?: boolean
+  role?: boolean
   phone?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -638,6 +673,7 @@ export type AdminSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   firebaseUid?: boolean
   name?: boolean
   email?: boolean
+  role?: boolean
   phone?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -648,6 +684,7 @@ export type AdminSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   firebaseUid?: boolean
   name?: boolean
   email?: boolean
+  role?: boolean
   phone?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -658,12 +695,13 @@ export type AdminSelectScalar = {
   firebaseUid?: boolean
   name?: boolean
   email?: boolean
+  role?: boolean
   phone?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type AdminOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firebaseUid" | "name" | "email" | "phone" | "createdAt" | "updatedAt", ExtArgs["result"]["admin"]>
+export type AdminOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firebaseUid" | "name" | "email" | "role" | "phone" | "createdAt" | "updatedAt", ExtArgs["result"]["admin"]>
 export type AdminInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   drivers?: boolean | Prisma.Admin$driversArgs<ExtArgs>
   notifications?: boolean | Prisma.Admin$notificationsArgs<ExtArgs>
@@ -683,6 +721,7 @@ export type $AdminPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     firebaseUid: string
     name: string
     email: string
+    role: $Enums.Role
     phone: string | null
     createdAt: Date
     updatedAt: Date
@@ -1115,6 +1154,7 @@ export interface AdminFieldRefs {
   readonly firebaseUid: Prisma.FieldRef<"Admin", 'String'>
   readonly name: Prisma.FieldRef<"Admin", 'String'>
   readonly email: Prisma.FieldRef<"Admin", 'String'>
+  readonly role: Prisma.FieldRef<"Admin", 'Role'>
   readonly phone: Prisma.FieldRef<"Admin", 'String'>
   readonly createdAt: Prisma.FieldRef<"Admin", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Admin", 'DateTime'>
