@@ -88,16 +88,14 @@ export const createDriver = async (req, res) => {
     });
 
   try {
-  const notification = await prisma.notification.create({
-    data: {
-      adminId: 1,
-      passengerId: 1,
-      title: "New Driver Added",
-      message: `${name} has been added successfully.`,
-    },
-  });
+    const notification = await prisma.notification.create({
+      data: {
+        title: "New Driver Added",
+        message: `${name} has been added successfully.`,
+      },
+    });
 
-  console.log("Notification created:", notification);
+    console.log("Notification created:", notification);
 
 } catch (err) {
   console.error("Notification Error:", err);

@@ -46,7 +46,6 @@ export const registerPassenger = async (req, res) => {
     try {
       await prisma.notification.create({
         data: {
-          adminId: 1,
           passengerId: passenger.id,
           title: "New Passenger Registered",
           message: `${passenger.name} has registered successfully.`,

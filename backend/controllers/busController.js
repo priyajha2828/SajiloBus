@@ -271,8 +271,6 @@ export const createBus = async (req, res) => {
     try {
       await prisma.notification.create({
         data: {
-          adminId: 1,
-          passengerId: 1,
           title: "New Bus Added",
           message: `${bus.busNumber} has been added successfully.`,
         },

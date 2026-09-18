@@ -5,6 +5,7 @@ import {
   LayoutDashboard,
   Bus,
   Bell,
+  AlertTriangle,
   Users,
   Route,
   UserCheck,
@@ -108,9 +109,14 @@ function Sidebar({ collapsed, setCollapsed, darkMode }) {
         </Link>
 
         <Link to="/notifications">
-  <Bell size={20} />
-  {!collapsed && <span>Notifications</span>}
-</Link>
+          <Bell size={20} />
+          {!collapsed && <span>Notifications</span>}
+        </Link>
+
+        <Link to="/sos-queue">
+          <AlertTriangle size={20} color="#dc2626" />
+          {!collapsed && <span style={{ color: "#dc2626", fontWeight: "bold" }}>SOS Alerts</span>}
+        </Link>
 
         <Link to="/settings">
           <Settings size={20} />

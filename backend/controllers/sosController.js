@@ -15,14 +15,14 @@ const getPassengerIdFromReq = async (req) => {
 };
 
 // ==========================================
-// POST /sos — Passenger triggers SOS alert
+// POST /sos — Passenger/Driver triggers SOS alert
 // ==========================================
 export const createSOSAlert = async (req, res) => {
   try {
     const { latitude, longitude, message } = req.body;
     let passengerId = req.body.passengerId || (await getPassengerIdFromReq(req));
 
-    if (!latitude || !longitude) {
+    if (latitude === undefined || longitude === undefined) {
       return res.status(400).json({
         success: false,
         message: "latitude and longitude are required",
@@ -34,6 +34,12 @@ export const createSOSAlert = async (req, res) => {
       passengerId = fallbackPassenger?.id || 1;
     }
 
+    // Fetch emergency contacts for this passenger (up to 2)
+    const emergencyContacts = await prisma.sOSContact.findMany({
+      where: { passengerId: Number(passengerId) },
+      take: 2,
+    });
+
     const sos = await prisma.sOS.create({
       data: {
         passengerId: Number(passengerId),
@@ -43,17 +49,40 @@ export const createSOSAlert = async (req, res) => {
         status: "PENDING",
       },
       include: {
-        passenger: true,
+        passenger: {
+          include: {
+            sosContacts: true,
+          },
+        },
       },
     });
+
+    // Create system notification for Admins
+    const contactText = emergencyContacts.length > 0
+      ? emergencyContacts.map((c) => `${c.contactName} (${c.contactNumber})`).join(", ")
+      : "No Emergency Contacts Registered";
+
+    try {
+      await prisma.notification.create({
+        data: {
+          title: "🚨 LIVE SOS EMERGENCY ALERT",
+          message: `Emergency Triggered by ${sos.passenger?.name || "Passenger"} (${sos.passenger?.phone || "No Phone"}). Contacts: [${contactText}]. Coords: ${latitude}, ${longitude}. Note: ${message || "Help Requested"}`,
+        },
+      });
+    } catch (notifErr) {
+      console.error("Failed to create admin notification:", notifErr);
+    }
 
     res.status(201).json({
       success: true,
       message: "SOS Alert Triggered Successfully!",
-      sos,
+      sos: {
+        ...sos,
+        emergencyContacts,
+      },
     });
   } catch (error) {
-    console.error(error);
+    console.error("SOS Creation Error:", error);
     res.status(500).json({
       success: false,
       message: error.message,
@@ -90,6 +119,7 @@ export const getSOSQueue = async (req, res) => {
     res.status(200).json({
       success: true,
       count: sosAlerts.length,
+      pendingCount: sosAlerts.filter((s) => s.status === "PENDING").length,
       sosAlerts,
     });
   } catch (error) {
@@ -229,6 +259,17 @@ export const createSOSContact = async (req, res) => {
     if (!passengerId) {
       const fallbackPassenger = await prisma.passenger.findFirst();
       passengerId = fallbackPassenger?.id || 1;
+    }
+
+    const existingCount = await prisma.sOSContact.count({
+      where: { passengerId: Number(passengerId) },
+    });
+
+    if (existingCount >= 2) {
+      return res.status(400).json({
+        success: false,
+        message: "Maximum 2 emergency contacts allowed per passenger",
+      });
     }
 
     const contact = await prisma.sOSContact.create({

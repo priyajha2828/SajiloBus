@@ -8,6 +8,7 @@ import authRoutes from "./routes/authRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import passengerRoutes from "./routes/passengerRoutes.js";
 import driverRoutes from "./routes/driverRoutes.js";
+import driverProfileRoutes from "./routes/driverProfileRoutes.js";
 import busRoutes from "./routes/busRoutes.js";
 import routeRoutes from "./routes/routeRoutes.js";
 import notificationRoutes from "./routes/notificationRoutes.js";
@@ -31,6 +32,7 @@ app.use("/auth", authRoutes);
 app.use("/admin", adminRoutes);
 app.use("/passengers", passengerRoutes);
 app.use("/drivers", driverRoutes);
+app.use("/driver-profile", driverProfileRoutes);
 app.use("/buses", busRoutes);
 app.use("/routes", routeRoutes);
 app.use("/notifications", notificationRoutes);
@@ -57,6 +59,6 @@ app.get("/", (req, res) => {
 // Start Server
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

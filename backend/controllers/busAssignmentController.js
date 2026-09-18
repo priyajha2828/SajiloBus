@@ -159,8 +159,6 @@ export const createAssignment = async (req, res) => {
     try {
       await prisma.notification.create({
         data: {
-          adminId: 1,
-          passengerId: 1,
           title: "Bus Assigned",
           message: `${assignment.bus.busNumber} has been assigned to ${assignment.driver.name}.`,
         },

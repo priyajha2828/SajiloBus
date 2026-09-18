@@ -138,8 +138,8 @@ export const createNotification = async (req, res) => {
       data: {
         title,
         message,
-        passengerId: passengerId ? Number(passengerId) : 1,
-        adminId: adminId ? Number(adminId) : 1,
+        passengerId: passengerId ? Number(passengerId) : null,
+        adminId: adminId ? Number(adminId) : null,
         isRead: false,
       },
     });

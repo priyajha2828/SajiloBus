@@ -169,15 +169,15 @@ model TripStopEvent {
 }
 
 model Notification {
-  id          Int       @id @default(autoincrement())
-  passengerId Int       @map("passenger_id")
-  adminId     Int       @map("admin_id")
+  id          Int        @id @default(autoincrement())
+  passengerId Int?       @map("passenger_id")
+  adminId     Int?       @map("admin_id")
   title       String
   message     String
-  isRead      Boolean   @default(false) @map("is_read")
-  createdAt   DateTime  @default(now()) @map("created_at")
-  admin       Admin     @relation(fields: [adminId], references: [id])
-  passenger   Passenger @relation(fields: [passengerId], references: [id])
+  isRead      Boolean    @default(false) @map("is_read")
+  createdAt   DateTime   @default(now()) @map("created_at")
+  admin       Admin?     @relation(fields: [adminId], references: [id])
+  passenger   Passenger? @relation(fields: [passengerId], references: [id])
 
   @@map("notification")
 }
