@@ -201,8 +201,8 @@ export type NotificationGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 
 export type NotificationGroupByOutputType = {
   id: number
-  passengerId: number
-  adminId: number
+  passengerId: number | null
+  adminId: number | null
   title: string
   message: string
   isRead: boolean
@@ -234,20 +234,20 @@ export type NotificationWhereInput = {
   OR?: Prisma.NotificationWhereInput[]
   NOT?: Prisma.NotificationWhereInput | Prisma.NotificationWhereInput[]
   id?: Prisma.IntFilter<"Notification"> | number
-  passengerId?: Prisma.IntFilter<"Notification"> | number
-  adminId?: Prisma.IntFilter<"Notification"> | number
+  passengerId?: Prisma.IntNullableFilter<"Notification"> | number | null
+  adminId?: Prisma.IntNullableFilter<"Notification"> | number | null
   title?: Prisma.StringFilter<"Notification"> | string
   message?: Prisma.StringFilter<"Notification"> | string
   isRead?: Prisma.BoolFilter<"Notification"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Notification"> | Date | string
-  admin?: Prisma.XOR<Prisma.AdminScalarRelationFilter, Prisma.AdminWhereInput>
-  passenger?: Prisma.XOR<Prisma.PassengerScalarRelationFilter, Prisma.PassengerWhereInput>
+  admin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
+  passenger?: Prisma.XOR<Prisma.PassengerNullableScalarRelationFilter, Prisma.PassengerWhereInput> | null
 }
 
 export type NotificationOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  passengerId?: Prisma.SortOrder
-  adminId?: Prisma.SortOrder
+  passengerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  adminId?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   message?: Prisma.SortOrder
   isRead?: Prisma.SortOrder
@@ -261,20 +261,20 @@ export type NotificationWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.NotificationWhereInput | Prisma.NotificationWhereInput[]
   OR?: Prisma.NotificationWhereInput[]
   NOT?: Prisma.NotificationWhereInput | Prisma.NotificationWhereInput[]
-  passengerId?: Prisma.IntFilter<"Notification"> | number
-  adminId?: Prisma.IntFilter<"Notification"> | number
+  passengerId?: Prisma.IntNullableFilter<"Notification"> | number | null
+  adminId?: Prisma.IntNullableFilter<"Notification"> | number | null
   title?: Prisma.StringFilter<"Notification"> | string
   message?: Prisma.StringFilter<"Notification"> | string
   isRead?: Prisma.BoolFilter<"Notification"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Notification"> | Date | string
-  admin?: Prisma.XOR<Prisma.AdminScalarRelationFilter, Prisma.AdminWhereInput>
-  passenger?: Prisma.XOR<Prisma.PassengerScalarRelationFilter, Prisma.PassengerWhereInput>
+  admin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
+  passenger?: Prisma.XOR<Prisma.PassengerNullableScalarRelationFilter, Prisma.PassengerWhereInput> | null
 }, "id">
 
 export type NotificationOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  passengerId?: Prisma.SortOrder
-  adminId?: Prisma.SortOrder
+  passengerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  adminId?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   message?: Prisma.SortOrder
   isRead?: Prisma.SortOrder
@@ -291,8 +291,8 @@ export type NotificationScalarWhereWithAggregatesInput = {
   OR?: Prisma.NotificationScalarWhereWithAggregatesInput[]
   NOT?: Prisma.NotificationScalarWhereWithAggregatesInput | Prisma.NotificationScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Notification"> | number
-  passengerId?: Prisma.IntWithAggregatesFilter<"Notification"> | number
-  adminId?: Prisma.IntWithAggregatesFilter<"Notification"> | number
+  passengerId?: Prisma.IntNullableWithAggregatesFilter<"Notification"> | number | null
+  adminId?: Prisma.IntNullableWithAggregatesFilter<"Notification"> | number | null
   title?: Prisma.StringWithAggregatesFilter<"Notification"> | string
   message?: Prisma.StringWithAggregatesFilter<"Notification"> | string
   isRead?: Prisma.BoolWithAggregatesFilter<"Notification"> | boolean
@@ -304,14 +304,14 @@ export type NotificationCreateInput = {
   message: string
   isRead?: boolean
   createdAt?: Date | string
-  admin: Prisma.AdminCreateNestedOneWithoutNotificationsInput
-  passenger: Prisma.PassengerCreateNestedOneWithoutNotificationsInput
+  admin?: Prisma.AdminCreateNestedOneWithoutNotificationsInput
+  passenger?: Prisma.PassengerCreateNestedOneWithoutNotificationsInput
 }
 
 export type NotificationUncheckedCreateInput = {
   id?: number
-  passengerId: number
-  adminId: number
+  passengerId?: number | null
+  adminId?: number | null
   title: string
   message: string
   isRead?: boolean
@@ -323,14 +323,14 @@ export type NotificationUpdateInput = {
   message?: Prisma.StringFieldUpdateOperationsInput | string
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  admin?: Prisma.AdminUpdateOneRequiredWithoutNotificationsNestedInput
-  passenger?: Prisma.PassengerUpdateOneRequiredWithoutNotificationsNestedInput
+  admin?: Prisma.AdminUpdateOneWithoutNotificationsNestedInput
+  passenger?: Prisma.PassengerUpdateOneWithoutNotificationsNestedInput
 }
 
 export type NotificationUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  passengerId?: Prisma.IntFieldUpdateOperationsInput | number
-  adminId?: Prisma.IntFieldUpdateOperationsInput | number
+  passengerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  adminId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -339,8 +339,8 @@ export type NotificationUncheckedUpdateInput = {
 
 export type NotificationCreateManyInput = {
   id?: number
-  passengerId: number
-  adminId: number
+  passengerId?: number | null
+  adminId?: number | null
   title: string
   message: string
   isRead?: boolean
@@ -356,8 +356,8 @@ export type NotificationUpdateManyMutationInput = {
 
 export type NotificationUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  passengerId?: Prisma.IntFieldUpdateOperationsInput | number
-  adminId?: Prisma.IntFieldUpdateOperationsInput | number
+  passengerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  adminId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -505,12 +505,12 @@ export type NotificationCreateWithoutAdminInput = {
   message: string
   isRead?: boolean
   createdAt?: Date | string
-  passenger: Prisma.PassengerCreateNestedOneWithoutNotificationsInput
+  passenger?: Prisma.PassengerCreateNestedOneWithoutNotificationsInput
 }
 
 export type NotificationUncheckedCreateWithoutAdminInput = {
   id?: number
-  passengerId: number
+  passengerId?: number | null
   title: string
   message: string
   isRead?: boolean
@@ -548,8 +548,8 @@ export type NotificationScalarWhereInput = {
   OR?: Prisma.NotificationScalarWhereInput[]
   NOT?: Prisma.NotificationScalarWhereInput | Prisma.NotificationScalarWhereInput[]
   id?: Prisma.IntFilter<"Notification"> | number
-  passengerId?: Prisma.IntFilter<"Notification"> | number
-  adminId?: Prisma.IntFilter<"Notification"> | number
+  passengerId?: Prisma.IntNullableFilter<"Notification"> | number | null
+  adminId?: Prisma.IntNullableFilter<"Notification"> | number | null
   title?: Prisma.StringFilter<"Notification"> | string
   message?: Prisma.StringFilter<"Notification"> | string
   isRead?: Prisma.BoolFilter<"Notification"> | boolean
@@ -561,12 +561,12 @@ export type NotificationCreateWithoutPassengerInput = {
   message: string
   isRead?: boolean
   createdAt?: Date | string
-  admin: Prisma.AdminCreateNestedOneWithoutNotificationsInput
+  admin?: Prisma.AdminCreateNestedOneWithoutNotificationsInput
 }
 
 export type NotificationUncheckedCreateWithoutPassengerInput = {
   id?: number
-  adminId: number
+  adminId?: number | null
   title: string
   message: string
   isRead?: boolean
@@ -601,7 +601,7 @@ export type NotificationUpdateManyWithWhereWithoutPassengerInput = {
 
 export type NotificationCreateManyAdminInput = {
   id?: number
-  passengerId: number
+  passengerId?: number | null
   title: string
   message: string
   isRead?: boolean
@@ -613,12 +613,12 @@ export type NotificationUpdateWithoutAdminInput = {
   message?: Prisma.StringFieldUpdateOperationsInput | string
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  passenger?: Prisma.PassengerUpdateOneRequiredWithoutNotificationsNestedInput
+  passenger?: Prisma.PassengerUpdateOneWithoutNotificationsNestedInput
 }
 
 export type NotificationUncheckedUpdateWithoutAdminInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  passengerId?: Prisma.IntFieldUpdateOperationsInput | number
+  passengerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -627,7 +627,7 @@ export type NotificationUncheckedUpdateWithoutAdminInput = {
 
 export type NotificationUncheckedUpdateManyWithoutAdminInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  passengerId?: Prisma.IntFieldUpdateOperationsInput | number
+  passengerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -636,7 +636,7 @@ export type NotificationUncheckedUpdateManyWithoutAdminInput = {
 
 export type NotificationCreateManyPassengerInput = {
   id?: number
-  adminId: number
+  adminId?: number | null
   title: string
   message: string
   isRead?: boolean
@@ -648,12 +648,12 @@ export type NotificationUpdateWithoutPassengerInput = {
   message?: Prisma.StringFieldUpdateOperationsInput | string
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  admin?: Prisma.AdminUpdateOneRequiredWithoutNotificationsNestedInput
+  admin?: Prisma.AdminUpdateOneWithoutNotificationsNestedInput
 }
 
 export type NotificationUncheckedUpdateWithoutPassengerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  adminId?: Prisma.IntFieldUpdateOperationsInput | number
+  adminId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -662,7 +662,7 @@ export type NotificationUncheckedUpdateWithoutPassengerInput = {
 
 export type NotificationUncheckedUpdateManyWithoutPassengerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  adminId?: Prisma.IntFieldUpdateOperationsInput | number
+  adminId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -679,8 +679,8 @@ export type NotificationSelect<ExtArgs extends runtime.Types.Extensions.Internal
   message?: boolean
   isRead?: boolean
   createdAt?: boolean
-  admin?: boolean | Prisma.AdminDefaultArgs<ExtArgs>
-  passenger?: boolean | Prisma.PassengerDefaultArgs<ExtArgs>
+  admin?: boolean | Prisma.Notification$adminArgs<ExtArgs>
+  passenger?: boolean | Prisma.Notification$passengerArgs<ExtArgs>
 }, ExtArgs["result"]["notification"]>
 
 export type NotificationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -691,8 +691,8 @@ export type NotificationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   message?: boolean
   isRead?: boolean
   createdAt?: boolean
-  admin?: boolean | Prisma.AdminDefaultArgs<ExtArgs>
-  passenger?: boolean | Prisma.PassengerDefaultArgs<ExtArgs>
+  admin?: boolean | Prisma.Notification$adminArgs<ExtArgs>
+  passenger?: boolean | Prisma.Notification$passengerArgs<ExtArgs>
 }, ExtArgs["result"]["notification"]>
 
 export type NotificationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -703,8 +703,8 @@ export type NotificationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   message?: boolean
   isRead?: boolean
   createdAt?: boolean
-  admin?: boolean | Prisma.AdminDefaultArgs<ExtArgs>
-  passenger?: boolean | Prisma.PassengerDefaultArgs<ExtArgs>
+  admin?: boolean | Prisma.Notification$adminArgs<ExtArgs>
+  passenger?: boolean | Prisma.Notification$passengerArgs<ExtArgs>
 }, ExtArgs["result"]["notification"]>
 
 export type NotificationSelectScalar = {
@@ -719,28 +719,28 @@ export type NotificationSelectScalar = {
 
 export type NotificationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "passengerId" | "adminId" | "title" | "message" | "isRead" | "createdAt", ExtArgs["result"]["notification"]>
 export type NotificationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  admin?: boolean | Prisma.AdminDefaultArgs<ExtArgs>
-  passenger?: boolean | Prisma.PassengerDefaultArgs<ExtArgs>
+  admin?: boolean | Prisma.Notification$adminArgs<ExtArgs>
+  passenger?: boolean | Prisma.Notification$passengerArgs<ExtArgs>
 }
 export type NotificationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  admin?: boolean | Prisma.AdminDefaultArgs<ExtArgs>
-  passenger?: boolean | Prisma.PassengerDefaultArgs<ExtArgs>
+  admin?: boolean | Prisma.Notification$adminArgs<ExtArgs>
+  passenger?: boolean | Prisma.Notification$passengerArgs<ExtArgs>
 }
 export type NotificationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  admin?: boolean | Prisma.AdminDefaultArgs<ExtArgs>
-  passenger?: boolean | Prisma.PassengerDefaultArgs<ExtArgs>
+  admin?: boolean | Prisma.Notification$adminArgs<ExtArgs>
+  passenger?: boolean | Prisma.Notification$passengerArgs<ExtArgs>
 }
 
 export type $NotificationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Notification"
   objects: {
-    admin: Prisma.$AdminPayload<ExtArgs>
-    passenger: Prisma.$PassengerPayload<ExtArgs>
+    admin: Prisma.$AdminPayload<ExtArgs> | null
+    passenger: Prisma.$PassengerPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    passengerId: number
-    adminId: number
+    passengerId: number | null
+    adminId: number | null
     title: string
     message: string
     isRead: boolean
@@ -1139,8 +1139,8 @@ readonly fields: NotificationFieldRefs;
  */
 export interface Prisma__NotificationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  admin<T extends Prisma.AdminDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AdminDefaultArgs<ExtArgs>>): Prisma.Prisma__AdminClient<runtime.Types.Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  passenger<T extends Prisma.PassengerDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PassengerDefaultArgs<ExtArgs>>): Prisma.Prisma__PassengerClient<runtime.Types.Result.GetResult<Prisma.$PassengerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  admin<T extends Prisma.Notification$adminArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Notification$adminArgs<ExtArgs>>): Prisma.Prisma__AdminClient<runtime.Types.Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  passenger<T extends Prisma.Notification$passengerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Notification$passengerArgs<ExtArgs>>): Prisma.Prisma__PassengerClient<runtime.Types.Result.GetResult<Prisma.$PassengerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1575,6 +1575,44 @@ export type NotificationDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many Notifications to delete.
    */
   limit?: number
+}
+
+/**
+ * Notification.admin
+ */
+export type Notification$adminArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Admin
+   */
+  select?: Prisma.AdminSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Admin
+   */
+  omit?: Prisma.AdminOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdminInclude<ExtArgs> | null
+  where?: Prisma.AdminWhereInput
+}
+
+/**
+ * Notification.passenger
+ */
+export type Notification$passengerArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Passenger
+   */
+  select?: Prisma.PassengerSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Passenger
+   */
+  omit?: Prisma.PassengerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PassengerInclude<ExtArgs> | null
+  where?: Prisma.PassengerWhereInput
 }
 
 /**

@@ -35,8 +35,21 @@ model Passenger {
   loginLogs     PassengerLoginLog[]
   sosAlerts     SOS[]
   sosContacts   SOSContact[]
+  feedbacks     Feedback[]
 
   @@map("passenger")
+}
+
+model Feedback {
+  id          Int       @id @default(autoincrement())
+  passengerId Int?      @map("passenger_id")
+  rating      Int       @default(5)
+  category    String    @default("General")
+  comment     String
+  createdAt   DateTime  @default(now()) @map("created_at")
+  passenger   Passenger? @relation(fields: [passengerId], references: [id])
+
+  @@map("feedback")
 }
 
 model Driver {

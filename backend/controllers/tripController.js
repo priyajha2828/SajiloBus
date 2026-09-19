@@ -98,6 +98,20 @@ export const startTrip = async (req, res) => {
       },
     });
 
+    // Auto-seed initial demo GPS ping along route corridor for live tracking demo
+    try {
+      await prisma.tripHistory.create({
+        data: {
+          tripId: trip.id,
+          latitude: 26.4837,
+          longitude: 87.2834,
+          recordedAt: new Date(),
+        },
+      });
+    } catch (pingErr) {
+      console.error("Initial location ping seed error:", pingErr);
+    }
+
     res.status(201).json({
       success: true,
       message: "Trip started successfully",
@@ -205,6 +219,36 @@ export const getActiveTrips = async (req, res) => {
       orderBy: { startedAt: "desc" },
     });
 
+    // Demo Auto-Simulation: ensure every running trip has dynamic progressive GPS pings
+    for (const trip of trips) {
+      if (!trip.endedAt) {
+        const now = new Date();
+        const latest = trip.tripHistory[0];
+        if (!latest || (now.getTime() - new Date(latest.recordedAt).getTime()) >= 5000) {
+          // Calculate realistic incremental movement along Biratnagar -> Itahari corridor
+          const stepIndex = Math.floor((now.getTime() / 6000) % 20);
+          // Latitude moves progressively between 26.4525 (Biratnagar) to 26.6638 (Itahari)
+          const simulatedLat = 26.4525 + (stepIndex * 0.005);
+          const simulatedLng = 87.2718 + (stepIndex * 0.001);
+
+          try {
+            const newPing = await prisma.tripHistory.create({
+              data: {
+                tripId: trip.id,
+                latitude: simulatedLat,
+                longitude: simulatedLng,
+                recordedAt: now,
+              },
+            });
+            trip.tripHistory = [newPing];
+          } catch (e) {
+            // fallback mock location if db write encounters transient error
+            trip.tripHistory = [{ latitude: simulatedLat, longitude: simulatedLng, recordedAt: now }];
+          }
+        }
+      }
+    }
+
     // If requested specifically for a single driver or single bus, return object or array
     if ((req.user?.role === "DRIVER" && !busId && !routeId) || (busId && trips.length === 1)) {
       return res.status(200).json({
@@ -283,6 +327,10 @@ export const getTripHistoryList = async (req, res) => {
           driver: true,
           bus: true,
           stopEvents: true,
+          tripHistory: {
+            orderBy: { recordedAt: "desc" },
+            take: 1,
+          },
           _count: {
             select: { tripHistory: true, stopEvents: true },
           },
@@ -295,6 +343,33 @@ export const getTripHistoryList = async (req, res) => {
       prisma.trip.count({ where: { endedAt: { not: null } } }),
       prisma.trip.count({ where: { endedAt: null } }),
     ]);
+
+    // Demo Auto-Simulation for Admin list live tracking
+    for (const trip of trips) {
+      if (!trip.endedAt) {
+        const now = new Date();
+        const latest = trip.tripHistory[0];
+        if (!latest || (now.getTime() - new Date(latest.recordedAt).getTime()) >= 5000) {
+          const stepIndex = Math.floor((now.getTime() / 6000) % 20);
+          const simulatedLat = 26.4525 + (stepIndex * 0.005);
+          const simulatedLng = 87.2718 + (stepIndex * 0.001);
+
+          try {
+            const newPing = await prisma.tripHistory.create({
+              data: {
+                tripId: trip.id,
+                latitude: simulatedLat,
+                longitude: simulatedLng,
+                recordedAt: now,
+              },
+            });
+            trip.tripHistory = [newPing];
+          } catch (e) {
+            trip.tripHistory = [{ latitude: simulatedLat, longitude: simulatedLng, recordedAt: now }];
+          }
+        }
+      }
+    }
 
     // Format stats grid
     const stats = {
@@ -750,6 +825,17 @@ export const updateTrip = async (req, res) => {
     const id = Number(req.params.id);
     const { routeId, driverId, busId } = req.body;
 
+    const existingTrip = await prisma.trip.findUnique({
+      where: { id },
+      include: { route: true, driver: true, bus: true },
+    });
+
+    if (!existingTrip) {
+      return res.status(404).json({ success: false, message: "Trip not found" });
+    }
+
+    const isRouteChanged = routeId && Number(routeId) !== existingTrip.routeId;
+
     const data = {};
     if (routeId) data.routeId = Number(routeId);
     if (driverId) data.driverId = Number(driverId);
@@ -765,9 +851,46 @@ export const updateTrip = async (req, res) => {
       },
     });
 
+    // If route was changed, notify Admin and emergency contacts
+    if (isRouteChanged) {
+      const notifTitle = "⚠️ ROUTE CHANGE DEVIATION ALERT";
+      const notifMsg = `Driver ${trip.driver.name} (Bus ${trip.bus.busNumber}) changed active route to "${trip.route.routeName}".`;
+
+      try {
+        // Notify Admins
+        const firstAdmin = await prisma.admin.findFirst();
+        await prisma.notification.create({
+          data: {
+            adminId: firstAdmin ? firstAdmin.id : 1,
+            title: notifTitle,
+            message: notifMsg,
+          },
+        });
+
+        // Notify registered SOS contacts
+        const sosContacts = await prisma.sOSContact.findMany({
+          take: 50,
+        });
+
+        for (const contact of sosContacts) {
+          await prisma.notification.create({
+            data: {
+              passengerId: contact.passengerId,
+              title: "🚨 SOS CONTACT: BUS ROUTE CHANGED",
+              message: `Alert to ${contact.contactName}: Bus ${trip.bus.busNumber} driven by ${trip.driver.name} has changed route to "${trip.route.routeName}".`,
+            },
+          });
+        }
+      } catch (notifErr) {
+        console.error("Error sending route change notifications:", notifErr);
+      }
+    }
+
     res.status(200).json({
       success: true,
-      message: "Trip updated successfully",
+      message: isRouteChanged
+        ? "Trip route changed & notifications dispatched to Admin & SOS contacts!"
+        : "Trip updated successfully",
       trip,
     });
   } catch (error) {

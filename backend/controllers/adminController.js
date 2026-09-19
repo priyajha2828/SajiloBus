@@ -182,3 +182,127 @@ export const getAdminDashboardStats = async (req, res) => {
     });
   }
 };
+
+// ===========================
+// GET /admin/reports — Comprehensive Operational & Safety Analytics Reports
+// ===========================
+export const getAdminReports = async (req, res) => {
+  try {
+    const [
+      trips,
+      sosAlerts,
+      feedbacks,
+      driverLogins,
+      buses,
+      routes,
+    ] = await Promise.all([
+      prisma.trip.findMany({
+        include: {
+          bus: true,
+          driver: true,
+          route: true,
+        },
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.sOS.findMany({
+        include: {
+          passenger: true,
+        },
+        orderBy: { createdAt: "desc" },
+      }),
+      (prisma.feedback || prisma.Feedback)
+        ? (prisma.feedback || prisma.Feedback).findMany({
+            include: { passenger: true },
+            orderBy: { createdAt: "desc" },
+          })
+        : Promise.resolve([]),
+      prisma.driverLoginLog.findMany({
+        include: { driver: true },
+        orderBy: { loginTime: "desc" },
+        take: 50,
+      }),
+      prisma.bus.findMany(),
+      prisma.route.findMany(),
+    ]);
+
+    // 1. Trip Summary Statistics
+    const totalTrips = trips.length;
+    const completedTrips = trips.filter((t) => t.endedAt !== null).length;
+    const activeTrips = totalTrips - completedTrips;
+    const completionRate = totalTrips > 0 ? ((completedTrips / totalTrips) * 100).toFixed(1) : 0;
+
+    // 2. SOS Emergency Alerts Analysis
+    const totalSOS = sosAlerts.length;
+    const pendingSOS = sosAlerts.filter((s) => s.status === "PENDING").length;
+    const resolvedSOS = sosAlerts.filter((s) => s.status === "RESOLVED").length;
+    const inProgressSOS = sosAlerts.filter((s) => s.status === "IN_PROGRESS").length;
+
+    // 3. Feedback Analytics
+    const totalFeedbacks = feedbacks.length;
+    const avgRating =
+      totalFeedbacks > 0
+        ? (
+            feedbacks.reduce((acc, f) => acc + (f.rating || 5), 0) / totalFeedbacks
+          ).toFixed(1)
+        : 5.0;
+
+    // Feedback by category
+    const feedbackCategories = {};
+    feedbacks.forEach((f) => {
+      const cat = f.category || "General";
+      feedbackCategories[cat] = (feedbackCategories[cat] || 0) + 1;
+    });
+
+    // 4. Driver Performance & Fleet Utilization
+    const driverTripCounts = {};
+    trips.forEach((t) => {
+      if (t.driver?.name) {
+        driverTripCounts[t.driver.name] = (driverTripCounts[t.driver.name] || 0) + 1;
+      }
+    });
+
+    const routeTripCounts = {};
+    trips.forEach((t) => {
+      if (t.route?.routeName) {
+        routeTripCounts[t.route.routeName] = (routeTripCounts[t.route.routeName] || 0) + 1;
+      }
+    });
+
+    res.status(200).json({
+      success: true,
+      reports: {
+        summary: {
+          totalTrips,
+          completedTrips,
+          activeTrips,
+          completionRate: `${completionRate}%`,
+          totalSOS,
+          pendingSOS,
+          resolvedSOS,
+          avgRating,
+          totalFeedbacks,
+        },
+        trips,
+        sosAlerts,
+        feedbacks,
+        driverLogins,
+        analytics: {
+          driverTripCounts,
+          routeTripCounts,
+          feedbackCategories,
+          sosBreakdown: {
+            PENDING: pendingSOS,
+            IN_PROGRESS: inProgressSOS,
+            RESOLVED: resolvedSOS,
+          },
+        },
+      },
+    });
+  } catch (error) {
+    console.error("Get Reports Error:", error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

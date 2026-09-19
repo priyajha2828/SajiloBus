@@ -144,10 +144,26 @@ function SOSManagement() {
                   {sos.passenger?.sosContacts && sos.passenger.sosContacts.length > 0 ? (
                     sos.passenger.sosContacts.map((contact, idx) => (
                       <div key={contact.id || idx} className="sos-contact-pill">
-                        <span className="sos-contact-name">
-                          {contact.relationship || "Contact"}: {contact.contactName}
-                        </span>
-                        <span className="sos-contact-num">{contact.contactNumber}</span>
+                        <div>
+                          <span className="sos-contact-name">
+                            {contact.relationship || "Contact"}: {contact.contactName}
+                          </span>
+                          <div style={{ fontSize: "11px", color: "#2563eb", fontWeight: "700" }}>{contact.contactNumber}</div>
+                        </div>
+                        <div style={{ display: "flex", gap: "6px" }}>
+                          <a
+                            href={`tel:${contact.contactNumber}`}
+                            style={{ background: "#dbeafe", color: "#1d4ed8", padding: "4px 8px", borderRadius: "4px", fontSize: "11px", fontWeight: "700", textDecoration: "none" }}
+                          >
+                            Call
+                          </a>
+                          <a
+                            href={`sms:${contact.contactNumber}?body=EMERGENCY INTERCEPT: SajiloBus HQ Dispatch responding to SOS from ${sos.passenger?.name || "Passenger"}`}
+                            style={{ background: "#fee2e2", color: "#b91c1c", padding: "4px 8px", borderRadius: "4px", fontSize: "11px", fontWeight: "700", textDecoration: "none" }}
+                          >
+                            SMS
+                          </a>
+                        </div>
                       </div>
                     ))
                   ) : (

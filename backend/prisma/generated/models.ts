@@ -10,6 +10,7 @@
  */
 export type * from './models/Admin.ts'
 export type * from './models/Passenger.ts'
+export type * from './models/Feedback.ts'
 export type * from './models/Driver.ts'
 export type * from './models/Bus.ts'
 export type * from './models/Route.ts'

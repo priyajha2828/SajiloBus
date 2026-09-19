@@ -9,15 +9,6 @@
 * 🟢 You can import this file directly.
 */
 
-export const Role = {
-  ADMIN: 'ADMIN',
-  PASSENGER: 'PASSENGER',
-  DRIVER: 'DRIVER'
-} as const
-
-export type Role = (typeof Role)[keyof typeof Role]
-
-
 export const BusStatus = {
   ACTIVE: 'ACTIVE',
   INACTIVE: 'INACTIVE',
@@ -50,3 +41,12 @@ export const StopEventType = {
 } as const
 
 export type StopEventType = (typeof StopEventType)[keyof typeof StopEventType]
+
+
+export const Role = {
+  ADMIN: 'ADMIN',
+  PASSENGER: 'PASSENGER',
+  DRIVER: 'DRIVER'
+} as const
+
+export type Role = (typeof Role)[keyof typeof Role]

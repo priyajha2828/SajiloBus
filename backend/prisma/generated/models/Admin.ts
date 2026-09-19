@@ -431,11 +431,6 @@ export type AdminNullableScalarRelationFilter = {
   isNot?: Prisma.AdminWhereInput | null
 }
 
-export type AdminScalarRelationFilter = {
-  is?: Prisma.AdminWhereInput
-  isNot?: Prisma.AdminWhereInput
-}
-
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -482,10 +477,12 @@ export type AdminCreateNestedOneWithoutNotificationsInput = {
   connect?: Prisma.AdminWhereUniqueInput
 }
 
-export type AdminUpdateOneRequiredWithoutNotificationsNestedInput = {
+export type AdminUpdateOneWithoutNotificationsNestedInput = {
   create?: Prisma.XOR<Prisma.AdminCreateWithoutNotificationsInput, Prisma.AdminUncheckedCreateWithoutNotificationsInput>
   connectOrCreate?: Prisma.AdminCreateOrConnectWithoutNotificationsInput
   upsert?: Prisma.AdminUpsertWithoutNotificationsInput
+  disconnect?: Prisma.AdminWhereInput | boolean
+  delete?: Prisma.AdminWhereInput | boolean
   connect?: Prisma.AdminWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.AdminUpdateToOneWithWhereWithoutNotificationsInput, Prisma.AdminUpdateWithoutNotificationsInput>, Prisma.AdminUncheckedUpdateWithoutNotificationsInput>
 }
