@@ -68,7 +68,8 @@ export const ModelName = {
   SOSContact: 'SOSContact',
   PassengerLoginLog: 'PassengerLoginLog',
   DriverLoginLog: 'DriverLoginLog',
-  BusSchedule: 'BusSchedule'
+  BusSchedule: 'BusSchedule',
+  Issue: 'Issue'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -312,6 +313,22 @@ export const BusScheduleScalarFieldEnum = {
 } as const
 
 export type BusScheduleScalarFieldEnum = (typeof BusScheduleScalarFieldEnum)[keyof typeof BusScheduleScalarFieldEnum]
+
+
+export const IssueScalarFieldEnum = {
+  id: 'id',
+  driverId: 'driverId',
+  tripId: 'tripId',
+  category: 'category',
+  severity: 'severity',
+  description: 'description',
+  photoUrl: 'photoUrl',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IssueScalarFieldEnum = (typeof IssueScalarFieldEnum)[keyof typeof IssueScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -84,6 +84,7 @@ export const createSOSAlert = async (req, res) => {
       await prisma.notification.create({
         data: {
           adminId: firstAdmin ? firstAdmin.id : 1,
+          passengerId: Number(passengerId),
           title: "🚨 LIVE SOS EMERGENCY ALERT",
           message: `Emergency Triggered by ${sos.passenger?.name || "Passenger"} (${sos.passenger?.phone || "No Phone"}). Contacts: [${contactText}]. Coords: ${latitude}, ${longitude}. Note: ${message || "Help Requested"}`,
         },

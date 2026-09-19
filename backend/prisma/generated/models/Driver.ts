@@ -272,6 +272,7 @@ export type DriverWhereInput = {
   admin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
   loginLogs?: Prisma.DriverLoginLogListRelationFilter
   trips?: Prisma.TripListRelationFilter
+  issues?: Prisma.IssueListRelationFilter
 }
 
 export type DriverOrderByWithRelationInput = {
@@ -290,6 +291,7 @@ export type DriverOrderByWithRelationInput = {
   admin?: Prisma.AdminOrderByWithRelationInput
   loginLogs?: Prisma.DriverLoginLogOrderByRelationAggregateInput
   trips?: Prisma.TripOrderByRelationAggregateInput
+  issues?: Prisma.IssueOrderByRelationAggregateInput
 }
 
 export type DriverWhereUniqueInput = Prisma.AtLeast<{
@@ -311,6 +313,7 @@ export type DriverWhereUniqueInput = Prisma.AtLeast<{
   admin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
   loginLogs?: Prisma.DriverLoginLogListRelationFilter
   trips?: Prisma.TripListRelationFilter
+  issues?: Prisma.IssueListRelationFilter
 }, "id" | "firebaseUid" | "email" | "licenseNo">
 
 export type DriverOrderByWithAggregationInput = {
@@ -363,6 +366,7 @@ export type DriverCreateInput = {
   admin?: Prisma.AdminCreateNestedOneWithoutDriversInput
   loginLogs?: Prisma.DriverLoginLogCreateNestedManyWithoutDriverInput
   trips?: Prisma.TripCreateNestedManyWithoutDriverInput
+  issues?: Prisma.IssueCreateNestedManyWithoutDriverInput
 }
 
 export type DriverUncheckedCreateInput = {
@@ -380,6 +384,7 @@ export type DriverUncheckedCreateInput = {
   assignments?: Prisma.BusAssignmentUncheckedCreateNestedManyWithoutDriverInput
   loginLogs?: Prisma.DriverLoginLogUncheckedCreateNestedManyWithoutDriverInput
   trips?: Prisma.TripUncheckedCreateNestedManyWithoutDriverInput
+  issues?: Prisma.IssueUncheckedCreateNestedManyWithoutDriverInput
 }
 
 export type DriverUpdateInput = {
@@ -396,6 +401,7 @@ export type DriverUpdateInput = {
   admin?: Prisma.AdminUpdateOneWithoutDriversNestedInput
   loginLogs?: Prisma.DriverLoginLogUpdateManyWithoutDriverNestedInput
   trips?: Prisma.TripUpdateManyWithoutDriverNestedInput
+  issues?: Prisma.IssueUpdateManyWithoutDriverNestedInput
 }
 
 export type DriverUncheckedUpdateInput = {
@@ -413,6 +419,7 @@ export type DriverUncheckedUpdateInput = {
   assignments?: Prisma.BusAssignmentUncheckedUpdateManyWithoutDriverNestedInput
   loginLogs?: Prisma.DriverLoginLogUncheckedUpdateManyWithoutDriverNestedInput
   trips?: Prisma.TripUncheckedUpdateManyWithoutDriverNestedInput
+  issues?: Prisma.IssueUncheckedUpdateManyWithoutDriverNestedInput
 }
 
 export type DriverCreateManyInput = {
@@ -522,6 +529,11 @@ export type DriverScalarRelationFilter = {
   isNot?: Prisma.DriverWhereInput
 }
 
+export type DriverNullableScalarRelationFilter = {
+  is?: Prisma.DriverWhereInput | null
+  isNot?: Prisma.DriverWhereInput | null
+}
+
 export type DriverCreateNestedManyWithoutAdminInput = {
   create?: Prisma.XOR<Prisma.DriverCreateWithoutAdminInput, Prisma.DriverUncheckedCreateWithoutAdminInput> | Prisma.DriverCreateWithoutAdminInput[] | Prisma.DriverUncheckedCreateWithoutAdminInput[]
   connectOrCreate?: Prisma.DriverCreateOrConnectWithoutAdminInput | Prisma.DriverCreateOrConnectWithoutAdminInput[]
@@ -610,6 +622,22 @@ export type DriverUpdateOneRequiredWithoutLoginLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DriverUpdateToOneWithWhereWithoutLoginLogsInput, Prisma.DriverUpdateWithoutLoginLogsInput>, Prisma.DriverUncheckedUpdateWithoutLoginLogsInput>
 }
 
+export type DriverCreateNestedOneWithoutIssuesInput = {
+  create?: Prisma.XOR<Prisma.DriverCreateWithoutIssuesInput, Prisma.DriverUncheckedCreateWithoutIssuesInput>
+  connectOrCreate?: Prisma.DriverCreateOrConnectWithoutIssuesInput
+  connect?: Prisma.DriverWhereUniqueInput
+}
+
+export type DriverUpdateOneWithoutIssuesNestedInput = {
+  create?: Prisma.XOR<Prisma.DriverCreateWithoutIssuesInput, Prisma.DriverUncheckedCreateWithoutIssuesInput>
+  connectOrCreate?: Prisma.DriverCreateOrConnectWithoutIssuesInput
+  upsert?: Prisma.DriverUpsertWithoutIssuesInput
+  disconnect?: Prisma.DriverWhereInput | boolean
+  delete?: Prisma.DriverWhereInput | boolean
+  connect?: Prisma.DriverWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DriverUpdateToOneWithWhereWithoutIssuesInput, Prisma.DriverUpdateWithoutIssuesInput>, Prisma.DriverUncheckedUpdateWithoutIssuesInput>
+}
+
 export type DriverCreateWithoutAdminInput = {
   firebaseUid: string
   name: string
@@ -623,6 +651,7 @@ export type DriverCreateWithoutAdminInput = {
   assignments?: Prisma.BusAssignmentCreateNestedManyWithoutDriverInput
   loginLogs?: Prisma.DriverLoginLogCreateNestedManyWithoutDriverInput
   trips?: Prisma.TripCreateNestedManyWithoutDriverInput
+  issues?: Prisma.IssueCreateNestedManyWithoutDriverInput
 }
 
 export type DriverUncheckedCreateWithoutAdminInput = {
@@ -639,6 +668,7 @@ export type DriverUncheckedCreateWithoutAdminInput = {
   assignments?: Prisma.BusAssignmentUncheckedCreateNestedManyWithoutDriverInput
   loginLogs?: Prisma.DriverLoginLogUncheckedCreateNestedManyWithoutDriverInput
   trips?: Prisma.TripUncheckedCreateNestedManyWithoutDriverInput
+  issues?: Prisma.IssueUncheckedCreateNestedManyWithoutDriverInput
 }
 
 export type DriverCreateOrConnectWithoutAdminInput = {
@@ -697,6 +727,7 @@ export type DriverCreateWithoutAssignmentsInput = {
   admin?: Prisma.AdminCreateNestedOneWithoutDriversInput
   loginLogs?: Prisma.DriverLoginLogCreateNestedManyWithoutDriverInput
   trips?: Prisma.TripCreateNestedManyWithoutDriverInput
+  issues?: Prisma.IssueCreateNestedManyWithoutDriverInput
 }
 
 export type DriverUncheckedCreateWithoutAssignmentsInput = {
@@ -713,6 +744,7 @@ export type DriverUncheckedCreateWithoutAssignmentsInput = {
   adminId?: number | null
   loginLogs?: Prisma.DriverLoginLogUncheckedCreateNestedManyWithoutDriverInput
   trips?: Prisma.TripUncheckedCreateNestedManyWithoutDriverInput
+  issues?: Prisma.IssueUncheckedCreateNestedManyWithoutDriverInput
 }
 
 export type DriverCreateOrConnectWithoutAssignmentsInput = {
@@ -744,6 +776,7 @@ export type DriverUpdateWithoutAssignmentsInput = {
   admin?: Prisma.AdminUpdateOneWithoutDriversNestedInput
   loginLogs?: Prisma.DriverLoginLogUpdateManyWithoutDriverNestedInput
   trips?: Prisma.TripUpdateManyWithoutDriverNestedInput
+  issues?: Prisma.IssueUpdateManyWithoutDriverNestedInput
 }
 
 export type DriverUncheckedUpdateWithoutAssignmentsInput = {
@@ -760,6 +793,7 @@ export type DriverUncheckedUpdateWithoutAssignmentsInput = {
   adminId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   loginLogs?: Prisma.DriverLoginLogUncheckedUpdateManyWithoutDriverNestedInput
   trips?: Prisma.TripUncheckedUpdateManyWithoutDriverNestedInput
+  issues?: Prisma.IssueUncheckedUpdateManyWithoutDriverNestedInput
 }
 
 export type DriverCreateWithoutTripsInput = {
@@ -775,6 +809,7 @@ export type DriverCreateWithoutTripsInput = {
   assignments?: Prisma.BusAssignmentCreateNestedManyWithoutDriverInput
   admin?: Prisma.AdminCreateNestedOneWithoutDriversInput
   loginLogs?: Prisma.DriverLoginLogCreateNestedManyWithoutDriverInput
+  issues?: Prisma.IssueCreateNestedManyWithoutDriverInput
 }
 
 export type DriverUncheckedCreateWithoutTripsInput = {
@@ -791,6 +826,7 @@ export type DriverUncheckedCreateWithoutTripsInput = {
   adminId?: number | null
   assignments?: Prisma.BusAssignmentUncheckedCreateNestedManyWithoutDriverInput
   loginLogs?: Prisma.DriverLoginLogUncheckedCreateNestedManyWithoutDriverInput
+  issues?: Prisma.IssueUncheckedCreateNestedManyWithoutDriverInput
 }
 
 export type DriverCreateOrConnectWithoutTripsInput = {
@@ -822,6 +858,7 @@ export type DriverUpdateWithoutTripsInput = {
   assignments?: Prisma.BusAssignmentUpdateManyWithoutDriverNestedInput
   admin?: Prisma.AdminUpdateOneWithoutDriversNestedInput
   loginLogs?: Prisma.DriverLoginLogUpdateManyWithoutDriverNestedInput
+  issues?: Prisma.IssueUpdateManyWithoutDriverNestedInput
 }
 
 export type DriverUncheckedUpdateWithoutTripsInput = {
@@ -838,6 +875,7 @@ export type DriverUncheckedUpdateWithoutTripsInput = {
   adminId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   assignments?: Prisma.BusAssignmentUncheckedUpdateManyWithoutDriverNestedInput
   loginLogs?: Prisma.DriverLoginLogUncheckedUpdateManyWithoutDriverNestedInput
+  issues?: Prisma.IssueUncheckedUpdateManyWithoutDriverNestedInput
 }
 
 export type DriverCreateWithoutLoginLogsInput = {
@@ -853,6 +891,7 @@ export type DriverCreateWithoutLoginLogsInput = {
   assignments?: Prisma.BusAssignmentCreateNestedManyWithoutDriverInput
   admin?: Prisma.AdminCreateNestedOneWithoutDriversInput
   trips?: Prisma.TripCreateNestedManyWithoutDriverInput
+  issues?: Prisma.IssueCreateNestedManyWithoutDriverInput
 }
 
 export type DriverUncheckedCreateWithoutLoginLogsInput = {
@@ -869,6 +908,7 @@ export type DriverUncheckedCreateWithoutLoginLogsInput = {
   adminId?: number | null
   assignments?: Prisma.BusAssignmentUncheckedCreateNestedManyWithoutDriverInput
   trips?: Prisma.TripUncheckedCreateNestedManyWithoutDriverInput
+  issues?: Prisma.IssueUncheckedCreateNestedManyWithoutDriverInput
 }
 
 export type DriverCreateOrConnectWithoutLoginLogsInput = {
@@ -900,6 +940,7 @@ export type DriverUpdateWithoutLoginLogsInput = {
   assignments?: Prisma.BusAssignmentUpdateManyWithoutDriverNestedInput
   admin?: Prisma.AdminUpdateOneWithoutDriversNestedInput
   trips?: Prisma.TripUpdateManyWithoutDriverNestedInput
+  issues?: Prisma.IssueUpdateManyWithoutDriverNestedInput
 }
 
 export type DriverUncheckedUpdateWithoutLoginLogsInput = {
@@ -915,6 +956,89 @@ export type DriverUncheckedUpdateWithoutLoginLogsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adminId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   assignments?: Prisma.BusAssignmentUncheckedUpdateManyWithoutDriverNestedInput
+  trips?: Prisma.TripUncheckedUpdateManyWithoutDriverNestedInput
+  issues?: Prisma.IssueUncheckedUpdateManyWithoutDriverNestedInput
+}
+
+export type DriverCreateWithoutIssuesInput = {
+  firebaseUid: string
+  name: string
+  email: string
+  role?: $Enums.Role
+  phone?: string | null
+  licenseNo: string
+  isAvailable?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  assignments?: Prisma.BusAssignmentCreateNestedManyWithoutDriverInput
+  admin?: Prisma.AdminCreateNestedOneWithoutDriversInput
+  loginLogs?: Prisma.DriverLoginLogCreateNestedManyWithoutDriverInput
+  trips?: Prisma.TripCreateNestedManyWithoutDriverInput
+}
+
+export type DriverUncheckedCreateWithoutIssuesInput = {
+  id?: number
+  firebaseUid: string
+  name: string
+  email: string
+  role?: $Enums.Role
+  phone?: string | null
+  licenseNo: string
+  isAvailable?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  adminId?: number | null
+  assignments?: Prisma.BusAssignmentUncheckedCreateNestedManyWithoutDriverInput
+  loginLogs?: Prisma.DriverLoginLogUncheckedCreateNestedManyWithoutDriverInput
+  trips?: Prisma.TripUncheckedCreateNestedManyWithoutDriverInput
+}
+
+export type DriverCreateOrConnectWithoutIssuesInput = {
+  where: Prisma.DriverWhereUniqueInput
+  create: Prisma.XOR<Prisma.DriverCreateWithoutIssuesInput, Prisma.DriverUncheckedCreateWithoutIssuesInput>
+}
+
+export type DriverUpsertWithoutIssuesInput = {
+  update: Prisma.XOR<Prisma.DriverUpdateWithoutIssuesInput, Prisma.DriverUncheckedUpdateWithoutIssuesInput>
+  create: Prisma.XOR<Prisma.DriverCreateWithoutIssuesInput, Prisma.DriverUncheckedCreateWithoutIssuesInput>
+  where?: Prisma.DriverWhereInput
+}
+
+export type DriverUpdateToOneWithWhereWithoutIssuesInput = {
+  where?: Prisma.DriverWhereInput
+  data: Prisma.XOR<Prisma.DriverUpdateWithoutIssuesInput, Prisma.DriverUncheckedUpdateWithoutIssuesInput>
+}
+
+export type DriverUpdateWithoutIssuesInput = {
+  firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  licenseNo?: Prisma.StringFieldUpdateOperationsInput | string
+  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  assignments?: Prisma.BusAssignmentUpdateManyWithoutDriverNestedInput
+  admin?: Prisma.AdminUpdateOneWithoutDriversNestedInput
+  loginLogs?: Prisma.DriverLoginLogUpdateManyWithoutDriverNestedInput
+  trips?: Prisma.TripUpdateManyWithoutDriverNestedInput
+}
+
+export type DriverUncheckedUpdateWithoutIssuesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  licenseNo?: Prisma.StringFieldUpdateOperationsInput | string
+  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  adminId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  assignments?: Prisma.BusAssignmentUncheckedUpdateManyWithoutDriverNestedInput
+  loginLogs?: Prisma.DriverLoginLogUncheckedUpdateManyWithoutDriverNestedInput
   trips?: Prisma.TripUncheckedUpdateManyWithoutDriverNestedInput
 }
 
@@ -944,6 +1068,7 @@ export type DriverUpdateWithoutAdminInput = {
   assignments?: Prisma.BusAssignmentUpdateManyWithoutDriverNestedInput
   loginLogs?: Prisma.DriverLoginLogUpdateManyWithoutDriverNestedInput
   trips?: Prisma.TripUpdateManyWithoutDriverNestedInput
+  issues?: Prisma.IssueUpdateManyWithoutDriverNestedInput
 }
 
 export type DriverUncheckedUpdateWithoutAdminInput = {
@@ -960,6 +1085,7 @@ export type DriverUncheckedUpdateWithoutAdminInput = {
   assignments?: Prisma.BusAssignmentUncheckedUpdateManyWithoutDriverNestedInput
   loginLogs?: Prisma.DriverLoginLogUncheckedUpdateManyWithoutDriverNestedInput
   trips?: Prisma.TripUncheckedUpdateManyWithoutDriverNestedInput
+  issues?: Prisma.IssueUncheckedUpdateManyWithoutDriverNestedInput
 }
 
 export type DriverUncheckedUpdateManyWithoutAdminInput = {
@@ -984,12 +1110,14 @@ export type DriverCountOutputType = {
   assignments: number
   loginLogs: number
   trips: number
+  issues: number
 }
 
 export type DriverCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   assignments?: boolean | DriverCountOutputTypeCountAssignmentsArgs
   loginLogs?: boolean | DriverCountOutputTypeCountLoginLogsArgs
   trips?: boolean | DriverCountOutputTypeCountTripsArgs
+  issues?: boolean | DriverCountOutputTypeCountIssuesArgs
 }
 
 /**
@@ -1023,6 +1151,13 @@ export type DriverCountOutputTypeCountTripsArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.TripWhereInput
 }
 
+/**
+ * DriverCountOutputType without action
+ */
+export type DriverCountOutputTypeCountIssuesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.IssueWhereInput
+}
+
 
 export type DriverSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1040,6 +1175,7 @@ export type DriverSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   admin?: boolean | Prisma.Driver$adminArgs<ExtArgs>
   loginLogs?: boolean | Prisma.Driver$loginLogsArgs<ExtArgs>
   trips?: boolean | Prisma.Driver$tripsArgs<ExtArgs>
+  issues?: boolean | Prisma.Driver$issuesArgs<ExtArgs>
   _count?: boolean | Prisma.DriverCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["driver"]>
 
@@ -1093,6 +1229,7 @@ export type DriverInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   admin?: boolean | Prisma.Driver$adminArgs<ExtArgs>
   loginLogs?: boolean | Prisma.Driver$loginLogsArgs<ExtArgs>
   trips?: boolean | Prisma.Driver$tripsArgs<ExtArgs>
+  issues?: boolean | Prisma.Driver$issuesArgs<ExtArgs>
   _count?: boolean | Prisma.DriverCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DriverIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1109,6 +1246,7 @@ export type $DriverPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     admin: Prisma.$AdminPayload<ExtArgs> | null
     loginLogs: Prisma.$DriverLoginLogPayload<ExtArgs>[]
     trips: Prisma.$TripPayload<ExtArgs>[]
+    issues: Prisma.$IssuePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1520,6 +1658,7 @@ export interface Prisma__DriverClient<T, Null = never, ExtArgs extends runtime.T
   admin<T extends Prisma.Driver$adminArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Driver$adminArgs<ExtArgs>>): Prisma.Prisma__AdminClient<runtime.Types.Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   loginLogs<T extends Prisma.Driver$loginLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Driver$loginLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DriverLoginLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   trips<T extends Prisma.Driver$tripsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Driver$tripsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  issues<T extends Prisma.Driver$issuesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Driver$issuesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IssuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2049,6 +2188,30 @@ export type Driver$tripsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.TripScalarFieldEnum | Prisma.TripScalarFieldEnum[]
+}
+
+/**
+ * Driver.issues
+ */
+export type Driver$issuesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Issue
+   */
+  select?: Prisma.IssueSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Issue
+   */
+  omit?: Prisma.IssueOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IssueInclude<ExtArgs> | null
+  where?: Prisma.IssueWhereInput
+  orderBy?: Prisma.IssueOrderByWithRelationInput | Prisma.IssueOrderByWithRelationInput[]
+  cursor?: Prisma.IssueWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.IssueScalarFieldEnum | Prisma.IssueScalarFieldEnum[]
 }
 
 /**
