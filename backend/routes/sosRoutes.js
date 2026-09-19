@@ -15,7 +15,7 @@ const router = express.Router();
 
 // SOS Trigger & Management
 router.post("/", verifyToken, createSOSAlert);
-router.get("/", verifyToken, isAdmin, getSOSQueue);
+router.get("/", verifyToken, getSOSQueue);
 router.get("/:id", verifyToken, getSOSById);
 router.patch("/:id/status", verifyToken, isAdmin, updateSOSStatus);
 

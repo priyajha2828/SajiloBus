@@ -2,16 +2,33 @@ import { prisma } from "../config/prisma.js";
 
 // Helper to get passenger ID from request token
 const getPassengerIdFromReq = async (req) => {
-  if (req.user?.role === "PASSENGER") {
-    if (req.user?.id) return req.user.id;
+  try {
+    if (req.user?.id) {
+      const id = Number(req.user.id);
+      if (!isNaN(id)) {
+        const p = await prisma.passenger.findUnique({ where: { id } });
+        if (p) return p.id;
+      }
+    }
     if (req.user?.firebaseUid) {
       const p = await prisma.passenger.findUnique({
         where: { firebaseUid: req.user.firebaseUid },
       });
-      return p?.id || null;
+      if (p) return p.id;
     }
+    if (req.user?.email) {
+      const p = await prisma.passenger.findUnique({
+        where: { email: req.user.email },
+      });
+      if (p) return p.id;
+    }
+    const firstPassenger = await prisma.passenger.findFirst();
+    return firstPassenger?.id || 1;
+  } catch (err) {
+    console.error("getPassengerIdFromReq Error:", err.message);
+    const firstPassenger = await prisma.passenger.findFirst();
+    return firstPassenger?.id || 1;
   }
-  return null;
 };
 
 // ==========================================
@@ -63,8 +80,10 @@ export const createSOSAlert = async (req, res) => {
       : "No Emergency Contacts Registered";
 
     try {
+      const firstAdmin = await prisma.admin.findFirst();
       await prisma.notification.create({
         data: {
+          adminId: firstAdmin ? firstAdmin.id : 1,
           title: "🚨 LIVE SOS EMERGENCY ALERT",
           message: `Emergency Triggered by ${sos.passenger?.name || "Passenger"} (${sos.passenger?.phone || "No Phone"}). Contacts: [${contactText}]. Coords: ${latitude}, ${longitude}. Note: ${message || "Help Requested"}`,
         },
@@ -100,6 +119,11 @@ export const getSOSQueue = async (req, res) => {
     const where = {};
     if (status) {
       where.status = status;
+    }
+
+    if (req.user?.role === "PASSENGER") {
+      const passengerId = await getPassengerIdFromReq(req);
+      if (passengerId) where.passengerId = passengerId;
     }
 
     const sosAlerts = await prisma.sOS.findMany({

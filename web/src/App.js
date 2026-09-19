@@ -44,6 +44,8 @@ import ViewNotification from "./pages/ViewNotification";
 import SOSManagement from "./pages/SOSManagement";
 import LiveTracking from "./pages/LiveTracking";
 import Tracking from "./pages/Tracking";
+import FeedbackManagement from "./pages/FeedbackManagement";
+import Reports from "./pages/Reports";
 
 function App() {
   return (
@@ -91,6 +93,8 @@ function App() {
       <Route path="/notifications" element={<NotificationManagement />} />
       <Route path="/notifications/view/:id" element={<ViewNotification />} />
       <Route path="/sos-queue" element={<SOSManagement />} />
+      <Route path="/feedback" element={<FeedbackManagement />} />
+      <Route path="/reports" element={<Reports />} />
       <Route path="/live-tracking" element={<LiveTracking />} />
       <Route path="/tracking" element={<Tracking />} />
     </Routes>

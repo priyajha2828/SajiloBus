@@ -244,6 +244,7 @@ export type PassengerWhereInput = {
   loginLogs?: Prisma.PassengerLoginLogListRelationFilter
   sosAlerts?: Prisma.SOSListRelationFilter
   sosContacts?: Prisma.SOSContactListRelationFilter
+  feedbacks?: Prisma.FeedbackListRelationFilter
 }
 
 export type PassengerOrderByWithRelationInput = {
@@ -259,6 +260,7 @@ export type PassengerOrderByWithRelationInput = {
   loginLogs?: Prisma.PassengerLoginLogOrderByRelationAggregateInput
   sosAlerts?: Prisma.SOSOrderByRelationAggregateInput
   sosContacts?: Prisma.SOSContactOrderByRelationAggregateInput
+  feedbacks?: Prisma.FeedbackOrderByRelationAggregateInput
 }
 
 export type PassengerWhereUniqueInput = Prisma.AtLeast<{
@@ -277,6 +279,7 @@ export type PassengerWhereUniqueInput = Prisma.AtLeast<{
   loginLogs?: Prisma.PassengerLoginLogListRelationFilter
   sosAlerts?: Prisma.SOSListRelationFilter
   sosContacts?: Prisma.SOSContactListRelationFilter
+  feedbacks?: Prisma.FeedbackListRelationFilter
 }, "id" | "firebaseUid" | "email">
 
 export type PassengerOrderByWithAggregationInput = {
@@ -321,6 +324,7 @@ export type PassengerCreateInput = {
   loginLogs?: Prisma.PassengerLoginLogCreateNestedManyWithoutPassengerInput
   sosAlerts?: Prisma.SOSCreateNestedManyWithoutPassengerInput
   sosContacts?: Prisma.SOSContactCreateNestedManyWithoutPassengerInput
+  feedbacks?: Prisma.FeedbackCreateNestedManyWithoutPassengerInput
 }
 
 export type PassengerUncheckedCreateInput = {
@@ -336,6 +340,7 @@ export type PassengerUncheckedCreateInput = {
   loginLogs?: Prisma.PassengerLoginLogUncheckedCreateNestedManyWithoutPassengerInput
   sosAlerts?: Prisma.SOSUncheckedCreateNestedManyWithoutPassengerInput
   sosContacts?: Prisma.SOSContactUncheckedCreateNestedManyWithoutPassengerInput
+  feedbacks?: Prisma.FeedbackUncheckedCreateNestedManyWithoutPassengerInput
 }
 
 export type PassengerUpdateInput = {
@@ -350,6 +355,7 @@ export type PassengerUpdateInput = {
   loginLogs?: Prisma.PassengerLoginLogUpdateManyWithoutPassengerNestedInput
   sosAlerts?: Prisma.SOSUpdateManyWithoutPassengerNestedInput
   sosContacts?: Prisma.SOSContactUpdateManyWithoutPassengerNestedInput
+  feedbacks?: Prisma.FeedbackUpdateManyWithoutPassengerNestedInput
 }
 
 export type PassengerUncheckedUpdateInput = {
@@ -365,6 +371,7 @@ export type PassengerUncheckedUpdateInput = {
   loginLogs?: Prisma.PassengerLoginLogUncheckedUpdateManyWithoutPassengerNestedInput
   sosAlerts?: Prisma.SOSUncheckedUpdateManyWithoutPassengerNestedInput
   sosContacts?: Prisma.SOSContactUncheckedUpdateManyWithoutPassengerNestedInput
+  feedbacks?: Prisma.FeedbackUncheckedUpdateManyWithoutPassengerNestedInput
 }
 
 export type PassengerCreateManyInput = {
@@ -440,9 +447,30 @@ export type PassengerSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
+export type PassengerNullableScalarRelationFilter = {
+  is?: Prisma.PassengerWhereInput | null
+  isNot?: Prisma.PassengerWhereInput | null
+}
+
 export type PassengerScalarRelationFilter = {
   is?: Prisma.PassengerWhereInput
   isNot?: Prisma.PassengerWhereInput
+}
+
+export type PassengerCreateNestedOneWithoutFeedbacksInput = {
+  create?: Prisma.XOR<Prisma.PassengerCreateWithoutFeedbacksInput, Prisma.PassengerUncheckedCreateWithoutFeedbacksInput>
+  connectOrCreate?: Prisma.PassengerCreateOrConnectWithoutFeedbacksInput
+  connect?: Prisma.PassengerWhereUniqueInput
+}
+
+export type PassengerUpdateOneWithoutFeedbacksNestedInput = {
+  create?: Prisma.XOR<Prisma.PassengerCreateWithoutFeedbacksInput, Prisma.PassengerUncheckedCreateWithoutFeedbacksInput>
+  connectOrCreate?: Prisma.PassengerCreateOrConnectWithoutFeedbacksInput
+  upsert?: Prisma.PassengerUpsertWithoutFeedbacksInput
+  disconnect?: Prisma.PassengerWhereInput | boolean
+  delete?: Prisma.PassengerWhereInput | boolean
+  connect?: Prisma.PassengerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PassengerUpdateToOneWithWhereWithoutFeedbacksInput, Prisma.PassengerUpdateWithoutFeedbacksInput>, Prisma.PassengerUncheckedUpdateWithoutFeedbacksInput>
 }
 
 export type PassengerCreateNestedOneWithoutNotificationsInput = {
@@ -451,10 +479,12 @@ export type PassengerCreateNestedOneWithoutNotificationsInput = {
   connect?: Prisma.PassengerWhereUniqueInput
 }
 
-export type PassengerUpdateOneRequiredWithoutNotificationsNestedInput = {
+export type PassengerUpdateOneWithoutNotificationsNestedInput = {
   create?: Prisma.XOR<Prisma.PassengerCreateWithoutNotificationsInput, Prisma.PassengerUncheckedCreateWithoutNotificationsInput>
   connectOrCreate?: Prisma.PassengerCreateOrConnectWithoutNotificationsInput
   upsert?: Prisma.PassengerUpsertWithoutNotificationsInput
+  disconnect?: Prisma.PassengerWhereInput | boolean
+  delete?: Prisma.PassengerWhereInput | boolean
   connect?: Prisma.PassengerWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.PassengerUpdateToOneWithWhereWithoutNotificationsInput, Prisma.PassengerUpdateWithoutNotificationsInput>, Prisma.PassengerUncheckedUpdateWithoutNotificationsInput>
 }
@@ -501,6 +531,80 @@ export type PassengerUpdateOneRequiredWithoutLoginLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PassengerUpdateToOneWithWhereWithoutLoginLogsInput, Prisma.PassengerUpdateWithoutLoginLogsInput>, Prisma.PassengerUncheckedUpdateWithoutLoginLogsInput>
 }
 
+export type PassengerCreateWithoutFeedbacksInput = {
+  firebaseUid: string
+  name: string
+  email: string
+  role?: $Enums.Role
+  phone?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  notifications?: Prisma.NotificationCreateNestedManyWithoutPassengerInput
+  loginLogs?: Prisma.PassengerLoginLogCreateNestedManyWithoutPassengerInput
+  sosAlerts?: Prisma.SOSCreateNestedManyWithoutPassengerInput
+  sosContacts?: Prisma.SOSContactCreateNestedManyWithoutPassengerInput
+}
+
+export type PassengerUncheckedCreateWithoutFeedbacksInput = {
+  id?: number
+  firebaseUid: string
+  name: string
+  email: string
+  role?: $Enums.Role
+  phone?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutPassengerInput
+  loginLogs?: Prisma.PassengerLoginLogUncheckedCreateNestedManyWithoutPassengerInput
+  sosAlerts?: Prisma.SOSUncheckedCreateNestedManyWithoutPassengerInput
+  sosContacts?: Prisma.SOSContactUncheckedCreateNestedManyWithoutPassengerInput
+}
+
+export type PassengerCreateOrConnectWithoutFeedbacksInput = {
+  where: Prisma.PassengerWhereUniqueInput
+  create: Prisma.XOR<Prisma.PassengerCreateWithoutFeedbacksInput, Prisma.PassengerUncheckedCreateWithoutFeedbacksInput>
+}
+
+export type PassengerUpsertWithoutFeedbacksInput = {
+  update: Prisma.XOR<Prisma.PassengerUpdateWithoutFeedbacksInput, Prisma.PassengerUncheckedUpdateWithoutFeedbacksInput>
+  create: Prisma.XOR<Prisma.PassengerCreateWithoutFeedbacksInput, Prisma.PassengerUncheckedCreateWithoutFeedbacksInput>
+  where?: Prisma.PassengerWhereInput
+}
+
+export type PassengerUpdateToOneWithWhereWithoutFeedbacksInput = {
+  where?: Prisma.PassengerWhereInput
+  data: Prisma.XOR<Prisma.PassengerUpdateWithoutFeedbacksInput, Prisma.PassengerUncheckedUpdateWithoutFeedbacksInput>
+}
+
+export type PassengerUpdateWithoutFeedbacksInput = {
+  firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notifications?: Prisma.NotificationUpdateManyWithoutPassengerNestedInput
+  loginLogs?: Prisma.PassengerLoginLogUpdateManyWithoutPassengerNestedInput
+  sosAlerts?: Prisma.SOSUpdateManyWithoutPassengerNestedInput
+  sosContacts?: Prisma.SOSContactUpdateManyWithoutPassengerNestedInput
+}
+
+export type PassengerUncheckedUpdateWithoutFeedbacksInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  firebaseUid?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutPassengerNestedInput
+  loginLogs?: Prisma.PassengerLoginLogUncheckedUpdateManyWithoutPassengerNestedInput
+  sosAlerts?: Prisma.SOSUncheckedUpdateManyWithoutPassengerNestedInput
+  sosContacts?: Prisma.SOSContactUncheckedUpdateManyWithoutPassengerNestedInput
+}
+
 export type PassengerCreateWithoutNotificationsInput = {
   firebaseUid: string
   name: string
@@ -512,6 +616,7 @@ export type PassengerCreateWithoutNotificationsInput = {
   loginLogs?: Prisma.PassengerLoginLogCreateNestedManyWithoutPassengerInput
   sosAlerts?: Prisma.SOSCreateNestedManyWithoutPassengerInput
   sosContacts?: Prisma.SOSContactCreateNestedManyWithoutPassengerInput
+  feedbacks?: Prisma.FeedbackCreateNestedManyWithoutPassengerInput
 }
 
 export type PassengerUncheckedCreateWithoutNotificationsInput = {
@@ -526,6 +631,7 @@ export type PassengerUncheckedCreateWithoutNotificationsInput = {
   loginLogs?: Prisma.PassengerLoginLogUncheckedCreateNestedManyWithoutPassengerInput
   sosAlerts?: Prisma.SOSUncheckedCreateNestedManyWithoutPassengerInput
   sosContacts?: Prisma.SOSContactUncheckedCreateNestedManyWithoutPassengerInput
+  feedbacks?: Prisma.FeedbackUncheckedCreateNestedManyWithoutPassengerInput
 }
 
 export type PassengerCreateOrConnectWithoutNotificationsInput = {
@@ -555,6 +661,7 @@ export type PassengerUpdateWithoutNotificationsInput = {
   loginLogs?: Prisma.PassengerLoginLogUpdateManyWithoutPassengerNestedInput
   sosAlerts?: Prisma.SOSUpdateManyWithoutPassengerNestedInput
   sosContacts?: Prisma.SOSContactUpdateManyWithoutPassengerNestedInput
+  feedbacks?: Prisma.FeedbackUpdateManyWithoutPassengerNestedInput
 }
 
 export type PassengerUncheckedUpdateWithoutNotificationsInput = {
@@ -569,6 +676,7 @@ export type PassengerUncheckedUpdateWithoutNotificationsInput = {
   loginLogs?: Prisma.PassengerLoginLogUncheckedUpdateManyWithoutPassengerNestedInput
   sosAlerts?: Prisma.SOSUncheckedUpdateManyWithoutPassengerNestedInput
   sosContacts?: Prisma.SOSContactUncheckedUpdateManyWithoutPassengerNestedInput
+  feedbacks?: Prisma.FeedbackUncheckedUpdateManyWithoutPassengerNestedInput
 }
 
 export type PassengerCreateWithoutSosAlertsInput = {
@@ -582,6 +690,7 @@ export type PassengerCreateWithoutSosAlertsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutPassengerInput
   loginLogs?: Prisma.PassengerLoginLogCreateNestedManyWithoutPassengerInput
   sosContacts?: Prisma.SOSContactCreateNestedManyWithoutPassengerInput
+  feedbacks?: Prisma.FeedbackCreateNestedManyWithoutPassengerInput
 }
 
 export type PassengerUncheckedCreateWithoutSosAlertsInput = {
@@ -596,6 +705,7 @@ export type PassengerUncheckedCreateWithoutSosAlertsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutPassengerInput
   loginLogs?: Prisma.PassengerLoginLogUncheckedCreateNestedManyWithoutPassengerInput
   sosContacts?: Prisma.SOSContactUncheckedCreateNestedManyWithoutPassengerInput
+  feedbacks?: Prisma.FeedbackUncheckedCreateNestedManyWithoutPassengerInput
 }
 
 export type PassengerCreateOrConnectWithoutSosAlertsInput = {
@@ -625,6 +735,7 @@ export type PassengerUpdateWithoutSosAlertsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutPassengerNestedInput
   loginLogs?: Prisma.PassengerLoginLogUpdateManyWithoutPassengerNestedInput
   sosContacts?: Prisma.SOSContactUpdateManyWithoutPassengerNestedInput
+  feedbacks?: Prisma.FeedbackUpdateManyWithoutPassengerNestedInput
 }
 
 export type PassengerUncheckedUpdateWithoutSosAlertsInput = {
@@ -639,6 +750,7 @@ export type PassengerUncheckedUpdateWithoutSosAlertsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutPassengerNestedInput
   loginLogs?: Prisma.PassengerLoginLogUncheckedUpdateManyWithoutPassengerNestedInput
   sosContacts?: Prisma.SOSContactUncheckedUpdateManyWithoutPassengerNestedInput
+  feedbacks?: Prisma.FeedbackUncheckedUpdateManyWithoutPassengerNestedInput
 }
 
 export type PassengerCreateWithoutSosContactsInput = {
@@ -652,6 +764,7 @@ export type PassengerCreateWithoutSosContactsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutPassengerInput
   loginLogs?: Prisma.PassengerLoginLogCreateNestedManyWithoutPassengerInput
   sosAlerts?: Prisma.SOSCreateNestedManyWithoutPassengerInput
+  feedbacks?: Prisma.FeedbackCreateNestedManyWithoutPassengerInput
 }
 
 export type PassengerUncheckedCreateWithoutSosContactsInput = {
@@ -666,6 +779,7 @@ export type PassengerUncheckedCreateWithoutSosContactsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutPassengerInput
   loginLogs?: Prisma.PassengerLoginLogUncheckedCreateNestedManyWithoutPassengerInput
   sosAlerts?: Prisma.SOSUncheckedCreateNestedManyWithoutPassengerInput
+  feedbacks?: Prisma.FeedbackUncheckedCreateNestedManyWithoutPassengerInput
 }
 
 export type PassengerCreateOrConnectWithoutSosContactsInput = {
@@ -695,6 +809,7 @@ export type PassengerUpdateWithoutSosContactsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutPassengerNestedInput
   loginLogs?: Prisma.PassengerLoginLogUpdateManyWithoutPassengerNestedInput
   sosAlerts?: Prisma.SOSUpdateManyWithoutPassengerNestedInput
+  feedbacks?: Prisma.FeedbackUpdateManyWithoutPassengerNestedInput
 }
 
 export type PassengerUncheckedUpdateWithoutSosContactsInput = {
@@ -709,6 +824,7 @@ export type PassengerUncheckedUpdateWithoutSosContactsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutPassengerNestedInput
   loginLogs?: Prisma.PassengerLoginLogUncheckedUpdateManyWithoutPassengerNestedInput
   sosAlerts?: Prisma.SOSUncheckedUpdateManyWithoutPassengerNestedInput
+  feedbacks?: Prisma.FeedbackUncheckedUpdateManyWithoutPassengerNestedInput
 }
 
 export type PassengerCreateWithoutLoginLogsInput = {
@@ -722,6 +838,7 @@ export type PassengerCreateWithoutLoginLogsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutPassengerInput
   sosAlerts?: Prisma.SOSCreateNestedManyWithoutPassengerInput
   sosContacts?: Prisma.SOSContactCreateNestedManyWithoutPassengerInput
+  feedbacks?: Prisma.FeedbackCreateNestedManyWithoutPassengerInput
 }
 
 export type PassengerUncheckedCreateWithoutLoginLogsInput = {
@@ -736,6 +853,7 @@ export type PassengerUncheckedCreateWithoutLoginLogsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutPassengerInput
   sosAlerts?: Prisma.SOSUncheckedCreateNestedManyWithoutPassengerInput
   sosContacts?: Prisma.SOSContactUncheckedCreateNestedManyWithoutPassengerInput
+  feedbacks?: Prisma.FeedbackUncheckedCreateNestedManyWithoutPassengerInput
 }
 
 export type PassengerCreateOrConnectWithoutLoginLogsInput = {
@@ -765,6 +883,7 @@ export type PassengerUpdateWithoutLoginLogsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutPassengerNestedInput
   sosAlerts?: Prisma.SOSUpdateManyWithoutPassengerNestedInput
   sosContacts?: Prisma.SOSContactUpdateManyWithoutPassengerNestedInput
+  feedbacks?: Prisma.FeedbackUpdateManyWithoutPassengerNestedInput
 }
 
 export type PassengerUncheckedUpdateWithoutLoginLogsInput = {
@@ -779,6 +898,7 @@ export type PassengerUncheckedUpdateWithoutLoginLogsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutPassengerNestedInput
   sosAlerts?: Prisma.SOSUncheckedUpdateManyWithoutPassengerNestedInput
   sosContacts?: Prisma.SOSContactUncheckedUpdateManyWithoutPassengerNestedInput
+  feedbacks?: Prisma.FeedbackUncheckedUpdateManyWithoutPassengerNestedInput
 }
 
 
@@ -791,6 +911,7 @@ export type PassengerCountOutputType = {
   loginLogs: number
   sosAlerts: number
   sosContacts: number
+  feedbacks: number
 }
 
 export type PassengerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -798,6 +919,7 @@ export type PassengerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensi
   loginLogs?: boolean | PassengerCountOutputTypeCountLoginLogsArgs
   sosAlerts?: boolean | PassengerCountOutputTypeCountSosAlertsArgs
   sosContacts?: boolean | PassengerCountOutputTypeCountSosContactsArgs
+  feedbacks?: boolean | PassengerCountOutputTypeCountFeedbacksArgs
 }
 
 /**
@@ -838,6 +960,13 @@ export type PassengerCountOutputTypeCountSosContactsArgs<ExtArgs extends runtime
   where?: Prisma.SOSContactWhereInput
 }
 
+/**
+ * PassengerCountOutputType without action
+ */
+export type PassengerCountOutputTypeCountFeedbacksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FeedbackWhereInput
+}
+
 
 export type PassengerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -852,6 +981,7 @@ export type PassengerSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   loginLogs?: boolean | Prisma.Passenger$loginLogsArgs<ExtArgs>
   sosAlerts?: boolean | Prisma.Passenger$sosAlertsArgs<ExtArgs>
   sosContacts?: boolean | Prisma.Passenger$sosContactsArgs<ExtArgs>
+  feedbacks?: boolean | Prisma.Passenger$feedbacksArgs<ExtArgs>
   _count?: boolean | Prisma.PassengerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["passenger"]>
 
@@ -894,6 +1024,7 @@ export type PassengerInclude<ExtArgs extends runtime.Types.Extensions.InternalAr
   loginLogs?: boolean | Prisma.Passenger$loginLogsArgs<ExtArgs>
   sosAlerts?: boolean | Prisma.Passenger$sosAlertsArgs<ExtArgs>
   sosContacts?: boolean | Prisma.Passenger$sosContactsArgs<ExtArgs>
+  feedbacks?: boolean | Prisma.Passenger$feedbacksArgs<ExtArgs>
   _count?: boolean | Prisma.PassengerCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PassengerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -906,6 +1037,7 @@ export type $PassengerPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     loginLogs: Prisma.$PassengerLoginLogPayload<ExtArgs>[]
     sosAlerts: Prisma.$SOSPayload<ExtArgs>[]
     sosContacts: Prisma.$SOSContactPayload<ExtArgs>[]
+    feedbacks: Prisma.$FeedbackPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1314,6 +1446,7 @@ export interface Prisma__PassengerClient<T, Null = never, ExtArgs extends runtim
   loginLogs<T extends Prisma.Passenger$loginLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Passenger$loginLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PassengerLoginLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sosAlerts<T extends Prisma.Passenger$sosAlertsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Passenger$sosAlertsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SOSPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sosContacts<T extends Prisma.Passenger$sosContactsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Passenger$sosContactsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SOSContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  feedbacks<T extends Prisma.Passenger$feedbacksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Passenger$feedbacksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1837,6 +1970,30 @@ export type Passenger$sosContactsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.SOSContactScalarFieldEnum | Prisma.SOSContactScalarFieldEnum[]
+}
+
+/**
+ * Passenger.feedbacks
+ */
+export type Passenger$feedbacksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Feedback
+   */
+  select?: Prisma.FeedbackSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Feedback
+   */
+  omit?: Prisma.FeedbackOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeedbackInclude<ExtArgs> | null
+  where?: Prisma.FeedbackWhereInput
+  orderBy?: Prisma.FeedbackOrderByWithRelationInput | Prisma.FeedbackOrderByWithRelationInput[]
+  cursor?: Prisma.FeedbackWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FeedbackScalarFieldEnum | Prisma.FeedbackScalarFieldEnum[]
 }
 
 /**

@@ -15,6 +15,7 @@ import {
   MapPinned,
   Clock3,
   LogOut,
+  MessageSquare,
 } from "lucide-react";
 
 import "../css/Sidebar.css";
@@ -116,6 +117,11 @@ function Sidebar({ collapsed, setCollapsed, darkMode }) {
         <Link to="/sos-queue">
           <AlertTriangle size={20} color="#dc2626" />
           {!collapsed && <span style={{ color: "#dc2626", fontWeight: "bold" }}>SOS Alerts</span>}
+        </Link>
+
+        <Link to="/feedback">
+          <MessageSquare size={20} />
+          {!collapsed && <span>Feedback</span>}
         </Link>
 
         <Link to="/settings">

@@ -20,6 +20,7 @@ import routeDetailRoutes from "./routes/routeDetailRoutes.js";
 import trackingRoutes from "./routes/trackingRoutes.js";
 import sosRoutes, { sosContactRouter } from "./routes/sosRoutes.js";
 import loginLogRoutes from "./routes/loginLogRoutes.js";
+import feedbackRoutes from "./routes/feedbackRoutes.js";
 
 const app = express();
 
@@ -47,6 +48,7 @@ app.use("/tracking", trackingRoutes);
 app.use("/sos", sosRoutes);
 app.use("/sos-contacts", sosContactRouter);
 app.use("/login-logs", loginLogRoutes);
+app.use("/feedback", feedbackRoutes);
 
 // Test Route
 app.get("/", (req, res) => {

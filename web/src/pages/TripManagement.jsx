@@ -8,6 +8,8 @@ import {
   Pencil,
   Square,
   ArrowLeft,
+  MapPin,
+  X,
 } from "lucide-react";
 import api from "../services/api";
 import Sidebar from "../components/Sidebar";
@@ -19,6 +21,7 @@ function TripManagement() {
   const navigate = useNavigate();
 
   const [collapsed, setCollapsed] = useState(false);
+  const [selectedLiveTrip, setSelectedLiveTrip] = useState(null);
 
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("theme") === "dark";
@@ -264,14 +267,21 @@ function TripManagement() {
                           />
 
                           {!trip.endedAt && (
-
-                            <Square
-                              size={18}
-                              onClick={() =>
-                                endTrip(trip.id)
-                              }
-                            />
-
+                            <>
+                              <MapPin
+                                size={18}
+                                title="View Live Track"
+                                style={{ color: "#0F766E", cursor: "pointer" }}
+                                onClick={() => setSelectedLiveTrip(trip)}
+                              />
+                              <Square
+                                size={18}
+                                title="End Trip"
+                                onClick={() =>
+                                  endTrip(trip.id)
+                                }
+                              />
+                            </>
                           )}
 
                         </div>
@@ -291,6 +301,104 @@ function TripManagement() {
         </div>
 
       </div>
+
+      {selectedLiveTrip && (
+        <div className="modal-overlay" style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: "rgba(15, 23, 42, 0.75)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: 9999,
+          padding: "20px"
+        }}>
+          <div style={{
+            background: darkMode ? "#1e293b" : "#ffffff",
+            color: darkMode ? "#f8fafc" : "#0f172a",
+            borderRadius: "16px",
+            width: "100%",
+            maxWidth: "750px",
+            padding: "24px",
+            boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.3)"
+          }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+              <div>
+                <h3 style={{ margin: 0, fontSize: "18px", fontWeight: "700" }}>
+                  📍 Live Tracking: Bus {selectedLiveTrip.bus?.busNumber}
+                </h3>
+                <p style={{ margin: "4px 0 0 0", fontSize: "13px", color: "#64748b" }}>
+                  Driver: {selectedLiveTrip.driver?.name} • Route: {selectedLiveTrip.route?.routeName}
+                </p>
+              </div>
+              <button 
+                onClick={() => setSelectedLiveTrip(null)}
+                style={{ background: "none", border: "none", cursor: "pointer", color: darkMode ? "#94a3b8" : "#64748b" }}
+              >
+                <X size={22} />
+              </button>
+            </div>
+
+            {selectedLiveTrip.tripHistory && selectedLiveTrip.tripHistory.length > 0 ? (
+              <div style={{ borderRadius: "12px", overflow: "hidden", border: "1px solid #e2e8f0" }}>
+                <iframe
+                  title="Live Bus Tracking Map"
+                  width="100%"
+                  height="360"
+                  style={{ border: 0 }}
+                  src={`https://www.openstreetmap.org/export/embed.html?bbox=${
+                    Number(selectedLiveTrip.tripHistory[0].longitude) - 0.01
+                  }%2C${
+                    Number(selectedLiveTrip.tripHistory[0].latitude) - 0.01
+                  }%2C${
+                    Number(selectedLiveTrip.tripHistory[0].longitude) + 0.01
+                  }%2C${
+                    Number(selectedLiveTrip.tripHistory[0].latitude) + 0.01
+                  }&layer=mapnik&marker=${selectedLiveTrip.tripHistory[0].latitude}%2C${selectedLiveTrip.tripHistory[0].longitude}`}
+                />
+              </div>
+            ) : (
+              <div style={{
+                height: "240px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                background: darkMode ? "#0f172a" : "#f8fafc",
+                borderRadius: "12px",
+                border: "1px dashed #cbd5e1"
+              }}>
+                <MapPin size={36} style={{ color: "#0F766E", marginBottom: "8px" }} />
+                <p style={{ margin: 0, fontWeight: "600" }}>Waiting for Live GPS Pings...</p>
+                <span style={{ fontSize: "12px", color: "#64748b" }}>Driver has active trip, pings update as bus moves.</span>
+              </div>
+            )}
+
+            <div style={{ marginTop: "16px", display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "13px" }}>
+              <div>
+                <strong>Lat:</strong> {selectedLiveTrip.tripHistory?.[0]?.latitude || "26.4837"} • <strong>Lng:</strong> {selectedLiveTrip.tripHistory?.[0]?.longitude || "87.2834"}
+              </div>
+              <button 
+                onClick={() => navigate(`/trips/view/${selectedLiveTrip.id}`)}
+                style={{
+                  background: "#0F766E",
+                  color: "#fff",
+                  border: "none",
+                  padding: "8px 16px",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  fontWeight: "600"
+                }}
+              >
+                View Full Details
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

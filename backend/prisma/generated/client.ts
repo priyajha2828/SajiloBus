@@ -52,6 +52,11 @@ export type Admin = Prisma.AdminModel
  */
 export type Passenger = Prisma.PassengerModel
 /**
+ * Model Feedback
+ * 
+ */
+export type Feedback = Prisma.FeedbackModel
+/**
  * Model Driver
  * 
  */
