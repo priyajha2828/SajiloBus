@@ -109,15 +109,36 @@ const unreadCount = notifications.filter(
   </div>
 
   {notifications.length > 0 ? (
-  notifications.map((item) => (
-    <div key={item.id} className="notification-item">
-      <h5>{item.title}</h5>
-      <p>{item.message}</p>
-      <span>
-        {new Date(item.createdAt).toLocaleString()}
-      </span>
-    </div>
-  ))
+  notifications.map((item) => {
+    const photoMatch = item.message?.match(/\[?Photo:\s*(\S+)\]?/i) || item.message?.match(/(https?:\/\/[^\s]+\.(?:png|jpg|jpeg|gif|webp)|\/uploads\/[^\s]+\.(?:png|jpg|jpeg|gif|webp))/i);
+    const photoUrl = photoMatch ? photoMatch[1].replace(/\]$/, '') : null;
+    const cleanMsg = item.message ? item.message.replace(/\[?Photo:\s*\S+\]?/gi, '').trim() : "";
+    const fullPhotoSrc = photoUrl ? (photoUrl.startsWith('http') || photoUrl.startsWith('data:') ? photoUrl : `http://localhost:5000${photoUrl}`) : null;
+
+    return (
+      <div key={item.id} className="notification-item">
+        <h5>{item.title}</h5>
+        <p>{cleanMsg}</p>
+        {fullPhotoSrc && (
+          <img
+            src={fullPhotoSrc}
+            alt="Attachment"
+            style={{
+              width: "100%",
+              maxHeight: "120px",
+              borderRadius: "6px",
+              objectFit: "cover",
+              marginTop: "6px",
+              border: "1px solid #cbd5e1"
+            }}
+          />
+        )}
+        <span>
+          {new Date(item.createdAt).toLocaleString()}
+        </span>
+      </div>
+    );
+  })
 ) : (
   <div className="notification-item">
     <p>No notifications found.</p>

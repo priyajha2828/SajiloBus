@@ -68,6 +68,7 @@ model Driver {
   admin       Admin?           @relation(fields: [adminId], references: [id])
   loginLogs   DriverLoginLog[]
   trips       Trip[]
+  issues      Issue[]
 
   @@map("driver")
 }
@@ -151,6 +152,7 @@ model Trip {
   route       Route           @relation(fields: [routeId], references: [id])
   tripHistory TripHistory[]
   stopEvents  TripStopEvent[]
+  issues      Issue[]
 
   @@map("trip")
 }
@@ -283,3 +285,21 @@ ADMIN
 PASSENGER
 DRIVER
 }
+
+model Issue {
+  id          Int      @id @default(autoincrement())
+  driverId    Int?     @map("driver_id")
+  tripId      Int?     @map("trip_id")
+  category    String
+  severity    String
+  description String
+  photoUrl    String?  @map("photo_url")
+  status      String   @default("PENDING")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  driver      Driver?  @relation(fields: [driverId], references: [id])
+  trip        Trip?    @relation(fields: [tripId], references: [id])
+
+  @@map("issue")
+}
+

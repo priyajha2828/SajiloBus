@@ -107,3 +107,8 @@ export type DriverLoginLog = Prisma.DriverLoginLogModel
  * 
  */
 export type BusSchedule = Prisma.BusScheduleModel
+/**
+ * Model Issue
+ * 
+ */
+export type Issue = Prisma.IssueModel

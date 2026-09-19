@@ -184,7 +184,7 @@ function NotificationManagement() {
                 notifications
                   .filter(
                     (notification) =>
-                      notification.passenger.name
+                      (notification.passenger?.name || "System Alert")
                         .toLowerCase()
                         .includes(
                           search.toLowerCase()
@@ -196,17 +196,29 @@ function NotificationManagement() {
                         )
                   )
 
-                  .map((notification) => (
+                  .map((notification) => {
+                    const photoMatch = notification.message?.match(/\[?Photo:\s*(\S+)\]?/i) || notification.message?.match(/(https?:\/\/[^\s]+\.(?:png|jpg|jpeg|gif|webp)|\/uploads\/[^\s]+\.(?:png|jpg|jpeg|gif|webp))/i);
+                    const photoUrl = photoMatch ? photoMatch[1].replace(/\]$/, '') : null;
+                    const fullPhotoSrc = photoUrl ? (photoUrl.startsWith('http') || photoUrl.startsWith('data:') ? photoUrl : `http://localhost:5000${photoUrl}`) : null;
 
-                    <tr key={notification.id}>
+                    return (
+                      <tr key={notification.id}>
+                        <td>
+                          {notification.passenger?.name || "System / Driver Alert"}
+                        </td>
 
-                      <td>
-                        {notification.passenger.name}
-                      </td>
-
-                      <td>
-                        {notification.title}
-                      </td>
+                        <td>
+                          <div style={{ fontWeight: 600 }}>{notification.title}</div>
+                          {fullPhotoSrc && (
+                            <a href={fullPhotoSrc} target="_blank" rel="noreferrer" style={{ display: "inline-block", marginTop: "4px" }}>
+                              <img
+                                src={fullPhotoSrc}
+                                alt="Reported issue attachment"
+                                style={{ width: "42px", height: "42px", borderRadius: "6px", objectFit: "cover", border: "1px solid #cbd5e1" }}
+                              />
+                            </a>
+                          )}
+                        </td>
 
                       <td>
 
@@ -262,10 +274,9 @@ function NotificationManagement() {
                       </td>
 
                     </tr>
-
-                  ))
-
-              )}
+                  );
+                })
+              )}    
 
             </tbody>
 

@@ -249,6 +249,7 @@ export type TripWhereInput = {
   route?: Prisma.XOR<Prisma.RouteScalarRelationFilter, Prisma.RouteWhereInput>
   tripHistory?: Prisma.TripHistoryListRelationFilter
   stopEvents?: Prisma.TripStopEventListRelationFilter
+  issues?: Prisma.IssueListRelationFilter
 }
 
 export type TripOrderByWithRelationInput = {
@@ -264,6 +265,7 @@ export type TripOrderByWithRelationInput = {
   route?: Prisma.RouteOrderByWithRelationInput
   tripHistory?: Prisma.TripHistoryOrderByRelationAggregateInput
   stopEvents?: Prisma.TripStopEventOrderByRelationAggregateInput
+  issues?: Prisma.IssueOrderByRelationAggregateInput
 }
 
 export type TripWhereUniqueInput = Prisma.AtLeast<{
@@ -282,6 +284,7 @@ export type TripWhereUniqueInput = Prisma.AtLeast<{
   route?: Prisma.XOR<Prisma.RouteScalarRelationFilter, Prisma.RouteWhereInput>
   tripHistory?: Prisma.TripHistoryListRelationFilter
   stopEvents?: Prisma.TripStopEventListRelationFilter
+  issues?: Prisma.IssueListRelationFilter
 }, "id">
 
 export type TripOrderByWithAggregationInput = {
@@ -321,6 +324,7 @@ export type TripCreateInput = {
   route: Prisma.RouteCreateNestedOneWithoutTripsInput
   tripHistory?: Prisma.TripHistoryCreateNestedManyWithoutTripInput
   stopEvents?: Prisma.TripStopEventCreateNestedManyWithoutTripInput
+  issues?: Prisma.IssueCreateNestedManyWithoutTripInput
 }
 
 export type TripUncheckedCreateInput = {
@@ -333,6 +337,7 @@ export type TripUncheckedCreateInput = {
   createdAt?: Date | string
   tripHistory?: Prisma.TripHistoryUncheckedCreateNestedManyWithoutTripInput
   stopEvents?: Prisma.TripStopEventUncheckedCreateNestedManyWithoutTripInput
+  issues?: Prisma.IssueUncheckedCreateNestedManyWithoutTripInput
 }
 
 export type TripUpdateInput = {
@@ -344,6 +349,7 @@ export type TripUpdateInput = {
   route?: Prisma.RouteUpdateOneRequiredWithoutTripsNestedInput
   tripHistory?: Prisma.TripHistoryUpdateManyWithoutTripNestedInput
   stopEvents?: Prisma.TripStopEventUpdateManyWithoutTripNestedInput
+  issues?: Prisma.IssueUpdateManyWithoutTripNestedInput
 }
 
 export type TripUncheckedUpdateInput = {
@@ -356,6 +362,7 @@ export type TripUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tripHistory?: Prisma.TripHistoryUncheckedUpdateManyWithoutTripNestedInput
   stopEvents?: Prisma.TripStopEventUncheckedUpdateManyWithoutTripNestedInput
+  issues?: Prisma.IssueUncheckedUpdateManyWithoutTripNestedInput
 }
 
 export type TripCreateManyInput = {
@@ -441,6 +448,11 @@ export type TripSumOrderByAggregateInput = {
 export type TripScalarRelationFilter = {
   is?: Prisma.TripWhereInput
   isNot?: Prisma.TripWhereInput
+}
+
+export type TripNullableScalarRelationFilter = {
+  is?: Prisma.TripWhereInput | null
+  isNot?: Prisma.TripWhereInput | null
 }
 
 export type TripCreateNestedManyWithoutDriverInput = {
@@ -597,6 +609,22 @@ export type TripUpdateOneRequiredWithoutStopEventsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TripUpdateToOneWithWhereWithoutStopEventsInput, Prisma.TripUpdateWithoutStopEventsInput>, Prisma.TripUncheckedUpdateWithoutStopEventsInput>
 }
 
+export type TripCreateNestedOneWithoutIssuesInput = {
+  create?: Prisma.XOR<Prisma.TripCreateWithoutIssuesInput, Prisma.TripUncheckedCreateWithoutIssuesInput>
+  connectOrCreate?: Prisma.TripCreateOrConnectWithoutIssuesInput
+  connect?: Prisma.TripWhereUniqueInput
+}
+
+export type TripUpdateOneWithoutIssuesNestedInput = {
+  create?: Prisma.XOR<Prisma.TripCreateWithoutIssuesInput, Prisma.TripUncheckedCreateWithoutIssuesInput>
+  connectOrCreate?: Prisma.TripCreateOrConnectWithoutIssuesInput
+  upsert?: Prisma.TripUpsertWithoutIssuesInput
+  disconnect?: Prisma.TripWhereInput | boolean
+  delete?: Prisma.TripWhereInput | boolean
+  connect?: Prisma.TripWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TripUpdateToOneWithWhereWithoutIssuesInput, Prisma.TripUpdateWithoutIssuesInput>, Prisma.TripUncheckedUpdateWithoutIssuesInput>
+}
+
 export type TripCreateWithoutDriverInput = {
   startedAt?: Date | string | null
   endedAt?: Date | string | null
@@ -605,6 +633,7 @@ export type TripCreateWithoutDriverInput = {
   route: Prisma.RouteCreateNestedOneWithoutTripsInput
   tripHistory?: Prisma.TripHistoryCreateNestedManyWithoutTripInput
   stopEvents?: Prisma.TripStopEventCreateNestedManyWithoutTripInput
+  issues?: Prisma.IssueCreateNestedManyWithoutTripInput
 }
 
 export type TripUncheckedCreateWithoutDriverInput = {
@@ -616,6 +645,7 @@ export type TripUncheckedCreateWithoutDriverInput = {
   createdAt?: Date | string
   tripHistory?: Prisma.TripHistoryUncheckedCreateNestedManyWithoutTripInput
   stopEvents?: Prisma.TripStopEventUncheckedCreateNestedManyWithoutTripInput
+  issues?: Prisma.IssueUncheckedCreateNestedManyWithoutTripInput
 }
 
 export type TripCreateOrConnectWithoutDriverInput = {
@@ -665,6 +695,7 @@ export type TripCreateWithoutBusInput = {
   route: Prisma.RouteCreateNestedOneWithoutTripsInput
   tripHistory?: Prisma.TripHistoryCreateNestedManyWithoutTripInput
   stopEvents?: Prisma.TripStopEventCreateNestedManyWithoutTripInput
+  issues?: Prisma.IssueCreateNestedManyWithoutTripInput
 }
 
 export type TripUncheckedCreateWithoutBusInput = {
@@ -676,6 +707,7 @@ export type TripUncheckedCreateWithoutBusInput = {
   createdAt?: Date | string
   tripHistory?: Prisma.TripHistoryUncheckedCreateNestedManyWithoutTripInput
   stopEvents?: Prisma.TripStopEventUncheckedCreateNestedManyWithoutTripInput
+  issues?: Prisma.IssueUncheckedCreateNestedManyWithoutTripInput
 }
 
 export type TripCreateOrConnectWithoutBusInput = {
@@ -712,6 +744,7 @@ export type TripCreateWithoutRouteInput = {
   driver: Prisma.DriverCreateNestedOneWithoutTripsInput
   tripHistory?: Prisma.TripHistoryCreateNestedManyWithoutTripInput
   stopEvents?: Prisma.TripStopEventCreateNestedManyWithoutTripInput
+  issues?: Prisma.IssueCreateNestedManyWithoutTripInput
 }
 
 export type TripUncheckedCreateWithoutRouteInput = {
@@ -723,6 +756,7 @@ export type TripUncheckedCreateWithoutRouteInput = {
   createdAt?: Date | string
   tripHistory?: Prisma.TripHistoryUncheckedCreateNestedManyWithoutTripInput
   stopEvents?: Prisma.TripStopEventUncheckedCreateNestedManyWithoutTripInput
+  issues?: Prisma.IssueUncheckedCreateNestedManyWithoutTripInput
 }
 
 export type TripCreateOrConnectWithoutRouteInput = {
@@ -759,6 +793,7 @@ export type TripCreateWithoutTripHistoryInput = {
   driver: Prisma.DriverCreateNestedOneWithoutTripsInput
   route: Prisma.RouteCreateNestedOneWithoutTripsInput
   stopEvents?: Prisma.TripStopEventCreateNestedManyWithoutTripInput
+  issues?: Prisma.IssueCreateNestedManyWithoutTripInput
 }
 
 export type TripUncheckedCreateWithoutTripHistoryInput = {
@@ -770,6 +805,7 @@ export type TripUncheckedCreateWithoutTripHistoryInput = {
   endedAt?: Date | string | null
   createdAt?: Date | string
   stopEvents?: Prisma.TripStopEventUncheckedCreateNestedManyWithoutTripInput
+  issues?: Prisma.IssueUncheckedCreateNestedManyWithoutTripInput
 }
 
 export type TripCreateOrConnectWithoutTripHistoryInput = {
@@ -796,6 +832,7 @@ export type TripUpdateWithoutTripHistoryInput = {
   driver?: Prisma.DriverUpdateOneRequiredWithoutTripsNestedInput
   route?: Prisma.RouteUpdateOneRequiredWithoutTripsNestedInput
   stopEvents?: Prisma.TripStopEventUpdateManyWithoutTripNestedInput
+  issues?: Prisma.IssueUpdateManyWithoutTripNestedInput
 }
 
 export type TripUncheckedUpdateWithoutTripHistoryInput = {
@@ -807,6 +844,7 @@ export type TripUncheckedUpdateWithoutTripHistoryInput = {
   endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stopEvents?: Prisma.TripStopEventUncheckedUpdateManyWithoutTripNestedInput
+  issues?: Prisma.IssueUncheckedUpdateManyWithoutTripNestedInput
 }
 
 export type TripCreateWithoutStopEventsInput = {
@@ -817,6 +855,7 @@ export type TripCreateWithoutStopEventsInput = {
   driver: Prisma.DriverCreateNestedOneWithoutTripsInput
   route: Prisma.RouteCreateNestedOneWithoutTripsInput
   tripHistory?: Prisma.TripHistoryCreateNestedManyWithoutTripInput
+  issues?: Prisma.IssueCreateNestedManyWithoutTripInput
 }
 
 export type TripUncheckedCreateWithoutStopEventsInput = {
@@ -828,6 +867,7 @@ export type TripUncheckedCreateWithoutStopEventsInput = {
   endedAt?: Date | string | null
   createdAt?: Date | string
   tripHistory?: Prisma.TripHistoryUncheckedCreateNestedManyWithoutTripInput
+  issues?: Prisma.IssueUncheckedCreateNestedManyWithoutTripInput
 }
 
 export type TripCreateOrConnectWithoutStopEventsInput = {
@@ -854,6 +894,7 @@ export type TripUpdateWithoutStopEventsInput = {
   driver?: Prisma.DriverUpdateOneRequiredWithoutTripsNestedInput
   route?: Prisma.RouteUpdateOneRequiredWithoutTripsNestedInput
   tripHistory?: Prisma.TripHistoryUpdateManyWithoutTripNestedInput
+  issues?: Prisma.IssueUpdateManyWithoutTripNestedInput
 }
 
 export type TripUncheckedUpdateWithoutStopEventsInput = {
@@ -865,6 +906,69 @@ export type TripUncheckedUpdateWithoutStopEventsInput = {
   endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tripHistory?: Prisma.TripHistoryUncheckedUpdateManyWithoutTripNestedInput
+  issues?: Prisma.IssueUncheckedUpdateManyWithoutTripNestedInput
+}
+
+export type TripCreateWithoutIssuesInput = {
+  startedAt?: Date | string | null
+  endedAt?: Date | string | null
+  createdAt?: Date | string
+  bus: Prisma.BusCreateNestedOneWithoutTripsInput
+  driver: Prisma.DriverCreateNestedOneWithoutTripsInput
+  route: Prisma.RouteCreateNestedOneWithoutTripsInput
+  tripHistory?: Prisma.TripHistoryCreateNestedManyWithoutTripInput
+  stopEvents?: Prisma.TripStopEventCreateNestedManyWithoutTripInput
+}
+
+export type TripUncheckedCreateWithoutIssuesInput = {
+  id?: number
+  routeId: number
+  driverId: number
+  busId: number
+  startedAt?: Date | string | null
+  endedAt?: Date | string | null
+  createdAt?: Date | string
+  tripHistory?: Prisma.TripHistoryUncheckedCreateNestedManyWithoutTripInput
+  stopEvents?: Prisma.TripStopEventUncheckedCreateNestedManyWithoutTripInput
+}
+
+export type TripCreateOrConnectWithoutIssuesInput = {
+  where: Prisma.TripWhereUniqueInput
+  create: Prisma.XOR<Prisma.TripCreateWithoutIssuesInput, Prisma.TripUncheckedCreateWithoutIssuesInput>
+}
+
+export type TripUpsertWithoutIssuesInput = {
+  update: Prisma.XOR<Prisma.TripUpdateWithoutIssuesInput, Prisma.TripUncheckedUpdateWithoutIssuesInput>
+  create: Prisma.XOR<Prisma.TripCreateWithoutIssuesInput, Prisma.TripUncheckedCreateWithoutIssuesInput>
+  where?: Prisma.TripWhereInput
+}
+
+export type TripUpdateToOneWithWhereWithoutIssuesInput = {
+  where?: Prisma.TripWhereInput
+  data: Prisma.XOR<Prisma.TripUpdateWithoutIssuesInput, Prisma.TripUncheckedUpdateWithoutIssuesInput>
+}
+
+export type TripUpdateWithoutIssuesInput = {
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bus?: Prisma.BusUpdateOneRequiredWithoutTripsNestedInput
+  driver?: Prisma.DriverUpdateOneRequiredWithoutTripsNestedInput
+  route?: Prisma.RouteUpdateOneRequiredWithoutTripsNestedInput
+  tripHistory?: Prisma.TripHistoryUpdateManyWithoutTripNestedInput
+  stopEvents?: Prisma.TripStopEventUpdateManyWithoutTripNestedInput
+}
+
+export type TripUncheckedUpdateWithoutIssuesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  routeId?: Prisma.IntFieldUpdateOperationsInput | number
+  driverId?: Prisma.IntFieldUpdateOperationsInput | number
+  busId?: Prisma.IntFieldUpdateOperationsInput | number
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tripHistory?: Prisma.TripHistoryUncheckedUpdateManyWithoutTripNestedInput
+  stopEvents?: Prisma.TripStopEventUncheckedUpdateManyWithoutTripNestedInput
 }
 
 export type TripCreateManyDriverInput = {
@@ -884,6 +988,7 @@ export type TripUpdateWithoutDriverInput = {
   route?: Prisma.RouteUpdateOneRequiredWithoutTripsNestedInput
   tripHistory?: Prisma.TripHistoryUpdateManyWithoutTripNestedInput
   stopEvents?: Prisma.TripStopEventUpdateManyWithoutTripNestedInput
+  issues?: Prisma.IssueUpdateManyWithoutTripNestedInput
 }
 
 export type TripUncheckedUpdateWithoutDriverInput = {
@@ -895,6 +1000,7 @@ export type TripUncheckedUpdateWithoutDriverInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tripHistory?: Prisma.TripHistoryUncheckedUpdateManyWithoutTripNestedInput
   stopEvents?: Prisma.TripStopEventUncheckedUpdateManyWithoutTripNestedInput
+  issues?: Prisma.IssueUncheckedUpdateManyWithoutTripNestedInput
 }
 
 export type TripUncheckedUpdateManyWithoutDriverInput = {
@@ -923,6 +1029,7 @@ export type TripUpdateWithoutBusInput = {
   route?: Prisma.RouteUpdateOneRequiredWithoutTripsNestedInput
   tripHistory?: Prisma.TripHistoryUpdateManyWithoutTripNestedInput
   stopEvents?: Prisma.TripStopEventUpdateManyWithoutTripNestedInput
+  issues?: Prisma.IssueUpdateManyWithoutTripNestedInput
 }
 
 export type TripUncheckedUpdateWithoutBusInput = {
@@ -934,6 +1041,7 @@ export type TripUncheckedUpdateWithoutBusInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tripHistory?: Prisma.TripHistoryUncheckedUpdateManyWithoutTripNestedInput
   stopEvents?: Prisma.TripStopEventUncheckedUpdateManyWithoutTripNestedInput
+  issues?: Prisma.IssueUncheckedUpdateManyWithoutTripNestedInput
 }
 
 export type TripUncheckedUpdateManyWithoutBusInput = {
@@ -962,6 +1070,7 @@ export type TripUpdateWithoutRouteInput = {
   driver?: Prisma.DriverUpdateOneRequiredWithoutTripsNestedInput
   tripHistory?: Prisma.TripHistoryUpdateManyWithoutTripNestedInput
   stopEvents?: Prisma.TripStopEventUpdateManyWithoutTripNestedInput
+  issues?: Prisma.IssueUpdateManyWithoutTripNestedInput
 }
 
 export type TripUncheckedUpdateWithoutRouteInput = {
@@ -973,6 +1082,7 @@ export type TripUncheckedUpdateWithoutRouteInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tripHistory?: Prisma.TripHistoryUncheckedUpdateManyWithoutTripNestedInput
   stopEvents?: Prisma.TripStopEventUncheckedUpdateManyWithoutTripNestedInput
+  issues?: Prisma.IssueUncheckedUpdateManyWithoutTripNestedInput
 }
 
 export type TripUncheckedUpdateManyWithoutRouteInput = {
@@ -992,11 +1102,13 @@ export type TripUncheckedUpdateManyWithoutRouteInput = {
 export type TripCountOutputType = {
   tripHistory: number
   stopEvents: number
+  issues: number
 }
 
 export type TripCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tripHistory?: boolean | TripCountOutputTypeCountTripHistoryArgs
   stopEvents?: boolean | TripCountOutputTypeCountStopEventsArgs
+  issues?: boolean | TripCountOutputTypeCountIssuesArgs
 }
 
 /**
@@ -1023,6 +1135,13 @@ export type TripCountOutputTypeCountStopEventsArgs<ExtArgs extends runtime.Types
   where?: Prisma.TripStopEventWhereInput
 }
 
+/**
+ * TripCountOutputType without action
+ */
+export type TripCountOutputTypeCountIssuesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.IssueWhereInput
+}
+
 
 export type TripSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1037,6 +1156,7 @@ export type TripSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
   tripHistory?: boolean | Prisma.Trip$tripHistoryArgs<ExtArgs>
   stopEvents?: boolean | Prisma.Trip$stopEventsArgs<ExtArgs>
+  issues?: boolean | Prisma.Trip$issuesArgs<ExtArgs>
   _count?: boolean | Prisma.TripCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trip"]>
 
@@ -1083,6 +1203,7 @@ export type TripInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
   tripHistory?: boolean | Prisma.Trip$tripHistoryArgs<ExtArgs>
   stopEvents?: boolean | Prisma.Trip$stopEventsArgs<ExtArgs>
+  issues?: boolean | Prisma.Trip$issuesArgs<ExtArgs>
   _count?: boolean | Prisma.TripCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TripIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1104,6 +1225,7 @@ export type $TripPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     route: Prisma.$RoutePayload<ExtArgs>
     tripHistory: Prisma.$TripHistoryPayload<ExtArgs>[]
     stopEvents: Prisma.$TripStopEventPayload<ExtArgs>[]
+    issues: Prisma.$IssuePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1512,6 +1634,7 @@ export interface Prisma__TripClient<T, Null = never, ExtArgs extends runtime.Typ
   route<T extends Prisma.RouteDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RouteDefaultArgs<ExtArgs>>): Prisma.Prisma__RouteClient<runtime.Types.Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   tripHistory<T extends Prisma.Trip$tripHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trip$tripHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TripHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   stopEvents<T extends Prisma.Trip$stopEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trip$stopEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TripStopEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  issues<T extends Prisma.Trip$issuesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trip$issuesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IssuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1994,6 +2117,30 @@ export type Trip$stopEventsArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.TripStopEventScalarFieldEnum | Prisma.TripStopEventScalarFieldEnum[]
+}
+
+/**
+ * Trip.issues
+ */
+export type Trip$issuesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Issue
+   */
+  select?: Prisma.IssueSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Issue
+   */
+  omit?: Prisma.IssueOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IssueInclude<ExtArgs> | null
+  where?: Prisma.IssueWhereInput
+  orderBy?: Prisma.IssueOrderByWithRelationInput | Prisma.IssueOrderByWithRelationInput[]
+  cursor?: Prisma.IssueWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.IssueScalarFieldEnum | Prisma.IssueScalarFieldEnum[]
 }
 
 /**
